@@ -1,0 +1,12 @@
+label l1
+push constant 10
+push constant 20
+add
+pop local a
+push local a
+push constant 30
+eq
+if-goto end
+
+label end
+pop a
