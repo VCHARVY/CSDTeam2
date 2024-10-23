@@ -1,0 +1,5 @@
+function MyFunction 2    // Declares a function MyFunction with 2 local variables
+push constant 5           // Pushes a constant 5 onto the stack
+call MyOtherFunction 1    // Calls another function MyOtherFunction with 1 argument
+pop temp 0                // Pops the result into temp 0
+return                    // Returns from MyFunction
