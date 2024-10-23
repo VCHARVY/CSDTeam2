@@ -1,37 +1,39 @@
+#>2 operands is commented, we will not implement for now
 opcode_table= {
-    'ADD': 0b0000001,  # Addition
-    'SUB': 0b0000010,  # Subtraction
-    'MUL': 0b0000011,  # Multiplication
-    'MLA' : 0b0000100,
-    'SDIV': '0011', # Signed Division
-    'UDIV': '0100', # Unsigned Division
-
-    'AND': 0b0000010,  # Bitwise AND
-    'ORR': 0b0000010,  # Bitwise OR
-    'EOR': 0b0000010,  # Bitwise XOR
-    'MVN': 0b0000010,  # Bitwise NOT
-
-    'LSL': '1001',  # Logical Shift Left
-    'LSR': '1010',  # Logical Shift Right
-
-    'LDR': '1011',  # Load Register
-    'STR': '1100',  # Store Register
-
-    'CMP': 0b0000010,  # Compare
-    'CMN': 0b0000010,
-    'TST': 0b0000010,  # Test
-    'TEQ' : 0b0000010,
-
-    'B': '1111',     # Unconditional Branch
-    'BEQ': '00001',  # Branch if Equal
-    'BNE': '00010',  # Branch if Not Equal
-    'BGT': '00011',  # Branch if Greater Than
-    'BLT': '00100',  # Branch if Less Than
-
-    'MOV': 0b0000010,  # Move
-    'MVN' : 0b0000010,
-    'PUSH': '00110', # Push to Stack
-    'POP': '00111',  # Pop from Stack
+    'ADC': 0,
+    'ADD': 1,
+    'AND': 2,
+    'B': 3,
+    'BIC': 4, # a & ~b
+    'BL': 5,
+    'BLX': 6,
+    'BX': 7,
+    'CLZ': 8,
+    'CMN': 9, # Can be done with cmp
+    'CMP': 10,
+    'EOR': 11,
+    #'LDM': 12
+    #'MLA': 13,
+    'MOV': 14,
+    'MSR': 15,
+    'MRS': 16,
+    'MUL': 17,
+    'MVN': 18,
+    'ORR': 19,
+    'RSB': 20,
+    'RSC': 21,
+    'SBC': 22,
+    #'SMLA': 23,
+    'SMULL': 24,
+    'STR': 25,
+    'SUB': 26,
+    'SWI': 27,
+    'LDR': 28,
+    #'STM': 29,
+    'TEQ': 30,
+    'TST': 31,
+    'UMULL': 32,
+    #'UMLAL': 33,
 }
 
 
