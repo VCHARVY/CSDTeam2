@@ -72,23 +72,24 @@ class Parser:
 
 
 
-# # Example usage
-# input_code = """
-#     mov r0, #5
-#     add r1, r2, r3
-#     bne label1
-# label1: ldr r4, [r5] @ Load value from memory
-#     cmp r0, #10
-#     beq exit
-#     str r1, [sp, #-4]
-# exit:
-#     bx lr
-# """
+# Example usage
+input_code = """
+    mov r0, #5
+    add r1, r2, r3
+    bne label1
+label1: ldr r4, [r5] @ Load value from memory
+    cmp r0, #10
+    beq exit
+    str r1, [sp, #-4]
+exit:
+    bx lr
+"""
 
-# tokens = tokenize(input_code)
-# parser = Parser(tokens)
-# ast = parser.parse()
+tokens = tokenize(input_code)
+parser = Parser(tokens)
+ast = parser.parse()
 
-# # Print the resulting AST (Abstract Syntax Tree)
-# for node in ast:
-#     print(node)
+# Print the resulting AST (Abstract Syntax Tree)
+for node in ast:
+    print(node)
+    
