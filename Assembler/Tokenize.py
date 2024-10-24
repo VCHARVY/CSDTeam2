@@ -1,6 +1,7 @@
 import re
 
 TOKEN_TYPES = {
+    'REGISTER': r'\b(?:r1[0-5]|r[0-9]|sp|lr|pc)\b',  # Registers including sp, lr, pc
     'LABEL_DEF': r'(?:^|(?<=\n))\s*([a-zA-Z_][a-zA-Z_0-9]*):',  # Label definition with colon, including local labels
     'DIRECTIVE': r'\b(?:.arch|.arm|.code16|.code32|.cpu|.eabi|.extern|.global|.hidden|.nocode|.noreturn|.section|.text|.data|.bss|.align|.fill|.ltorg)\b',
     
@@ -25,7 +26,6 @@ TOKEN_TYPES = {
                 r'(?:swi|svc|bkpt)' +  # System
                 r')\b',
                 
-    'REGISTER': r'\b(?:r1[0-5]|r[0-9]|sp|lr|pc)\b',  # Registers including sp, lr, pc
     'IMMEDIATE': r'#-?(?:0x[0-9a-fA-F]+|\d+)',  # Immediate values, including hexadecimal
 
     # 'CONDITION': r'\b(?:eq|ne|cs|cc|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|al)\b',  # ARM condition codes
@@ -70,18 +70,17 @@ def tokenize(input_code):
     return tokens   # Instruction type - instruction - line no
 
 # Example usage
-# input_code = """
-#     mov r0, #5
-#     add r1, r2, r3
-#     bne label1
-# label1: ldr r4, [r5] @ Load value from memory
-#     cmp r0, #10
-#     beq exit
-#     str r1, [sp, #-4]!
-# exit:
-#     bx lr
-# """
+input_code = """
+    mov r0, #5
+    add r1, r2, r3
+    bne label1
+label1: ldr r4, [r5] @ Load value from memory
+    cmp r0, #10
+    beq exit
+    str r1, [sp, #-4]!
+exit:
+"""
 
-# tokens = tokenize(input_code)
-# for token in tokens:
-#     print(f"Line {token[2]}: {token[0]} : {token[1]}")
+tokens = tokenize(input_code)
+for token in tokens:
+    print(f"Line {token[2]}: {token[0]} : {token[1]}")

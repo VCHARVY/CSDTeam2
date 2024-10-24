@@ -36,13 +36,13 @@ Optimization Opportunities: While not strictly part of semantic analysis, you mi
 Architectural Constraints: Check for any architecture-specific rules or constraints (e.g., certain instruction combinations that are not allowed).
 Macro Expansion: If your assembler supports macros, expand them and validate the resulting code.
 Condition Codes: Verify that condition codes are used correctly with instructions that support them.
+Syntax for commas (being removed by parser. Check it there)
 '''
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import List, Dict, Union
-import Parser
-from Parser import Label, Instruction
+from Parser import Label, Instruction, Parser
 from Tokenize import tokenize
 
 
@@ -70,13 +70,16 @@ class SemanticAnalyzer:
 
     def build_symbol_table(self):
         for node in self.ast:
+            #print(node)
             if isinstance(node, Label):
                 if node.name in self.symbol_table:
                     self.errors.append(f"Error: Label '{node.name}' is defined multiple times")
                 else:
                     self.symbol_table[node.name] = self.current_address
             elif isinstance(node, Instruction):
-                self.current_address += 4  # Assuming all instructions are 4 bytes long          
+                self.current_address += 4  # Assuming all instructions are 4 bytes long   
+
+        print(self.symbol_table)
 
     def validate_instructions(self):
         for node in self.ast:
@@ -184,8 +187,11 @@ class SemanticAnalyzer:
             for i, op in enumerate(instruction.operands[2:], start=2):
                 if op == ']':
                     closing_bracket_index = i
-                    if i+1 < operand_count and instruction.operands[i+1] == '!':
-                        has_exclamation = True
+                    if i+1 < operand_count:
+                        if instruction.operands[i+1] == '!':
+                            has_exclamation = True
+                        else:
+                            self.errors.append(f"Error: Unexpected operands after '!' in {mnemonic}")
                     break
 
             if closing_bracket_index is None:
@@ -198,14 +204,12 @@ class SemanticAnalyzer:
                 self.errors.append(f"Error: Invalid addressing mode in {mnemonic}")
 
             # Check for post-indexed addressing or writeback
-            if closing_bracket_index + 1 < operand_count:
-                if instruction.operands[closing_bracket_index + 1] == '!':
-                    if closing_bracket_index + 2 < operand_count:
-                        self.errors.append(f"Error: Unexpected operands after '!' in {mnemonic}")
-                else:
-                    post_index_operands = instruction.operands[closing_bracket_index+1:]
-                    if not self.is_valid_post_index_operands(post_index_operands):
-                        self.errors.append(f"Error: Invalid post-indexed addressing in {mnemonic}")
+            # if not has_exclamation:
+            #     post_index_operands = instruction.operands[closing_bracket_index+1:]
+            #     print("post ]")
+            #     print(post_index_operands)
+            #     if not self.is_valid_post_index_operands(post_index_operands):
+            #         self.errors.append(f"Error: Invalid post-indexed addressing in {mnemonic}")
 
 
         elif mnemonic in {'ldm', 'stm'}:
@@ -287,23 +291,24 @@ class SemanticAnalyzer:
         if not self.is_valid_register(operands[0]):
             return False
         if len(operands) == 1:
-            return True  # [Rn]
-        if len(operands) == 3 and operands[1] == ',':
-            return self.is_valid_immediate(operands[2]) or self.is_valid_register(operands[2])  # [Rn, #imm] or [Rn, Rm]
-        if len(operands) == 5 and operands[1] == ',' and operands[3] == ',':
-            return (self.is_valid_register(operands[2]) and 
-                    (operands[4] in {'lsl', 'lsr', 'asr', 'ror'} or self.is_valid_immediate(operands[4])))  # [Rn, Rm, shift] or [Rn, Rm, #imm]
+            return True
+        else:
+            if len(operands) == 2:
+                return self.is_valid_immediate(operands[1]) or self.is_valid_register(operands[1])  # [Rn, #imm] or [Rn, Rm]
+            if len(operands) == 3:
+                return (self.is_valid_register(operands[1]) and 
+                    (operands[2] in {'lsl', 'lsr', 'asr', 'ror'} or self.is_valid_immediate(operands[2])))  # [Rn, Rm, shift] or [Rn, Rm, #imm]
         return False
 
-    def is_valid_post_index_operands(self, operands):
-        if len(operands) == 0:
-            return False
-        if len(operands) == 1:
-            return self.is_valid_immediate(operands[0]) or self.is_valid_register(operands[0])
-        if len(operands) == 3 and operands[1] == ',':
-            return (self.is_valid_register(operands[0]) and 
-                    (operands[2] in {'lsl', 'lsr', 'asr', 'ror'} or self.is_valid_immediate(operands[2])))
-        return False
+    # def is_valid_post_index_operands(self, operands):
+    #     if len(operands) == 0:
+    #         return True
+    #     if len(operands) == 1:
+    #         return self.is_valid_immediate(operands[0]) or self.is_valid_register(operands[0])
+    #     if len(operands) == 3 and operands[1] == ',':
+    #         return (self.is_valid_register(operands[0]) and 
+    #                 (operands[2] in {'lsl', 'lsr', 'asr', 'ror'} or self.is_valid_immediate(operands[2])))
+    #     return False
 
 
     def validate_memory_access(self, instruction: Instruction):
@@ -495,16 +500,15 @@ if __name__ == "__main__":
         beq exit
         str r1, [sp, #-4]!
     exit:
-        bx lr
     """
 
     tokens = tokenize(input_code)
-    parser = Parser.Parser(tokens)
+    parser = Parser(tokens)
     ast = parser.parse()
 
     analyzer = SemanticAnalyzer(ast)
     errors = analyzer.analyze()
-    symbol_table=analyzer.build_symbol_table()
+    
 
     if errors:
         for error in errors:
