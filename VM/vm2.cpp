@@ -339,10 +339,6 @@ class VMToARM {
         fout << "LDR w4, [SP, #0]" << endl;
         fout << "STR w4, [ARG, #0]" << endl;
 
-        // SP = ARG + 1
-        fout << "MOV SP, ARG" << endl;
-        fout << "ADD SP, SP, #8" << endl;
-
         // THAT = *(endFrame - 1)
         fout << "SUB w2, w2, #8" << endl;
         fout << "LDR w4, [w2, #0]" << endl;
