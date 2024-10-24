@@ -285,9 +285,9 @@ class VMToARM {
         fout << segment << ":" << endl;
         fout << "MOV w1, #0" << endl;
         for(int i = 0; i < stoi(value); i++){
-            fout << "STR w1, [ARG, #0]" << endl;
-            fout << "ADD ARG, ARG, #8" << endl;
-            ARG = ARG + 8;
+            fout << "STR w1, [SP, #0]" << endl;
+            fout << "ADD SP, SP, #8" << endl;
+            SP = SP + 8;
         }
     }
 
@@ -326,7 +326,7 @@ class VMToARM {
         fout << "MOV LCL, SP" << endl;
 
         fout << "BL " << segment << endl;
-}
+    }
 
 
     void _return() {
@@ -504,6 +504,6 @@ int main() {
     THIS = 0;
     THAT = 0;
 
-    parse("input.vm", "output.asm");
+    //parse("input.vm", "output.asm");
     parse("input2.vm", "output2.asm");
 }

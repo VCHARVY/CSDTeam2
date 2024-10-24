@@ -1,5 +1,9 @@
-// For x = y + 3:
-push local 0 // push y
-push constant 3 // push 3
-add // y + 3
-pop local 1 // store result in x
+push constant 10
+push constant 20
+sub
+if-goto NOT_EQUAL
+push constant 1
+goto END
+label NOT_EQUAL
+push constant 0
+label END
