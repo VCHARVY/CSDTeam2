@@ -1,0 +1,7 @@
+using TupleLibrary;
+class Main {
+    public static void main() {
+        Tuple<string, int, bool> tuple = new Tuple<string, int, bool>("Alice", 25, true);
+        syswrite("Tuple: " + tuple.toString());
+    }
+}

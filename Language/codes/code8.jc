@@ -1,0 +1,12 @@
+using PriorityQueueLibrary;
+class Main {
+    public static void main() {
+        PriorityQueue pq = new PriorityQueue(5);
+        pq.insert(5);
+        pq.insert(3);
+        pq.insert(8);
+
+        syswrite("Extracted min: " + pq.extractMin());
+        syswrite("Is Priority Queue empty? " + pq.isEmpty());
+    }
+}

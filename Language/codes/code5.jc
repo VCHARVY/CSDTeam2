@@ -1,0 +1,14 @@
+using UnorderedMapLibrary;
+class Main {
+    public static void main() {
+        UnorderedMap map = new UnorderedMap();
+        map.Put("name", "Alice");
+        map.Put("age", "25");
+
+        syswrite("Name: " + map.Get("name"));
+        syswrite("Age: " + map.Get("age"));
+
+        map.Remove("age");
+        syswrite("Contains age? " + map.ContainsKey("age"));
+    }
+}

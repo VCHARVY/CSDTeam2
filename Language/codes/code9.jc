@@ -1,0 +1,7 @@
+using PairLibrary;
+class Main {
+    public static void main() {
+        Pair<string, int> pair = new Pair<string, int>("Alice", 25);
+        syswrite("Pair: " + pair.toString());
+    }
+}
