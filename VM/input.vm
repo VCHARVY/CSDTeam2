@@ -1,1 +1,4 @@
-eq
+push constant 10
+push local 0
+add
+pop local 1
