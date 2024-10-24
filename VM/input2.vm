@@ -1,5 +1,5 @@
-function MyFunction 2
-push constant 5
-call MyOtherFunction 1
-pop temp 0
-return
+// For x = y + 3:
+push local 0 // push y
+push constant 3 // push 3
+add // y + 3
+pop local 1 // store result in x

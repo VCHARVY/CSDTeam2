@@ -38,10 +38,10 @@ class VMToARM {
             else if(segment == "argument"){
                 fout << "MOV w1, #" << ARG << endl;
             }
-            else if(segment == "THIS"){
+            else if(segment == "this"){
                 fout << "MOV w1, #" << THIS << endl;
             }
-            else if(segment == "THAT"){
+            else if(segment == "that"){
                 fout << "MOV w1, #" << THAT << endl;
             }
             fout << "LDR w2, [w1, "  << value << "]" << endl;
@@ -58,10 +58,10 @@ class VMToARM {
         else if(segment == "argument"){
             fout << "MOV w1, #" << ARG << endl;
         }
-        else if(segment == "THIS"){
+        else if(segment == "this"){
             fout << "MOV w1, #" << THIS << endl;
         }
-        else if(segment == "THAT"){
+        else if(segment == "that"){
             fout << "MOV w1, #" << THAT << endl;
         }
         fout << "SUB SP, SP, #8" << endl;
@@ -270,7 +270,7 @@ class VMToARM {
     }
 
     void label(){
-        fout << value << ":" << endl;
+        fout << "label" << value << ":" << endl;
     }
 
     void if_goto(){
@@ -326,7 +326,7 @@ class VMToARM {
         fout << "MOV LCL, SP" << endl;
 
         fout << "BL " << segment << endl;
-}
+    }
 
 
     void _return() {
@@ -494,14 +494,16 @@ void parse(string inputFile, string outputFile){
 
     //.data
     fout << "\t.section .data" << endl;
+    fout << "\t.section .bss" << endl;
 }
 
 int main() {
-    SP = 256;
-    LCL = 10;
-    ARG = 0;
+    SP = 9280;
+    LCL = 8224;
+    ARG = 8736;
     THIS = 0;
     THAT = 0;
 
-    parse("input.vm", "output.asm");
+    //parse("input.vm", "output.asm");
+    parse("input2.vm", "output2.asm");
 }
