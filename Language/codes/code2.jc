@@ -1,0 +1,14 @@
+
+using SetLibrary;
+
+public class Main {
+    public static void main() {
+        Set<int> intSet = new Set<int>();
+    
+        intSet.add(1);
+        intSet.add(2);
+        intSet.add(2); // Duplicate, should not be added
+        intSet.add(3);
+        syswrite("Size of Set: " + intSet.size());
+    }
+}

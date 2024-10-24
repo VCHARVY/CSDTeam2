@@ -1,0 +1,61 @@
+
+public class InverseMatrix {
+    
+    public static double[][] inverse(double[][] matrix, int n) {
+        double[][] augmented = new double[n][];
+        for (int i = 0; i < n; i++) {
+            augmented[i] = new double[2 * n];
+            for (int j = 0; j < n; j++) {
+                augmented[i][j] = matrix[i][j];
+            }
+            augmented[i][i + n] = 1; // Identity matrix
+        }
+        for (int i = 0; i < n; i++) {
+            // Make the diagonal contain all 1s
+            double diag = augmented[i][i];
+            for (int j = 0; j < 2 * n; j++) {
+                augmented[i][j] /= diag;
+            }
+
+
+            for (int j = 0; j < n; j++) {
+                if (j != i) {
+                    double factor = augmented[j][i];
+                    for (int k = 0; k < 2 * n; k++) {
+                        augmented[j][k] -= factor * augmented[i][k];
+                    }
+                }
+            }
+        }
+        double[][] inverseMatrix = new double[n][];
+        for (int i = 0; i < n; i++) {
+            inverseMatrix[i] = new double[n];
+            for (int j = 0; j < n; j++) {
+                inverseMatrix[i][j] = augmented[i][j + n];
+            }
+        }
+
+        return inverseMatrix; 
+    }
+
+    public static void main() {
+        // Example matrix
+        double[][] matrix = {
+            {4, 7},
+            {2, 6}
+        };
+        int n = 2;
+
+      
+        double[][] inverseMatrix = inverse(matrix, n);
+
+        syswrite("Inverse Matrix:");
+        for (int i = 0; i < n; i++) {
+            string row = "";
+            for (int j = 0; j < n; j++) {
+                row += inverseMatrix[i][j] + " ";
+            }
+            syswrite(row);
+        }
+    }
+}

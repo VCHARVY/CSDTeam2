@@ -1,0 +1,18 @@
+
+using QueueLibrary;
+
+public class Main {
+    public static void main() {
+        // Create a Queue of strings
+        Queue<string> stringQueue = new Queue<string>();
+        
+        // Enqueue elements into the queue
+        stringQueue.enqueue("First");
+        stringQueue.enqueue("Second");
+        stringQueue.enqueue("Third");
+
+        // Dequeue an element and display it
+        string dequeuedValue = stringQueue.dequeue();
+        syswrite("Dequeued value from Queue: " + dequeuedValue);
+    }
+}
