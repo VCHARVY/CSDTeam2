@@ -1,0 +1,17 @@
+using StackLibrary;
+
+public class Main {
+    public static void main() {
+        // Create a Stack of integers
+        Stack<int> intStack = new Stack<int>();
+        
+        // Push elements onto the stack
+        intStack.push(10);
+        intStack.push(20);
+        intStack.push(30);
+
+        // Pop an element and display it
+        int poppedValue = intStack.pop();
+        syswrite("Popped value from Stack: " + poppedValue);
+    }
+}

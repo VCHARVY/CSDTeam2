@@ -232,20 +232,17 @@ namespace SnakeGame
             _Console.SetConsoleActiveScreenBuffer(wHandle);
             uint BytesWritten;
 
-            // Game initialize
             SnakeGame = new Game(ref ScreenBuffer, new Size(nWidht, nHeight));
 
-            // Game Loop
+
             while(true)
             {
                 // Check The Console Size
                 if (_Console.GetAsyncKeyState((int)ConsoleKey.M) != 0)
                     Console.SetWindowSize(nWidht, nHeight);  // Doesn't work
-
-                // Update The Game and ScreenBuffer
                 SnakeGame.UpdateGame();
 
-                // Check if the Snake Die
+    
                 if(SnakeGame.Snake_Status == Game.SnakeStatus.Death)
                 {
                     ScreenBuffer = new char[nHeight * nWidht];
@@ -258,13 +255,12 @@ namespace SnakeGame
                     continue;
                 }
 
-                // Easy way to dalay the game, probaly not the best one
+
                 if (SnakeGame.SnakeDirection == Game.Direction.Right || SnakeGame.SnakeDirection == Game.Direction.Left)
                     Thread.Sleep(50);
                 else
                     Thread.Sleep(66); // 66.64ms
 
-                // Write The buffer in the screen
                 _Console.WriteConsoleOutputCharacter(wHandle, ScreenBuffer, (UInt32)ScreenBuffer.Length, new COORD(0, 0), out BytesWritten);
             }
         }

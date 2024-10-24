@@ -1,0 +1,15 @@
+using SortLibrary;
+class Main {
+    public static void main() {
+        SortLib sorter = new SortLib();
+        int[] arr = {5, 3, 8, 1, 2};
+        
+        syswrite("Array before sorting:");
+        sorter.printArray(arr);
+
+        sorter.sort(arr);
+        
+        syswrite("Array after sorting:");
+        sorter.printArray(arr);
+    }
+}
