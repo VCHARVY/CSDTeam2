@@ -26,26 +26,26 @@ class VMToARM {
 
     void push(){
         if(segment == "constant"){
-            fout << "MOV w1, #" << value << endl;
-            fout << "STR w1, [SP, #0]" << endl;
+            fout << "MOV r1, #" << value << endl;
+            fout << "STR r1, [SP, #0]" << endl;
             fout << "ADD SP, SP, #8" << endl;
             SP = SP + 8;
         }
         else {
             if(segment == "local"){
-                fout << "MOV w1, #" << LCL << endl;
+                fout << "MOV r1, #" << LCL << endl;
             }
             else if(segment == "argument"){
-                fout << "MOV w1, #" << ARG << endl;
+                fout << "MOV r1, #" << ARG << endl;
             }
             else if(segment == "this"){
-                fout << "MOV w1, #" << THIS << endl;
+                fout << "MOV r1, #" << THIS << endl;
             }
             else if(segment == "that"){
-                fout << "MOV w1, #" << THAT << endl;
+                fout << "MOV r1, #" << THAT << endl;
             }
-            fout << "LDR w2, [w1, "  << value << "]" << endl;
-            fout << "STR w2, [SP, #0]" << endl;
+            fout << "LDR r2, [r1, "  << value << "]" << endl;
+            fout << "STR r2, [SP, #0]" << endl;
             fout << "ADD SP, SP, #8" << endl;
             SP = SP + 8;
         }
@@ -53,84 +53,32 @@ class VMToARM {
 
     void pop(){
         if(segment == "local"){
-            fout << "MOV w1, #" << LCL << endl;
+            fout << "MOV r1, #" << LCL << endl;
         }
         else if(segment == "argument"){
-            fout << "MOV w1, #" << ARG << endl;
+            fout << "MOV r1, #" << ARG << endl;
         }
         else if(segment == "this"){
-            fout << "MOV w1, #" << THIS << endl;
+            fout << "MOV r1, #" << THIS << endl;
         }
         else if(segment == "that"){
-            fout << "MOV w1, #" << THAT << endl;
+            fout << "MOV r1, #" << THAT << endl;
         }
         fout << "SUB SP, SP, #8" << endl;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "STR w2, [w1, " << value << "]" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "STR r2, [r1, " << value << "]" << endl;
         SP = SP - 8;
     }
 
     void add(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "ADD w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
-        fout << "ADD SP, SP, #8" << endl;
-        SP = SP + 8;
-    }
-
-    void mul(){
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "MUL w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
-        fout << "ADD SP, SP, #8" << endl;
-        SP = SP + 8;
-    }
-
-    void div(){
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "SDIV w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
-        fout << "ADD SP, SP, #8" << endl;
-        SP = SP + 8;
-    }
-
-    void asl(){
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "ASL w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
-        fout << "ADD SP, SP, #8" << endl;
-        SP = SP + 8;
-    }
-
-    void asr(){
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
-        fout << "SUB SP, SP, #8" << endl;
-        SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "ASR w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "ADD r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
     }
@@ -138,12 +86,64 @@ class VMToARM {
     void sub(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "SUB w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "SUB r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
+        fout << "ADD SP, SP, #8" << endl;
+        SP = SP + 8;
+    }
+
+    void mul(){
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [SP, #0]" << endl;
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "MUL r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
+        fout << "ADD SP, SP, #8" << endl;
+        SP = SP + 8;
+    }
+
+    void div(){
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [SP, #0]" << endl;
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "SDIV r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
+        fout << "ADD SP, SP, #8" << endl;
+        SP = SP + 8;
+    }
+
+    void asl(){
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [SP, #0]" << endl;
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "ASL r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
+        fout << "ADD SP, SP, #8" << endl;
+        SP = SP + 8;
+    }
+
+    void asr(){
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [SP, #0]" << endl;
+        fout << "SUB SP, SP, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "ASR r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
     }
@@ -151,12 +151,12 @@ class VMToARM {
     void _and(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "AND w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "AND r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
     }
@@ -164,12 +164,12 @@ class VMToARM {
     void _or(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "OR w3, w1, w2" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "OR r3, r1, r2" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
     }
@@ -177,9 +177,9 @@ class VMToARM {
     void _not(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
-        fout << "EOR w2, w1, #1" << endl;
-        fout << "STR w2, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
+        fout << "EOR r2, r1, #1" << endl;
+        fout << "STR r2, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
     }
@@ -187,32 +187,31 @@ class VMToARM {
     void neg() {
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
-        fout << "MOV w0, #0" << endl;
-        fout << "SUB w2, w0, w1" << endl;
-        fout << "STR w2, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
+        fout << "MOV r0, #0" << endl;
+        fout << "SUB r2, r0, r1" << endl;
+        fout << "STR r2, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
-}
-
+    }
 
     void equal(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "CMP w1, w2" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "CMP r1, r2" << endl;
         fout << "BEQ label" << label_count << endl;
-        fout << "MOV w3, #0" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "MOV r3, #0" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
         fout << "B label" << label_count+1 << endl;
         fout << "label" << label_count << ":" << endl;
-        fout << "MOV w3, #1" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "MOV r3, #1" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
         fout << "label" << label_count+1 << ":" << endl;
@@ -222,20 +221,20 @@ class VMToARM {
     void lessThan(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "CMP w1, w2" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "CMP r1, r2" << endl;
         fout << "BLT label" << label_count << endl;
-        fout << "MOV w3, #0" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "MOV r3, #0" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
         fout << "B label" << label_count+1 << endl;
         fout << "label" << label_count << ":" << endl;
-        fout << "MOV w3, #1" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "MOV r3, #1" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
         fout << "label" << label_count+1 << ":" << endl;
@@ -245,20 +244,20 @@ class VMToARM {
     void greaterThan(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w2, [SP, #0]" << endl;
-        fout << "CMP w1, w2" << endl;
+        fout << "LDR r2, [SP, #0]" << endl;
+        fout << "CMP r1, r2" << endl;
         fout << "BGT label" << label_count << endl;
-        fout << "MOV w3, #0" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "MOV r3, #0" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
         fout << "B label" << label_count+1 << endl;
         fout << "label" << label_count << ":" << endl;
-        fout << "MOV w3, #1" << endl;
-        fout << "STR w3, [SP, #0]" << endl;
+        fout << "MOV r3, #1" << endl;
+        fout << "STR r3, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
         fout << "label" << label_count+1 << ":" << endl;
@@ -270,100 +269,102 @@ class VMToARM {
     }
 
     void label(){
-        fout << "label" << value << ":" << endl;
+        fout << value << ":" << endl;
     }
 
     void if_goto(){
         fout << "SUB SP, SP, #8" << endl;
         SP = SP - 8;
-        fout << "LDR w1, [SP, #0]" << endl;
-        fout << "CMP w1, #0" << endl;
+        fout << "LDR r1, [SP, #0]" << endl;
+        fout << "CMP r1, #1" << endl;
         fout << "BEQ " << value << endl;
     }
 
     void function(){
         fout << segment << ":" << endl;
-        fout << "MOV w1, #0" << endl;
+        fout << "MOV r1, #0" << endl;
         for(int i = 0; i < stoi(value); i++){
-            fout << "STR w1, [SP, #0]" << endl;
+            fout << "STR r1, [SP, #0]" << endl;
             fout << "ADD SP, SP, #8" << endl;
             SP = SP + 8;
         }
     }
 
-    void call(){
-        //local
-        fout << "MOV w1, #" << LCL << endl;
-        fout << "STR w1, [SP, #0]" << endl;
+    void call() {
+        // Save LCL
+        fout << "MOV r1, #" << LCL << endl;
+        fout << "STR r1, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
 
-        //argument
-        fout << "MOV w1, #" << ARG << endl;
-        fout << "STR w1, [SP, #0]" << endl;
+        // Save ARG
+        fout << "MOV r1, #" << ARG << endl;
+        fout << "STR r1, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
 
-        //this
-        fout << "MOV w1, #" << THIS << endl;
-        fout << "STR w1, [SP, #0]" << endl;
+        // Save THIS
+        fout << "MOV r1, #" << THIS << endl;
+        fout << "STR r1, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
 
-        //that
-        fout << "MOV w1, #" << THAT << endl;
-        fout << "STR w1, [SP, #0]" << endl;
+        // Save THAT
+        fout << "MOV r1, #" << THAT << endl;
+        fout << "STR r1, [SP, #0]" << endl;
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
 
-        //ARG = SP - n - 5
-        fout << "MOV w1, SP" << endl;
-        fout << "SUB w1, w1, #" << value << endl;
-        fout << "SUB w1, w1, #5" << endl;
-        fout << "MOV ARG, w1" << endl;
+        // ARG = SP - n - 5
+        fout << "MOV r1, SP" << endl;
+        fout << "SUB r1, r1, #" << value << endl;
+        fout << "SUB r1, r1, #40" << endl; // 5 * 8 bytes for each saved register
+        fout << "MOV ARG, r1" << endl;
 
-        //LCL = SP
+        // LCL = SP
         fout << "MOV LCL, SP" << endl;
 
+        // Branch to function
         fout << "BL " << segment << endl;
     }
 
-
     void _return() {
         // endFrame = LCL
-        fout << "MOV w1, LCL" << endl;
-        fout << "MOV w2, w1" << endl;
+        fout << "MOV r1, LCL" << endl;
+        fout << "MOV r2, r1" << endl;
 
         // *ARG = pop()
         fout << "SUB SP, SP, #8" << endl;
-        fout << "LDR w4, [SP, #0]" << endl;
-        fout << "STR w4, [ARG, #0]" << endl;
+        fout << "LDR r4, [SP, #0]" << endl;
+        fout << "STR r4, [ARG, #0]" << endl;
 
-        // THAT = *(endFrame - 1)
-        fout << "SUB w2, w2, #8" << endl;
-        fout << "LDR w4, [w2, #0]" << endl;
-        fout << "MOV THAT, w4" << endl;
+        // SP = ARG + 1
+        fout << "MOV SP, ARG" << endl;
+        fout << "ADD SP, SP, #8" << endl;
 
-        // THIS = *(endFrame - 2)
-        fout << "SUB w2, w2, #8" << endl;
-        fout << "LDR w4, [w2, #0]" << endl;
-        fout << "MOV THIS, w4" << endl;
+        // Restore THAT = *(endFrame - 1)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV THAT, r4" << endl;
 
-        // ARG = *(endFrame - 3)
-        fout << "SUB w2, w2, #8" << endl;
-        fout << "LDR w4, [w2, #0]" << endl;
-        fout << "MOV ARG, w4" << endl;
+        // Restore THIS = *(endFrame - 2)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV THIS, r4" << endl;
 
-        // LCL = *(endFrame - 4)
-        fout << "SUB w2, w2, #8" << endl;
-        fout << "LDR w4, [w2, #0]" << endl;
-        fout << "MOV LCL, w4" << endl;
+        // Restore ARG = *(endFrame - 3)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV ARG, r4" << endl;
 
-        // branch to return address in LR
+        // Restore LCL = *(endFrame - 4)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV LCL, r4" << endl;
+
+        // Branch to return address in LR
         fout << "BR LR" << endl;
     }
-
-
 };
 
 void parse(string inputFile, string outputFile){
@@ -484,8 +485,8 @@ void parse(string inputFile, string outputFile){
     }
 
     //exit
-    fout << "MOV w1, #0x18" << endl;
-    fout << "MOV w2, #0" << endl;
+    fout << "MOV r1, #0x18" << endl;
+    fout << "MOV r2, #0" << endl;
     fout << "SVC 0" << endl;
 
     //.data
@@ -501,5 +502,5 @@ int main() {
     THAT = 0;
 
     //parse("input.vm", "output.asm");
-    parse("input2.vm", "output2.asm");
+    parse("input3.vm", "output3.asm");
 }

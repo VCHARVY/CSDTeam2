@@ -1,6 +1,6 @@
 push constant 10
 push constant 20
-sub
+lt
 if-goto NOT_EQUAL
 push constant 1
 goto END
