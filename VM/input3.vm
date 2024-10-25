@@ -1,0 +1,14 @@
+push constant 5
+push constant 7
+
+//function call
+call add 2
+pop argument 0
+
+
+//function definition
+function add 0
+push argument 0
+push argument 1
+add
+return
