@@ -1,9 +1,1 @@
 push constant 10
-push constant 20
-lt
-if-goto NOT_EQUAL
-push constant 1
-goto END
-label NOT_EQUAL
-push constant 0
-label END

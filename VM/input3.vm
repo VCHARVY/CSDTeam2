@@ -3,7 +3,7 @@ push constant 7
 
 //function call
 call add 2
-pop argument 0
+pop local 1
 
 
 //function definition
