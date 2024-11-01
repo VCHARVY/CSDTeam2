@@ -12,6 +12,7 @@ uint32_t LCL;
 uint32_t ARG;
 uint32_t THIS;
 uint32_t THAT;
+uint32_t STATIC;
 
 uint32_t label_count = 0;
 
@@ -44,6 +45,9 @@ class VMToARM {
             else if(segment == "that"){
                 fout << "MOV w1, #" << THAT << endl;
             }
+            else if(segment == "static"){
+                fout << "MOV w1, #" << STATIC << endl;
+            }
             fout << "LDR w2, [w1, "  << value << "]" << endl;
             fout << "STR w2, [SP, #0]" << endl;
             fout << "ADD SP, SP, #8" << endl;
@@ -64,6 +68,7 @@ class VMToARM {
         else if(segment == "that"){
             fout << "MOV w1, #" << THAT << endl;
         }
+        
         fout << "SUB SP, SP, #8" << endl;
         fout << "LDR w2, [SP, #0]" << endl;
         fout << "STR w2, [w1, " << value << "]" << endl;
@@ -315,10 +320,16 @@ class VMToARM {
         fout << "ADD SP, SP, #8" << endl;
         SP = SP + 8;
 
-        // ARG = SP - n - 5
+        // Save STATIC
+        fout << "MOV w1, #" << STATIC << endl;
+        fout << "STR w1, [SP, #0]" << endl;
+        fout << "ADD SP, SP, #8" << endl;
+        SP = SP + 8;
+
+        // ARG = SP - n - 6
         fout << "MOV w1, SP" << endl;
         fout << "SUB w1, w1, #" << value << endl;
-        fout << "SUB w1, w1, #40" << endl; // 5 * 8 bytes for each saved register
+        fout << "SUB w1, w1, #48" << endl; // 6 * 8 bytes for each saved register
         fout << "MOV ARG, w1" << endl;
 
         // LCL = SP
@@ -342,22 +353,27 @@ class VMToARM {
         fout << "MOV SP, ARG" << endl;
         fout << "ADD SP, SP, #8" << endl;
 
-        // Restore THAT = *(endFrame - 1)
+        // Restore STATIC = *(endFrame - 1)
+        fout << "SUB w2, w2, #8" << endl;
+        fout << "LDR w4, [w2, #0]" << endl;
+        fout << "MOV STATIC, w4" << endl;
+
+        // Restore THAT = *(endFrame - 2)
         fout << "SUB w2, w2, #8" << endl;
         fout << "LDR w4, [w2, #0]" << endl;
         fout << "MOV THAT, w4" << endl;
 
-        // Restore THIS = *(endFrame - 2)
+        // Restore THIS = *(endFrame - 3)
         fout << "SUB w2, w2, #8" << endl;
         fout << "LDR w4, [w2, #0]" << endl;
         fout << "MOV THIS, w4" << endl;
 
-        // Restore ARG = *(endFrame - 3)
+        // Restore ARG = *(endFrame - 4)
         fout << "SUB w2, w2, #8" << endl;
         fout << "LDR w4, [w2, #0]" << endl;
         fout << "MOV ARG, w4" << endl;
 
-        // Restore LCL = *(endFrame - 4)
+        // Restore LCL = *(endFrame - 5)
         fout << "SUB w2, w2, #8" << endl;
         fout << "LDR w4, [w2, #0]" << endl;
         fout << "MOV LCL, w4" << endl;
@@ -500,6 +516,7 @@ int main() {
     ARG = 8736;
     THIS = 0;
     THAT = 0;
+    STATIC = 0;
 
     //parse("input.vm", "output.asm");
     parse("input2.vm", "output2.asm");
