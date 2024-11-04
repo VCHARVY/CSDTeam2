@@ -21,7 +21,6 @@ digit [0-9]
 "public"                    {strcpy(yylval.node.lexeme, yytext); return PUBLIC;}
 "private"                   {strcpy(yylval.node.lexeme, yytext); return PRIVATE;}
 "protected"                 {strcpy(yylval.node.lexeme, yytext); return PROTECTED;}
-"static"                    {strcpy(yylval.node.lexeme, yytext); return STATIC;}
 
 "sysin"                     {strcpy(yylval.node.lexeme, yytext); return INPUT;}
 "syswrite"                  {strcpy(yylval.node.lexeme, yytext); return OUTPUT;}
@@ -41,7 +40,6 @@ digit [0-9]
 "-"                         {strcpy(yylval.node.lexeme, yytext); return SUB;}
 "*"                         {strcpy(yylval.node.lexeme, yytext); return MUL;}
 "/"                         {strcpy(yylval.node.lexeme, yytext); return DIV;}
-"%"                         {strcpy(yylval.node.lexeme, yytext); return MOD;}
 "="                         {strcpy(yylval.node.lexeme, yytext); return ASSIGN;}
 
 "=="                        {strcpy(yylval.node.lexeme, yytext); return EQ;}

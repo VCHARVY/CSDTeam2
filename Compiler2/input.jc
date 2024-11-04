@@ -1,0 +1,9 @@
+int main() {
+    int a = 5;
+    int b = 5;
+    int c;
+    c = a + b;
+    syswrite(c);
+    syswrite(c+22);
+    return 0;
+}

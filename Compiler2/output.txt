@@ -1,0 +1,18 @@
+main: INT
+@t0 = 5 INT
+- INT a
+a = @t0 INT
+@t1 = 5 INT
+- INT b
+b = @t1 INT
+- INT c
+@t2 = a + b INT
+c = @t2 INT
+output c INT
+@t2 = 22 INT
+@t3 = c + @t2 INT
+output @t3 INT
+@t4 = 0 INT
+return @t4 INT
+end:
+
