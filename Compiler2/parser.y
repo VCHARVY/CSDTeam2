@@ -138,14 +138,20 @@ PROGRAM         :   LIST ;
 LIST            :   LIST FUNCTION
                 |   LIST CLASSDEF
                 | ;
+
 FUNCTION        :   FUNCTION_PREFIX LF 
                     {
                         hasReturnStmt = 0;
                         scope_history.push(++scope_counter);
                     } STMTLIST RF 
                     {
-                        if(function_table[string($2.lexeme)].return_type != "VOID" && hasReturnStmt == 0){
-                            sem_errors.push_back("Function " + string($2.lexeme) + " does not have a return statement in line " + to_string(countLine + 1));
+                        if(function_table[string($1.lexeme)].return_type != "VOID" && hasReturnStmt == 0){
+                            sem_errors.push_back("Function type " + function_table[string($1.lexeme)].return_type + "\n");
+                            sem_errors.push_back("Function " + string($1.lexeme) + " does not have a return statement in line " + to_string(countLine + 1));
+                        }
+                        if(function_table[string($1.lexeme)].return_type == "VOID" && hasReturnStmt == 1){
+                            sem_errors.push_back("Function type " + function_table[string($1.lexeme)].return_type + "\n");
+                            sem_errors.push_back("Function " + string($1.lexeme) + " has a return statement in line " + to_string(countLine + 1));
                         }
                         scope_history.pop();
                         scope_counter--;
@@ -158,12 +164,16 @@ FUNCTION_PREFIX :   FUNCTION_TYPE ID {
                         }
                         tac.push_back(string($2.lexeme) + ":" + " " + string($1.type));
                         current_function = string($2.lexeme);
+
                 } LP PARAMLIST RP{
                     function_table[current_function].return_type = string($1.type);
-                    function_table[current_function].num_params = $3.nParams;
+                    function_table[current_function].num_params = $5.nParams;
+                    strcpy($$.lexeme, $2.lexeme);
                 } ;
+
 FUNCTION_TYPE   :   VOID {
                     sprintf($$.type, "VOID");
+                    strcpy($$.type, "VOID");
                 }
                 |   DATA_TYPE {
                     strcpy($$.type, $1.type);
@@ -253,6 +263,9 @@ DECLARATION     :   DATA_TYPE ID {
                     function_table[current_function].symbol_table[string($2.lexeme)] = {string($1.type), scope_counter, 0, 0, countLine + 1};
                 }
                 |   DATA_TYPE ID ASSIGN EXPR {
+                    if(string($4.type) == "VOID"){
+                        sem_errors.push_back("Cannot assign void to variable in line " + to_string(countLine + 1));
+                    }
                     check_type(string($1.type), string($4.type));
                     tac.push_back("- " + string($1.type) + " " + string($2.lexeme));
                     tac.push_back(string($2.lexeme) + " = " + string($4.lexeme) + " " + string($1.type));
@@ -301,7 +314,7 @@ RETURN_STMT     :   RETURN EXPR {
                         sem_errors.push_back("Function " + current_function + " expects a return statement in line " + to_string(countLine + 1));
                     }
                     tac.push_back("return " + function_table[current_function].return_type);
-                    hasReturnStmt = 1;
+                    hasReturnStmt = 0;
                 };
 EXPR            :   EXPR ADD EXPR {
                     add_tac($$, $1, $2, $3);
@@ -511,6 +524,9 @@ CONST           :   INT_NUM {
                     strcpy($$.lexeme, $1.lexeme);
                 };
 ASSIGNMENT      :   ID ASSIGN EXPR {
+                    if(string($3.type) == "VOID"){
+                        sem_errors.push_back("Cannot assign void to variable in line " + to_string(countLine + 1));
+                    }
                     check_type(function_table[current_function].symbol_table[string($1.lexeme)].data_type, string($3.type));
                     check_scope(string($1.lexeme));
                     check_declaration(string($1.lexeme));
@@ -522,6 +538,9 @@ ASSIGNMENT      :   ID ASSIGN EXPR {
 
                 }
                 |   ID LB EXPR RB ASSIGN EXPR {
+                    if(string($6.type) == "VOID"){
+                        sem_errors.push_back("Cannot assign void to variable in line " + to_string(countLine + 1));
+                    }
                     check_type(function_table[current_function].symbol_table[string($1.lexeme)].data_type, string($6.type));
                     if(check_declaration(string($1.lexeme)) && function_table[current_function].symbol_table[string($1.lexeme)].isArray == 0){
                         sem_errors.push_back("Variable " + string($1.lexeme) + " is not an array in line " + to_string(countLine + 1));

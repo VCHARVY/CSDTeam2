@@ -1,0 +1,36 @@
+function print 2 0 INT
+push argument 0 INT
+push argument 1 INT
+add INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push local 1 INT
+return
+function main 8 0 INT
+push constant 5 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push constant 6 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push local 1 INT
+push local 3 INT
+push local 5 INT
+pop local 4 INT
+push local 4 INT
+print INT
+push constant 22 INT
+pop local 5 INT
+push local 4 INT
+push local 5 INT
+add INT
+pop local 6 INT
+push local 6 INT
+print INT
+push constant 0 INT
+pop local 7 INT
+push local 7 INT
+return
