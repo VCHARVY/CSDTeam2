@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include "link.h"
  void fun() ;
- int var1 = 12345 ;
- int var2 = 54321 ;
+ 
+ int var2 ;
  int main(){
+
+ printf("var2=%d\n", var2) ;
  fun() ;
- printf("var1=%x, var2=%x\n",
- var1, var2) ;
  return 0 ;
  }
