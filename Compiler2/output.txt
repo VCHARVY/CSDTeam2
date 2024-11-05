@@ -1,12 +1,22 @@
+print: INT
+- arg INT a
+- arg INT b
+@t0 = a + b INT
+- INT c
+c = @t0 INT
+return c INT
+end:
+
 main: INT
 @t0 = 5 INT
 - INT a
 a = @t0 INT
-@t1 = 5 INT
+@t1 = 6 INT
 - INT b
 b = @t1 INT
+param a INT
+param b INT
 - INT c
-@t2 = a + b INT
 c = @t2 INT
 output c INT
 @t2 = 22 INT
