@@ -1,5 +1,7 @@
 #include <stdio.h>
- double var1 ;
+#include "link.h"
+int var2  ;
  void fun(){
- var1 =-0.0 ;
+ var2 =-2 ;
+ printf("var2=%d\n", var2);
  }

@@ -1,13 +1,8 @@
-int print(int a, int b){
-    int c = a + b;
-    return c;
-}
-
 int main() {
-    int a = 5;
-    int b = 6;
-    int c = print(a, b);
-    syswrite(c);
-    syswrite(c+22);
+    int a[5] = {1,2,3,4,5,6};
+    int i;
+    for(i=0; i<5; i=i+1){
+        syswrite(a[i]);
+    }
     return 0;
 }

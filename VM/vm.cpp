@@ -4,490 +4,526 @@
 #include <vector>
 #include <stack>
 #include <sstream>
+#include <string>
 using namespace std;
 
-uint32_t sp;
-uint32_t local;
-uint32_t arg;
-uint32_t _this;
-uint32_t that;
+uint32_t SP;
+uint32_t LCL;
+uint32_t ARG;
+uint32_t THIS;
+uint32_t THAT;
+uint32_t STATIC;
 
-stack<string> called_functions;
-
-int label_counter;
-
-int pc = 0;
-
-vector<uint32_t> ram;
-
-string file_name;
-string fu_name;
+uint32_t label_count = 0;
 
 ifstream fin;
 ofstream fout;
 
-class VMToARM
-{
-public:
-    string segment;
-    string element;
-    string name;
+class VMToARM {
+    public:
     string token_name;
+    string segment;
+    string value;
 
-    void push()
-    {
-        if (segment == "constant")
-        {
-            fout << "mov x0, #" << sp << endl;
-            fout << "mov x1, #" << element << endl;
-            fout << "str x1, [x0]" << endl;
-            fout << "add sp, sp, #1" << endl;
-            sp = sp + 1;
+    void push(){
+        if(segment == "constant"){
+            fout << "MOV r1, #" << value << endl;
+            fout << "STR r1, [r6, #0]" << endl;
+            fout << "ADD r6, r6, #8" << endl;
+            SP = SP + 8;
         }
-        else
-        {
-            if (segment == "local")
-            {
-                fout << "mov x0, #" << ram[2] << endl;
-                cout << ram[2] << endl;
+        else {
+            if(segment == "local"){
+                fout << "MOV r1, #" << LCL << endl;
             }
-            else if (segment == "argument")
-            {
-                fout << "mov x0, #" << ram[3] << endl;
+            else if(segment == "argument"){
+                fout << "MOV r1, #" << ARG << endl;
             }
-            else if (segment == "THIS")
-            {
-                fout << "mov x0, #" << ram[4] << endl;
+            else if(segment == "this"){
+                fout << "MOV r1, #" << THIS << endl;
             }
-            else if (segment == "THAT")
-            {
-                fout << "mov x0, #" << ram[5] << endl;
+            else if(segment == "that"){
+                fout << "MOV r1, #" << THAT << endl;
             }
-            fout << "ldr x1, [x0, " << element << "]" << endl;
-            fout << "mov x2, sp" << endl;
-            fout << "str x1, [x2]" << endl;
-            fout << "add sp, sp, #1" << endl;
-            sp++;
+            else if(segment == "static"){
+                fout << "MOV r1, #" << STATIC << endl;
+            }
+            fout << "LDR r2, [r1, "  << value << "]" << endl;
+            fout << "STR r2, [r6, #0]" << endl;
+            fout << "ADD r6, r6, #8" << endl;
+            SP = SP + 8;
         }
     }
 
-    void pop()
-    {
-        if (segment == "local")
-        {
-            fout << "mov x0, #" << ram[2] << endl;
+    void pop(){
+        if(segment == "local"){
+            fout << "MOV r1, #" << LCL << endl;
         }
-        else if (segment == "argument")
-        {
-            fout << "mov x0, #" << ram[3] << endl;
+        else if(segment == "argument"){
+            fout << "MOV r1, #" << ARG << endl;
         }
-        else if (segment == "THIS")
-        {
-            fout << "mov x0, #" << ram[4] << endl;
+        else if(segment == "this"){
+            fout << "MOV r1, #" << THIS << endl;
         }
-        else if (segment == "THAT")
-        {
-            fout << "mov x0, #" << ram[5] << endl;
+        else if(segment == "that"){
+            fout << "MOV r1, #" << THAT << endl;
         }
-        fout << "mov x1, #1" << endl;
-        fout << "sub sp, sp, x1" << endl;
-        fout << "ldr x1, [sp]" << endl;
-        fout << "str x1, [x0, " << element << "]" << endl;
+        
+        fout << "SUB r6, r6, #8" << endl;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "STR r2, [r1, " << value << "]" << endl;
+        SP = SP - 8;
     }
 
-    void add()
-    {
-        fout << "mov x0, #1" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp = sp - 1;
-        fout << "ldr x1, [sp]" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp = sp - 1;
-        fout << "ldr x2, [sp]" << endl;
-        fout << "add x3, x1, x2" << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-        sp = sp + 1;
+    void add(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "ADD r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void sub()
-    {
-        fout << "mov x0, #1" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp = sp - 1;
-        fout << "ldr x1, [sp]" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp = sp - 1;
-        fout << "ldr x2, [sp]" << endl;
-        fout << "sub x3, x1, x2" << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-        sp = sp + 1;
+    void sub(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "SUB r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void equal()
-    {
-        fout << "mov x0, #1" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp--;
-        fout << "ldr x1, [sp]" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp--;
-        fout << "ldr x2, [sp]" << endl;
-
-        uint32_t temp_true = true;
-        uint32_t temp_false = false;
-        int t_lb_counter_1;
-        int t_lb_counter_2;
-
-        fout << "cmp x1, x2" << endl;
-        fout << "b.eq " << file_name << "_label" << label_counter << endl;
-        t_lb_counter_1 = label_counter;
-        label_counter = label_counter + 1;
-
-        fout << "mov x3, #" << temp_false << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-
-        fout << "b " << file_name << "_label" << label_counter << endl;
-        t_lb_counter_2 = label_counter;
-        label_counter = label_counter + 1;
-
-        fout << file_name << "_label" << t_lb_counter_1 << ":" << endl;
-        fout << "mov x3, #" << temp_true << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-
-        fout << file_name << "_label" << t_lb_counter_2 << ":" << endl;
+    void mul(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "MUL r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void less_than()
-    {
-        fout << "mov x0, #1" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp--;
-        fout << "ldr x1, [sp]" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp--;
-        fout << "ldr x2, [sp]" << endl;
-
-        uint32_t temp_true = true;
-        uint32_t temp_false = false;
-        int t_lb_counter_1;
-        int t_lb_counter_2;
-
-        fout << "cmp x1, x2" << endl;
-        fout << "b.lt " << file_name << "_label" << label_counter << endl;
-        t_lb_counter_1 = label_counter;
-        label_counter = label_counter + 1;
-
-        fout << "mov x3, #" << temp_false << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-
-        fout << "b " << file_name << "_label" << label_counter << endl;
-        t_lb_counter_2 = label_counter;
-        label_counter = label_counter + 1;
-
-        fout << file_name << "_label" << t_lb_counter_1 << ":" << endl;
-        fout << "mov x3, #" << temp_true << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-
-        fout << file_name << "_label" << t_lb_counter_2 << ":" << endl;
+    void div(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "SDIV r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void greater_than()
-    {
-        fout << "mov x0, #1" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp--;
-        fout << "ldr x1, [sp]" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp--;
-        fout << "ldr x2, [sp]" << endl;
-
-        uint32_t temp_true = true;
-        uint32_t temp_false = false;
-        int t_lb_counter_1;
-        int t_lb_counter_2;
-
-        fout << "cmp x1, x2" << endl;
-        fout << "b.gt " << file_name << "_label" << label_counter << endl;
-        t_lb_counter_1 = label_counter;
-        label_counter = label_counter + 1;
-
-        fout << "mov x3, #" << temp_false << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-
-        fout << "b " << file_name << "_label" << label_counter << endl;
-        t_lb_counter_2 = label_counter;
-        label_counter = label_counter + 1;
-
-        fout << file_name << "_label" << t_lb_counter_1 << ":" << endl;
-        fout << "mov x3, #" << temp_true << endl;
-        fout << "str x3, [sp]" << endl;
-        fout << "add sp, sp, x0" << endl;
-
-        fout << file_name << "_label" << t_lb_counter_2 << ":" << endl;
+    void asl(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "ASL r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void generate_label()
-    {
-        fout << name << ":" << endl;
+    void asr(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "ASR r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void goto_label()
-    {
-        fout << "b " << name << endl;
+    void _and(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "AND r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void if_goto()
-    {
-        fout << "mov x0, #1" << endl;
-        fout << "sub sp, sp, x0" << endl;
-        sp = sp - 1;
-        fout << "ldr x1, [sp, #0]" << endl;
-
-        uint32_t temp_true = true;
-
-        fout << "mov x2, #" << temp_true << endl;
-        fout << "cmp x1, x2" << endl;
-        fout << "b.eq " << name << endl;
+    void _or(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "OR r3, r1, r2" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void call()
-    {
-        called_functions.push(name);
-
-        // local
-        fout << "mov x0, #" << sp << endl;
-        fout << "mov x1, #" << ram[2] << endl;
-        fout << "str x1, [x0]" << endl;
-        fout << "add sp, sp, #1" << endl;
-        sp = sp + 1;
-
-        // argument
-        fout << "mov x0, #" << sp << endl;
-        fout << "mov x1, #" << ram[3] << endl;
-        fout << "str x1, [x0]" << endl;
-        fout << "add sp, sp, #1" << endl;
-        sp = sp + 1;
-
-        // THIS
-        fout << "mov x0, #" << sp << endl;
-        fout << "mov x1, #" << ram[4] << endl;
-        fout << "str x1, [x0]" << endl;
-        fout << "add sp, sp, #1" << endl;
-        sp = sp + 1;
-
-        // THAT
-        fout << "mov x0, #" << sp << endl;
-        fout << "mov x1, #" << ram[5] << endl;
-        fout << "str x1, [x0]" << endl;
-        fout << "add sp, sp, #1" << endl;
-        sp = sp + 1;
-
-        // arg value updating
-        uint32_t temp_5 = 4;
-        uint32_t temp_1 = stoi(element);
-        fout << "mov x0, #" << sp << endl;
-        fout << "mov x1, #" << temp_5 << endl;
-        fout << "mov x2, #" << temp_1 << endl;
-        uint32_t addr_arg = 3;
-        fout << "mov x3, #" << addr_arg << endl;
-        fout << "sub x4, x0, x1" << endl;
-        fout << "sub x4, x4, x2" << endl;
-        fout << "str x4, [x3]" << endl;
-        ram[3] = sp - temp_5 - temp_1;
-
-        // local value updating (local = sp)
-        fout << "mov x0, #" << sp << endl;
-        uint32_t addr_local = 2;
-        fout << "mov x1, #" << addr_local << endl;
-        fout << "str x0, [x1]" << endl;
-        ram[2] = sp;
-        fout << "bl " << name << endl;
+    void _not(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "EOR r2, r1, #1" << endl;
+        fout << "STR r2, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
     }
 
-    void function()
-    {
-        fout << name << ":" << endl;
-        fout << "mov x0, #0" << endl;
-        fout << "mov x1, #1" << endl;
-        for (int f_temp = 0; f_temp < stoi(element); f_temp++)
-        {
-            fout << "mov x2, sp" << endl;
-            fout << "str x0, [x2]" << endl;
-            fout << "add sp, sp, x1" << endl;
-            sp = sp + 1;
+    void neg() {
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "MOV r0, #0" << endl;
+        fout << "SUB r2, r0, r1" << endl;
+        fout << "STR r2, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
+    }
+
+    void equal(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "CMP r1, r2" << endl;
+        fout << "BEQ label" << label_count << endl;
+        fout << "MOV r3, #0" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
+        fout << "B label" << label_count+1 << endl;
+        fout << "label" << label_count << ":" << endl;
+        fout << "MOV r3, #1" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
+        fout << "label" << label_count+1 << ":" << endl;
+        label_count += 2;
+    }
+
+    void lessThan(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "CMP r1, r2" << endl;
+        fout << "BLT label" << label_count << endl;
+        fout << "MOV r3, #0" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
+        fout << "B label" << label_count+1 << endl;
+        fout << "label" << label_count << ":" << endl;
+        fout << "MOV r3, #1" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
+        fout << "label" << label_count+1 << ":" << endl;
+        label_count += 2;
+    }
+
+    void greaterThan(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r2, [r6, #0]" << endl;
+        fout << "CMP r1, r2" << endl;
+        fout << "BGT label" << label_count << endl;
+        fout << "MOV r3, #0" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
+        fout << "B label" << label_count+1 << endl;
+        fout << "label" << label_count << ":" << endl;
+        fout << "MOV r3, #1" << endl;
+        fout << "STR r3, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
+        fout << "label" << label_count+1 << ":" << endl;
+        label_count += 2;
+    }
+
+    void goto_label(){
+        fout << "B " << value << endl;
+    }
+
+    void label(){
+        fout << value << ":" << endl;
+    }
+
+    void if_goto(){
+        fout << "SUB r6, r6, #8" << endl;
+        SP = SP - 8;
+        fout << "LDR r1, [r6, #0]" << endl;
+        fout << "CMP r1, #1" << endl;
+        fout << "BEQ " << value << endl;
+    }
+
+    void function(){
+        fout << segment << ":" << endl;
+        fout << "MOV r1, #0" << endl;
+        for(int i = 0; i < stoi(value); i++){
+            fout << "STR r1, [r6, #0]" << endl;
+            fout << "ADD r6, r6, #8" << endl;
+            SP = SP + 8;
         }
     }
 
-    void _return()
-    {
-        fout << "mov x1, #1" << endl;
-        uint32_t temp_5 = 5;
+    void call() {
+        // Save LCL
+        fout << "MOV r1, #" << LCL << endl;
+        fout << "STR r1, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
 
-        fout << "sub sp, sp, #1" << endl;
-        sp = sp - 1;
-        fout << "ldr x5, [sp, #0]" << endl; // x5 -> return value
-        fout << "mov x2, #" << ram[3] << endl;
-        fout << "str x5, [x2, #0]" << endl;
-        fout << "add sp, x2, x1" << endl; // sp = arg + 1
-        sp = ram[3] + 1;
+        // Save ARG
+        fout << "MOV r1, #" << ARG << endl;
+        fout << "STR r1, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
 
-        fout << "mov x2, #" << ram[2] << endl; // x2 -> arg
-        temp_5 = 1;
-        fout << "mov x3, #" << temp_5 << endl;
-        fout << "sub x6, x2, x3" << endl;
-        uint32_t addr_that = 5;
-        fout << "mov x0, #" << addr_that << endl;
-        fout << "str x6, [x0, #0]" << endl;
-        ram[5] = ram[2] - 1;
+        // Save THIS
+        fout << "MOV r1, #" << THIS << endl;
+        fout << "STR r1, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
 
-        temp_5 = 2;
-        fout << "mov x3, #" << temp_5 << endl;
-        fout << "sub x6, x2, x3" << endl;
-        uint32_t addr_this = 4;
-        fout << "mov x0, #" << addr_this << endl;
-        fout << "str x6, [x0, #0]" << endl;
-        ram[4] = ram[2] - 2;
+        // Save THAT
+        fout << "MOV r1, #" << THAT << endl;
+        fout << "STR r1, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
 
-        temp_5 = 3;
-        fout << "mov x3, #" << temp_5 << endl;
-        fout << "sub x6, x2, x3" << endl;
-        uint32_t addr_arg = 3;
-        fout << "mov x0, #" << addr_arg << endl;
-        fout << "str x6, [x0, #0]" << endl;
-        ram[3] = ram[2] - 3;
+        // Save STATIC
+        fout << "MOV r1, #" << STATIC << endl;
+        fout << "STR r1, [r6, #0]" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+        SP = SP + 8;
 
-        temp_5 = 4;
-        fout << "mov x3, #" << temp_5 << endl;
-        fout << "sub x6, x2, x3" << endl;
-        uint32_t addr_local = 2;
-        fout << "mov x0, #" << addr_local << endl;
-        fout << "str x6, [x0, #0]" << endl;
-        ram[2] = ram[2] - 4;
+        // ARG = SP - n - 6
+        fout << "MOV r1, r6" << endl;
+        fout << "SUB r1, r1, #" << value << endl;
+        fout << "SUB r1, r1, #48" << endl; // 6 * 8 bytes for each saved register
+        fout << "MOV r8, r1" << endl;
 
-        fout << "bx lr" << endl;
+        // LCL = SP
+        fout << "MOV r7, r6" << endl;
+
+        // Branch to function
+        fout << "BL " << segment << endl;
+    }
+
+    void _return() {
+        // endFrame = LCL
+        fout << "MOV r1, LCL" << endl;
+        fout << "MOV r2, r1" << endl;
+
+        // *ARG = pop()
+        fout << "SUB r6, r6, #8" << endl;
+        fout << "LDR r4, [r6, #0]" << endl;
+        fout << "STR r4, [r8, #0]" << endl;
+
+        // SP = ARG + 1
+        fout << "MOV r6, ARG" << endl;
+        fout << "ADD r6, r6, #8" << endl;
+
+        // Restore STATIC = *(endFrame - 1)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV STATIC, r4" << endl;
+
+        // Restore THAT = *(endFrame - 2)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV r10, r4" << endl;
+
+        // Restore THIS = *(endFrame - 3)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV r9, r4" << endl;
+
+        // Restore ARG = *(endFrame - 4)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV r8, r4" << endl;
+
+        // Restore LCL = *(endFrame - 5)
+        fout << "SUB r2, r2, #8" << endl;
+        fout << "LDR r4, [r2, #0]" << endl;
+        fout << "MOV r7, r4" << endl;
+
+        // Branch to return address in LR
+        fout << "BR LR" << endl;
     }
 };
 
-int parse()
-{
-    fin.open("input.vm");
-    if (!fin)
-    {
+void parse(string inputFile, string outputFile){
+    fin.open(inputFile);
+    if(!fin.is_open()){
         cout << "Error opening file" << endl;
-        return 0;
+        return;
     }
-    else
-    {
-        string line;
-        fout << ".data" << endl;
-        fout << "ram: .space 8000" << endl; // Reserve space for RAM
-        fout << ".text" << endl;
-        fout << ".global _start" << endl;
-        fout << "_start:" << endl;
-        while (!fin.eof())
-        {
-            getline(fin, line);
-            VMToARM instruction;
-            string temp, temp1;
-            istringstream ss(line);
-            ss >> temp;
-            cout << temp << endl;
-            if (temp == "push" || temp == "pop")
-            {
-                instruction.token_name = temp;
-                temp1 = temp;
-                ss >> temp;
-                cout << temp << endl;
-                instruction.segment = temp;
-                ss >> temp;
-                cout << temp << endl;
-                instruction.element = temp;
-                if (temp1 == "push")
-                {
-                    instruction.push();
-                }
-                else if (temp1 == "pop")
-                {
-                    instruction.pop();
-                }
-            }
 
-            if (temp == "add" || temp == "sub" || temp == "eq" || temp == "gt" || temp == "lt" || temp == "and" || temp == "or" || temp == "not" || temp == "return")
-            {
-                instruction.token_name = temp;
-                temp1 = temp;
-                if (temp1 == "add")
-                {
-                    instruction.add();
-                }
-                else if (temp1 == "sub")
-                {
-                    instruction.sub();
-                }
-                else if (temp1 == "eq")
-                {
-                    instruction.equal();
-                }
-                else if (temp1 == "gt")
-                {
-                    instruction.greater_than();
-                }
-                else if (temp1 == "lt")
-                {
-                    instruction.less_than();
-                }
-            }
+    fout.open(outputFile);
+    if(!fout.is_open()){
+        cout << "Error opening file" << endl;
+        return;
+    }
 
-            if (temp == "label" || temp == "goto" || temp == "if-goto")
-            {
-                instruction.token_name = temp;
-                if (temp == "label")
-                {
-                    ss >> temp;
-                    instruction.name = temp;
-                    instruction.generate_label();
-                }
-                else if (temp == "goto")
-                {
-                    ss >> temp;
-                    instruction.name = temp;
-                    instruction.goto_label();
-                }
-                else if (temp == "if-goto")
-                {
-                    ss >> temp;
-                    instruction.name = temp;
-                    instruction.if_goto();
-                }
+    string line;
+    fout << "\t.section .text" <<endl;
+    fout << "\t.globl _start\n" << endl;
+    fout << "_start:" << endl;
+
+    while(getline(fin, line)){
+        VMToARM instruction;
+        stringstream ss(line);
+        string command;
+        ss >> command;
+        if(command == "push" || command == "pop"){
+            instruction.token_name = command;
+            ss >> instruction.segment;
+            ss >> instruction.value;
+
+            if(instruction.token_name == "push"){
+                instruction.push();
             }
-            fout << endl;
-            pc = pc + 1;
+            else if(instruction.token_name == "pop"){
+                instruction.pop();
+            }
         }
+        if(command == "add" || command == "sub" || command == "eq" || command == "lt" || command == "gt"){
+            instruction.token_name = command;
+            if(command == "add"){
+                instruction.add();
+            }
+            else if(command == "sub"){
+                instruction.sub();
+            }
+            else if(command == "eq"){
+                instruction.equal();
+            }
+            else if(command == "lt"){
+                instruction.lessThan();
+            }
+            else if(command == "gt"){
+                instruction.greaterThan();
+            }
+        }
+
+        if(command == "and" || command == "or" || command == "not" || command == "neg"){
+            instruction.token_name = command;
+            if(command == "and"){
+                instruction._and();
+            }
+            else if(command == "or"){
+                instruction._or();
+            }
+            else if(command == "not"){
+                instruction._not();
+            }
+            else if(command == "neg"){
+                instruction.neg();
+            }
+        } 
+
+        if(command == "mul" || command == "div" || command == "asl" || command == "asr"){
+            instruction.token_name = command;
+            if(command == "mul"){
+                instruction.mul();
+            }
+            else if(command == "div"){
+                instruction.div();
+            }
+            else if(command == "asl"){
+                instruction.asl();
+            }
+            else if(command == "asr"){
+                instruction.asr();
+            }
+        }
+
+        if(command == "label" || command == "goto" || command == "if-goto"){
+            instruction.token_name = command;
+            ss >> instruction.value;
+            if(instruction.token_name == "label"){
+                instruction.label();
+            }
+            else if(instruction.token_name == "goto"){
+                instruction.goto_label();
+            }
+            else if(instruction.token_name == "if-goto"){
+                instruction.if_goto();
+            }
+        }
+
+        if(command == "function" || command == "call" || command == "return"){
+            instruction.token_name = command;
+            ss >> instruction.segment;
+            ss >> instruction.value;
+            if(instruction.token_name == "function"){
+                instruction.function();
+            }
+            else if(instruction.token_name == "call"){
+                instruction.call();
+            }
+            else if(instruction.token_name == "return"){
+                instruction._return();
+            }
+        }
+        fout << endl;
     }
-    return 1;
+
+    //exit
+    fout << "MOV r1, #0x18" << endl;
+    fout << "MOV r2, #0" << endl;
+    fout << "SVC 0" << endl;
+
+    //.data
+    fout << "\t.section .data" << endl;
+    fout << "\t.section .bss" << endl;
 }
 
-int main()
-{
-    for (int i = 0; i < 2000; i++)
-    {
-        ram.push_back(0);
-    }
-    ram[1] = 29;
-    sp = ram[1];
-    local = ram[2];
-    arg = ram[3];
-    _this = ram[4];
-    that = ram[5];
-    label_counter = 0;
-    file_name = "input";
-    fout.open("output.asm");
-    parse();
+int main() {
+    SP = 9280;
+    LCL = 8224;
+    ARG = 8736;
+    THIS = 0;
+    THAT = 0;
+    STATIC = 0;
+    //sp = r6
+    //lcl = r7
+    //arg = r8
+    //this = r9
+    //that = r10
+    //static = r11
+
+    //parse("input.vm", "output.asm");
+    parse("input2.vm", "output2.asm");
 }
