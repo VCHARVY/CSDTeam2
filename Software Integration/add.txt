@@ -1,0 +1,7 @@
+main: INT
+@t0 = 1 INT
+@t1 = 77 INT
+@t2 = @t0 + @t1 INT
+return @t2 INT
+end:
+

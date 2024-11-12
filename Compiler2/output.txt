@@ -1,8 +1,0 @@
-main: INT
-@t0 = 5 INT
-- INT* a
-a = @t0 INT*
-@t1 = 0 INT
-return @t1 INT
-end:
-
