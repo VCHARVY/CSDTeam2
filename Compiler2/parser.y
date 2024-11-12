@@ -189,7 +189,13 @@ DATA_TYPE       :   INT {
                 }
                 |   STRING {
                     strcpy($$.type, "STRING");
-                };
+                }
+                |   INT MUL {
+                    strcpy($$.type, "INT*");
+                }
+                |   CHAR MUL {
+                    strcpy($$.type, "CHAR*");
+                } ;
 PARAMLIST       :   PARAM {
                     function_table[current_function].param_types.push_back(string($1.type));
                     function_table[current_function].symbol_table[string($1.lexeme)] = {string($1.type), scope_counter +1, 0, 0, countLine + 1};
@@ -656,9 +662,21 @@ FUNCTION_CALL   :   ID {
                     sprintf($$.lexeme, "%s", get_temp().c_str());
                 };
 ARGUMENTLIST    :   ARG COMMA ARGUMENTLIST {
-
+                    int size = function_call.top().second.size();
+                    string type = function_call.top().second[size - 1];
+                    function_call.top().second.pop_back();
+                    if(!check_type(type, string($1.type))){
+                        sem_errors.push_back("Function " + function_call.top().first + " expects type " + type + " in line " + to_string(countLine + 1));
+                    }
                 }
-                |   ARG
+                |   ARG {
+                    int size = function_call.top().second.size();
+                    string type = function_call.top().second[size - 1];
+                    function_call.top().second.pop_back();
+                    if(!check_type(type, string($1.type))){
+                        sem_errors.push_back("Function " + function_call.top().first + " expects type " + type + " in line " + to_string(countLine + 1));
+                    }
+                }
                 | ;
 ARG             :   EXPR {
                     tac.push_back("param " + string($1.lexeme) + " " + string($1.type));

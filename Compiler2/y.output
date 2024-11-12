@@ -21,151 +21,153 @@
   12            | CHAR
   13            | FLOAT
   14            | STRING
+  15            | INT MUL
+  16            | CHAR MUL
 
-  15  $$3 :
+  17  $$3 :
 
-  16  PARAMLIST : PARAM $$3 COMMA PARAMLIST
-  17            | PARAM
-  18            |
+  18  PARAMLIST : PARAM $$3 COMMA PARAMLIST
+  19            | PARAM
+  20            |
 
-  19  PARAM : DATA_TYPE ID
+  21  PARAM : DATA_TYPE ID
 
-  20  STMTLIST : STMT STMTLIST
-  21           |
+  22  STMTLIST : STMT STMTLIST
+  23           |
 
-  22  CLASSDEF : CLASS ID LF CLASSBODY RF
+  24  CLASSDEF : CLASS ID LF CLASSBODY RF
 
-  23  CLASSBODY : CLASSBODY CLASSMEMBER
-  24            |
+  25  CLASSBODY : CLASSBODY CLASSMEMBER
+  26            |
 
-  25  CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE ID SCOL
-  26              | ACCESS_MODIFIER FUNCTION
-  27              |
+  27  CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE ID SCOL
+  28              | ACCESS_MODIFIER FUNCTION
+  29              |
 
-  28  ACCESS_MODIFIER : PUBLIC
-  29                  | PRIVATE
-  30                  | PROTECTED
+  30  ACCESS_MODIFIER : PUBLIC
+  31                  | PRIVATE
+  32                  | PROTECTED
 
-  31  STMT : DECLARATION SCOL
-  32       | ASSIGNMENT SCOL
-  33       | EXPR SCOL
-  34       | RETURN_STMT SCOL
-  35       | IF_STMT
-  36       | WHILE_STMT
-  37       | FOR_STMT
-  38       | BREAK SCOL
-  39       | CONTINUE SCOL
-  40       | INPUT LP ID RP SCOL
-  41       | INPUT LP ID LB EXPR RB RP SCOL
-  42       | OUTPUT LP EXPR RP SCOL
+  33  STMT : DECLARATION SCOL
+  34       | ASSIGNMENT SCOL
+  35       | EXPR SCOL
+  36       | RETURN_STMT SCOL
+  37       | IF_STMT
+  38       | WHILE_STMT
+  39       | FOR_STMT
+  40       | BREAK SCOL
+  41       | CONTINUE SCOL
+  42       | INPUT LP ID RP SCOL
+  43       | INPUT LP ID LB EXPR RB RP SCOL
+  44       | OUTPUT LP EXPR RP SCOL
 
-  43  DECLARATION : DATA_TYPE ID
-  44              | DATA_TYPE ID ASSIGN EXPR
-  45              | STRING ID ASSIGN STR
-  46              | DATA_TYPE ID LB INT_NUM RB
+  45  DECLARATION : DATA_TYPE ID
+  46              | DATA_TYPE ID ASSIGN EXPR
+  47              | STRING ID ASSIGN STR
+  48              | DATA_TYPE ID LB INT_NUM RB
 
-  47  $$4 :
+  49  $$4 :
 
-  48  DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF
+  50  DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF
 
-  49  $$5 :
+  51  $$5 :
 
-  50  ARR_VALUES : CONST $$5 COMMA ARR_VALUES
-  51             | CONST
+  52  ARR_VALUES : CONST $$5 COMMA ARR_VALUES
+  53             | CONST
 
-  52  RETURN_STMT : RETURN EXPR
-  53              | RETURN
+  54  RETURN_STMT : RETURN EXPR
+  55              | RETURN
 
-  54  EXPR : EXPR ADD EXPR
-  55       | EXPR SUB EXPR
-  56       | EXPR MUL EXPR
-  57       | EXPR DIV EXPR
-  58       | EXPR EQ EXPR
-  59       | EXPR NE EXPR
-  60       | EXPR LT EXPR
-  61       | EXPR GT EXPR
-  62       | EXPR LE EXPR
-  63       | EXPR GE EXPR
-  64       | EXPR AND EXPR
-  65       | EXPR OR EXPR
-  66       | EXPR BITAND EXPR
-  67       | EXPR BITOR EXPR
-  68       | UNARY_EXPR
-  69       | PRIMARY_EXPR
-  70       | POSTFIX_EXPR
+  56  EXPR : EXPR ADD EXPR
+  57       | EXPR SUB EXPR
+  58       | EXPR MUL EXPR
+  59       | EXPR DIV EXPR
+  60       | EXPR EQ EXPR
+  61       | EXPR NE EXPR
+  62       | EXPR LT EXPR
+  63       | EXPR GT EXPR
+  64       | EXPR LE EXPR
+  65       | EXPR GE EXPR
+  66       | EXPR AND EXPR
+  67       | EXPR OR EXPR
+  68       | EXPR BITAND EXPR
+  69       | EXPR BITOR EXPR
+  70       | UNARY_EXPR
+  71       | PRIMARY_EXPR
+  72       | POSTFIX_EXPR
 
-  71  POSTFIX_EXPR : FUNCTION_CALL
-  72               | ID LB EXPR RB
+  73  POSTFIX_EXPR : FUNCTION_CALL
+  74               | ID LB EXPR RB
 
-  73  UNARY_EXPR : UNARY_OP PRIMARY_EXPR
+  75  UNARY_EXPR : UNARY_OP PRIMARY_EXPR
 
-  74  PRIMARY_EXPR : ID
-  75               | CONST
-  76               | LP EXPR RP
+  76  PRIMARY_EXPR : ID
+  77               | CONST
+  78               | LP EXPR RP
 
-  77  UNARY_OP : ADD
-  78           | SUB
-  79           | NEG
+  79  UNARY_OP : ADD
+  80           | SUB
+  81           | NEG
 
-  80  CONST : INT_NUM
-  81        | FLOAT_NUM
-  82        | CHARACTER
+  82  CONST : INT_NUM
+  83        | FLOAT_NUM
+  84        | CHARACTER
 
-  83  ASSIGNMENT : ID ASSIGN EXPR
-  84             | ID LB EXPR RB ASSIGN EXPR
+  85  ASSIGNMENT : ID ASSIGN EXPR
+  86             | ID LB EXPR RB ASSIGN EXPR
 
-  85  $$6 :
+  87  $$6 :
 
-  86  $$7 :
+  88  $$7 :
 
-  87  $$8 :
+  89  $$8 :
 
-  88  $$9 :
+  90  $$9 :
 
-  89  IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT
+  91  IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT
 
-  90  $$10 :
+  92  $$10 :
 
-  91  $$11 :
+  93  $$11 :
 
-  92  $$12 :
+  94  $$12 :
 
-  93  $$13 :
+  95  $$13 :
 
-  94  ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT
-  95            |
+  96  ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT
+  97            |
 
-  96  $$14 :
+  98  $$14 :
 
-  97  ELSE_STMT : ELSE LF $$14 STMTLIST RF
+  99  ELSE_STMT : ELSE LF $$14 STMTLIST RF
 
-  98  $$15 :
+ 100  $$15 :
 
-  99  $$16 :
+ 101  $$16 :
 
- 100  $$17 :
+ 102  $$17 :
 
- 101  WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 STMTLIST RF
+ 103  WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 STMTLIST RF
 
- 102  $$18 :
+ 104  $$18 :
 
- 103  $$19 :
+ 105  $$19 :
 
- 104  $$20 :
+ 106  $$20 :
 
- 105  $$21 :
+ 107  $$21 :
 
- 106  FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF
+ 108  FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF
 
- 107  $$22 :
+ 109  $$22 :
 
- 108  FUNCTION_CALL : ID $$22 LP ARGUMENTLIST RP
+ 110  FUNCTION_CALL : ID $$22 LP ARGUMENTLIST RP
 
- 109  ARGUMENTLIST : ARG COMMA ARGUMENTLIST
- 110               | ARG
- 111               |
+ 111  ARGUMENTLIST : ARG COMMA ARGUMENTLIST
+ 112               | ARG
+ 113               |
 
- 112  ARG : EXPR
+ 114  ARG : EXPR
 
 state 0
 	$accept : . PROGRAM $end  (0)
@@ -205,14 +207,18 @@ state 2
 
 state 3
 	DATA_TYPE : INT .  (11)
+	DATA_TYPE : INT . MUL  (15)
 
-	.  reduce 11
+	MUL  shift 14
+	ID  reduce 11
 
 
 state 4
 	DATA_TYPE : CHAR .  (12)
+	DATA_TYPE : CHAR . MUL  (16)
 
-	.  reduce 12
+	MUL  shift 15
+	ID  reduce 12
 
 
 state 5
@@ -234,9 +240,9 @@ state 7
 
 
 state 8
-	CLASSDEF : CLASS . ID LF CLASSBODY RF  (22)
+	CLASSDEF : CLASS . ID LF CLASSBODY RF  (24)
 
-	ID  shift 14
+	ID  shift 16
 	.  error
 
 
@@ -249,7 +255,7 @@ state 9
 state 10
 	FUNCTION : FUNCTION_PREFIX . LF $$1 STMTLIST RF  (6)
 
-	LF  shift 15
+	LF  shift 17
 	.  error
 
 
@@ -268,513 +274,525 @@ state 12
 state 13
 	FUNCTION_PREFIX : FUNCTION_TYPE . ID $$2 LP PARAMLIST RP  (8)
 
-	ID  shift 16
+	ID  shift 18
 	.  error
 
 
 state 14
-	CLASSDEF : CLASS ID . LF CLASSBODY RF  (22)
+	DATA_TYPE : INT MUL .  (15)
 
-	LF  shift 17
-	.  error
+	.  reduce 15
 
 
 state 15
+	DATA_TYPE : CHAR MUL .  (16)
+
+	.  reduce 16
+
+
+state 16
+	CLASSDEF : CLASS ID . LF CLASSBODY RF  (24)
+
+	LF  shift 19
+	.  error
+
+
+state 17
 	FUNCTION : FUNCTION_PREFIX LF . $$1 STMTLIST RF  (6)
 	$$1 : .  (5)
 
 	.  reduce 5
 
-	$$1  goto 18
+	$$1  goto 20
 
 
-state 16
+state 18
 	FUNCTION_PREFIX : FUNCTION_TYPE ID . $$2 LP PARAMLIST RP  (8)
 	$$2 : .  (7)
 
 	.  reduce 7
 
-	$$2  goto 19
+	$$2  goto 21
 
 
-state 17
-	CLASSDEF : CLASS ID LF . CLASSBODY RF  (22)
-	CLASSBODY : .  (24)
+state 19
+	CLASSDEF : CLASS ID LF . CLASSBODY RF  (24)
+	CLASSBODY : .  (26)
 
-	.  reduce 24
+	.  reduce 26
 
-	CLASSBODY  goto 20
+	CLASSBODY  goto 22
 
 
-state 18
+state 20
 	FUNCTION : FUNCTION_PREFIX LF $$1 . STMTLIST RF  (6)
-	STMTLIST : .  (21)
+	STMTLIST : .  (23)
 
 	INT  shift 3
 	CHAR  shift 4
 	FLOAT  shift 5
-	STRING  shift 21
-	RETURN  shift 22
-	INPUT  shift 23
-	OUTPUT  shift 24
-	IF  shift 25
-	WHILE  shift 26
-	FOR  shift 27
-	BREAK  shift 28
-	CONTINUE  shift 29
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 32
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RF  reduce 21
+	STRING  shift 23
+	RETURN  shift 24
+	INPUT  shift 25
+	OUTPUT  shift 26
+	IF  shift 27
+	WHILE  shift 28
+	FOR  shift 29
+	BREAK  shift 30
+	CONTINUE  shift 31
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 34
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RF  reduce 23
 
-	DATA_TYPE  goto 38
-	STMTLIST  goto 39
-	STMT  goto 40
-	DECLARATION  goto 41
-	ASSIGNMENT  goto 42
-	EXPR  goto 43
-	RETURN_STMT  goto 44
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	IF_STMT  goto 49
-	WHILE_STMT  goto 50
-	FOR_STMT  goto 51
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	DATA_TYPE  goto 40
+	STMTLIST  goto 41
+	STMT  goto 42
+	DECLARATION  goto 43
+	ASSIGNMENT  goto 44
+	EXPR  goto 45
+	RETURN_STMT  goto 46
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	IF_STMT  goto 51
+	WHILE_STMT  goto 52
+	FOR_STMT  goto 53
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
-state 19
+state 21
 	FUNCTION_PREFIX : FUNCTION_TYPE ID $$2 . LP PARAMLIST RP  (8)
 
-	LP  shift 54
+	LP  shift 56
 	.  error
 
 
-20: shift/reduce conflict (shift 55, reduce 27) on PUBLIC
-20: shift/reduce conflict (shift 56, reduce 27) on PRIVATE
-20: shift/reduce conflict (shift 57, reduce 27) on PROTECTED
-20: shift/reduce conflict (shift 58, reduce 27) on RF
-state 20
-	CLASSDEF : CLASS ID LF CLASSBODY . RF  (22)
-	CLASSBODY : CLASSBODY . CLASSMEMBER  (23)
-	CLASSMEMBER : .  (27)
-
-	PUBLIC  shift 55
-	PRIVATE  shift 56
-	PROTECTED  shift 57
-	RF  shift 58
-
-	CLASSMEMBER  goto 59
-	ACCESS_MODIFIER  goto 60
-
-
-21: shift/reduce conflict (shift 61, reduce 14) on ID
-state 21
-	DATA_TYPE : STRING .  (14)
-	DECLARATION : STRING . ID ASSIGN STR  (45)
-
-	ID  shift 61
-
-
+22: shift/reduce conflict (shift 57, reduce 29) on PUBLIC
+22: shift/reduce conflict (shift 58, reduce 29) on PRIVATE
+22: shift/reduce conflict (shift 59, reduce 29) on PROTECTED
+22: shift/reduce conflict (shift 60, reduce 29) on RF
 state 22
-	RETURN_STMT : RETURN . EXPR  (52)
-	RETURN_STMT : RETURN .  (53)
+	CLASSDEF : CLASS ID LF CLASSBODY . RF  (24)
+	CLASSBODY : CLASSBODY . CLASSMEMBER  (25)
+	CLASSMEMBER : .  (29)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	SCOL  reduce 53
+	PUBLIC  shift 57
+	PRIVATE  shift 58
+	PROTECTED  shift 59
+	RF  shift 60
 
-	EXPR  goto 63
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	CLASSMEMBER  goto 61
+	ACCESS_MODIFIER  goto 62
 
 
+23: shift/reduce conflict (shift 63, reduce 14) on ID
 state 23
-	STMT : INPUT . LP ID RP SCOL  (40)
-	STMT : INPUT . LP ID LB EXPR RB RP SCOL  (41)
+	DATA_TYPE : STRING .  (14)
+	DECLARATION : STRING . ID ASSIGN STR  (47)
 
-	LP  shift 64
-	.  error
+	ID  shift 63
 
 
 state 24
-	STMT : OUTPUT . LP EXPR RP SCOL  (42)
+	RETURN_STMT : RETURN . EXPR  (54)
+	RETURN_STMT : RETURN .  (55)
 
-	LP  shift 65
-	.  error
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	SCOL  reduce 55
+
+	EXPR  goto 65
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 25
-	IF_STMT : IF . $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
-	$$6 : .  (85)
+	STMT : INPUT . LP ID RP SCOL  (42)
+	STMT : INPUT . LP ID LB EXPR RB RP SCOL  (43)
 
-	.  reduce 85
-
-	$$6  goto 66
+	LP  shift 66
+	.  error
 
 
 state 26
-	WHILE_STMT : WHILE . $$15 LP EXPR RP $$16 LF $$17 STMTLIST RF  (101)
-	$$15 : .  (98)
+	STMT : OUTPUT . LP EXPR RP SCOL  (44)
 
-	.  reduce 98
-
-	$$15  goto 67
+	LP  shift 67
+	.  error
 
 
 state 27
-	FOR_STMT : FOR . LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
+	IF_STMT : IF . $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
+	$$6 : .  (87)
 
-	LP  shift 68
-	.  error
+	.  reduce 87
+
+	$$6  goto 68
 
 
 state 28
-	STMT : BREAK . SCOL  (38)
+	WHILE_STMT : WHILE . $$15 LP EXPR RP $$16 LF $$17 STMTLIST RF  (103)
+	$$15 : .  (100)
 
-	SCOL  shift 69
-	.  error
+	.  reduce 100
+
+	$$15  goto 69
 
 
 state 29
-	STMT : CONTINUE . SCOL  (39)
+	FOR_STMT : FOR . LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
 
-	SCOL  shift 70
+	LP  shift 70
 	.  error
 
 
 state 30
-	CONST : INT_NUM .  (80)
+	STMT : BREAK . SCOL  (40)
 
-	.  reduce 80
+	SCOL  shift 71
+	.  error
 
 
 state 31
-	CONST : FLOAT_NUM .  (81)
+	STMT : CONTINUE . SCOL  (41)
 
-	.  reduce 81
+	SCOL  shift 72
+	.  error
 
 
 state 32
-	POSTFIX_EXPR : ID . LB EXPR RB  (72)
-	PRIMARY_EXPR : ID .  (74)
-	ASSIGNMENT : ID . ASSIGN EXPR  (83)
-	ASSIGNMENT : ID . LB EXPR RB ASSIGN EXPR  (84)
-	FUNCTION_CALL : ID . $$22 LP ARGUMENTLIST RP  (108)
-	$$22 : .  (107)
-
-	ASSIGN  shift 71
-	LB  shift 72
-	ADD  reduce 74
-	SUB  reduce 74
-	MUL  reduce 74
-	DIV  reduce 74
-	EQ  reduce 74
-	NE  reduce 74
-	LT  reduce 74
-	GT  reduce 74
-	LE  reduce 74
-	GE  reduce 74
-	AND  reduce 74
-	OR  reduce 74
-	SCOL  reduce 74
-	LP  reduce 107
-	BITAND  reduce 74
-	BITOR  reduce 74
-
-	$$22  goto 73
-
-
-state 33
-	UNARY_OP : ADD .  (77)
-
-	.  reduce 77
-
-
-state 34
-	UNARY_OP : SUB .  (78)
-
-	.  reduce 78
-
-
-state 35
-	PRIMARY_EXPR : LP . EXPR RP  (76)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 74
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 36
-	CONST : CHARACTER .  (82)
+	CONST : INT_NUM .  (82)
 
 	.  reduce 82
 
 
-state 37
-	UNARY_OP : NEG .  (79)
+state 33
+	CONST : FLOAT_NUM .  (83)
+
+	.  reduce 83
+
+
+state 34
+	POSTFIX_EXPR : ID . LB EXPR RB  (74)
+	PRIMARY_EXPR : ID .  (76)
+	ASSIGNMENT : ID . ASSIGN EXPR  (85)
+	ASSIGNMENT : ID . LB EXPR RB ASSIGN EXPR  (86)
+	FUNCTION_CALL : ID . $$22 LP ARGUMENTLIST RP  (110)
+	$$22 : .  (109)
+
+	ASSIGN  shift 73
+	LB  shift 74
+	ADD  reduce 76
+	SUB  reduce 76
+	MUL  reduce 76
+	DIV  reduce 76
+	EQ  reduce 76
+	NE  reduce 76
+	LT  reduce 76
+	GT  reduce 76
+	LE  reduce 76
+	GE  reduce 76
+	AND  reduce 76
+	OR  reduce 76
+	SCOL  reduce 76
+	LP  reduce 109
+	BITAND  reduce 76
+	BITOR  reduce 76
+
+	$$22  goto 75
+
+
+state 35
+	UNARY_OP : ADD .  (79)
 
 	.  reduce 79
 
 
-state 38
-	DECLARATION : DATA_TYPE . ID  (43)
-	DECLARATION : DATA_TYPE . ID ASSIGN EXPR  (44)
-	DECLARATION : DATA_TYPE . ID LB INT_NUM RB  (46)
-	DECLARATION : DATA_TYPE . ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF  (48)
+state 36
+	UNARY_OP : SUB .  (80)
 
-	ID  shift 75
+	.  reduce 80
+
+
+state 37
+	PRIMARY_EXPR : LP . EXPR RP  (78)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
 	.  error
+
+	EXPR  goto 76
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 38
+	CONST : CHARACTER .  (84)
+
+	.  reduce 84
 
 
 state 39
-	FUNCTION : FUNCTION_PREFIX LF $$1 STMTLIST . RF  (6)
+	UNARY_OP : NEG .  (81)
 
-	RF  shift 76
-	.  error
+	.  reduce 81
 
 
 state 40
-	STMTLIST : STMT . STMTLIST  (20)
-	STMTLIST : .  (21)
+	DECLARATION : DATA_TYPE . ID  (45)
+	DECLARATION : DATA_TYPE . ID ASSIGN EXPR  (46)
+	DECLARATION : DATA_TYPE . ID LB INT_NUM RB  (48)
+	DECLARATION : DATA_TYPE . ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF  (50)
 
-	INT  shift 3
-	CHAR  shift 4
-	FLOAT  shift 5
-	STRING  shift 21
-	RETURN  shift 22
-	INPUT  shift 23
-	OUTPUT  shift 24
-	IF  shift 25
-	WHILE  shift 26
-	FOR  shift 27
-	BREAK  shift 28
-	CONTINUE  shift 29
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 32
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RF  reduce 21
-
-	DATA_TYPE  goto 38
-	STMTLIST  goto 77
-	STMT  goto 40
-	DECLARATION  goto 41
-	ASSIGNMENT  goto 42
-	EXPR  goto 43
-	RETURN_STMT  goto 44
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	IF_STMT  goto 49
-	WHILE_STMT  goto 50
-	FOR_STMT  goto 51
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	ID  shift 77
+	.  error
 
 
 state 41
-	STMT : DECLARATION . SCOL  (31)
+	FUNCTION : FUNCTION_PREFIX LF $$1 STMTLIST . RF  (6)
 
-	SCOL  shift 78
+	RF  shift 78
 	.  error
 
 
 state 42
-	STMT : ASSIGNMENT . SCOL  (32)
+	STMTLIST : STMT . STMTLIST  (22)
+	STMTLIST : .  (23)
 
-	SCOL  shift 79
-	.  error
+	INT  shift 3
+	CHAR  shift 4
+	FLOAT  shift 5
+	STRING  shift 23
+	RETURN  shift 24
+	INPUT  shift 25
+	OUTPUT  shift 26
+	IF  shift 27
+	WHILE  shift 28
+	FOR  shift 29
+	BREAK  shift 30
+	CONTINUE  shift 31
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 34
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RF  reduce 23
+
+	DATA_TYPE  goto 40
+	STMTLIST  goto 79
+	STMT  goto 42
+	DECLARATION  goto 43
+	ASSIGNMENT  goto 44
+	EXPR  goto 45
+	RETURN_STMT  goto 46
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	IF_STMT  goto 51
+	WHILE_STMT  goto 52
+	FOR_STMT  goto 53
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 43
-	STMT : EXPR . SCOL  (33)
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	STMT : DECLARATION . SCOL  (33)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	SCOL  shift 92
-	BITAND  shift 93
-	BITOR  shift 94
+	SCOL  shift 80
 	.  error
 
 
 state 44
-	STMT : RETURN_STMT . SCOL  (34)
+	STMT : ASSIGNMENT . SCOL  (34)
 
-	SCOL  shift 95
+	SCOL  shift 81
 	.  error
 
 
 state 45
-	EXPR : UNARY_EXPR .  (68)
+	STMT : EXPR . SCOL  (35)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	.  reduce 68
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	SCOL  shift 94
+	BITAND  shift 95
+	BITOR  shift 96
+	.  error
 
 
 state 46
-	EXPR : PRIMARY_EXPR .  (69)
+	STMT : RETURN_STMT . SCOL  (36)
 
-	.  reduce 69
+	SCOL  shift 97
+	.  error
 
 
 state 47
-	UNARY_EXPR : UNARY_OP . PRIMARY_EXPR  (73)
+	EXPR : UNARY_EXPR .  (70)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 96
-	LP  shift 35
-	CHARACTER  shift 36
-	.  error
-
-	PRIMARY_EXPR  goto 97
-	CONST  goto 48
+	.  reduce 70
 
 
 state 48
-	PRIMARY_EXPR : CONST .  (75)
+	EXPR : PRIMARY_EXPR .  (71)
 
-	.  reduce 75
+	.  reduce 71
 
 
 state 49
-	STMT : IF_STMT .  (35)
+	UNARY_EXPR : UNARY_OP . PRIMARY_EXPR  (75)
 
-	.  reduce 35
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 98
+	LP  shift 37
+	CHARACTER  shift 38
+	.  error
+
+	PRIMARY_EXPR  goto 99
+	CONST  goto 50
 
 
 state 50
-	STMT : WHILE_STMT .  (36)
+	PRIMARY_EXPR : CONST .  (77)
 
-	.  reduce 36
+	.  reduce 77
 
 
 state 51
-	STMT : FOR_STMT .  (37)
+	STMT : IF_STMT .  (37)
 
 	.  reduce 37
 
 
 state 52
-	POSTFIX_EXPR : FUNCTION_CALL .  (71)
+	STMT : WHILE_STMT .  (38)
 
-	.  reduce 71
+	.  reduce 38
 
 
 state 53
-	EXPR : POSTFIX_EXPR .  (70)
+	STMT : FOR_STMT .  (39)
 
-	.  reduce 70
+	.  reduce 39
 
 
 state 54
+	POSTFIX_EXPR : FUNCTION_CALL .  (73)
+
+	.  reduce 73
+
+
+state 55
+	EXPR : POSTFIX_EXPR .  (72)
+
+	.  reduce 72
+
+
+state 56
 	FUNCTION_PREFIX : FUNCTION_TYPE ID $$2 LP . PARAMLIST RP  (8)
-	PARAMLIST : .  (18)
+	PARAMLIST : .  (20)
 
 	INT  shift 3
 	CHAR  shift 4
 	FLOAT  shift 5
 	STRING  shift 6
-	RP  reduce 18
+	RP  reduce 20
 
-	DATA_TYPE  goto 98
-	PARAMLIST  goto 99
-	PARAM  goto 100
-
-
-state 55
-	ACCESS_MODIFIER : PUBLIC .  (28)
-
-	.  reduce 28
-
-
-state 56
-	ACCESS_MODIFIER : PRIVATE .  (29)
-
-	.  reduce 29
+	DATA_TYPE  goto 100
+	PARAMLIST  goto 101
+	PARAM  goto 102
 
 
 state 57
-	ACCESS_MODIFIER : PROTECTED .  (30)
+	ACCESS_MODIFIER : PUBLIC .  (30)
 
 	.  reduce 30
 
 
 state 58
-	CLASSDEF : CLASS ID LF CLASSBODY RF .  (22)
+	ACCESS_MODIFIER : PRIVATE .  (31)
 
-	.  reduce 22
+	.  reduce 31
 
 
 state 59
-	CLASSBODY : CLASSBODY CLASSMEMBER .  (23)
+	ACCESS_MODIFIER : PROTECTED .  (32)
 
-	.  reduce 23
+	.  reduce 32
 
 
 state 60
-	CLASSMEMBER : ACCESS_MODIFIER . DATA_TYPE ID SCOL  (25)
-	CLASSMEMBER : ACCESS_MODIFIER . FUNCTION  (26)
+	CLASSDEF : CLASS ID LF CLASSBODY RF .  (24)
+
+	.  reduce 24
+
+
+state 61
+	CLASSBODY : CLASSBODY CLASSMEMBER .  (25)
+
+	.  reduce 25
+
+
+state 62
+	CLASSMEMBER : ACCESS_MODIFIER . DATA_TYPE ID SCOL  (27)
+	CLASSMEMBER : ACCESS_MODIFIER . FUNCTION  (28)
 
 	INT  shift 3
 	CHAR  shift 4
@@ -783,1009 +801,931 @@ state 60
 	VOID  shift 7
 	.  error
 
-	FUNCTION  goto 101
+	FUNCTION  goto 103
 	FUNCTION_PREFIX  goto 10
-	DATA_TYPE  goto 102
+	DATA_TYPE  goto 104
 	FUNCTION_TYPE  goto 13
 
 
-state 61
-	DECLARATION : STRING ID . ASSIGN STR  (45)
-
-	ASSIGN  shift 103
-	.  error
-
-
-state 62
-	POSTFIX_EXPR : ID . LB EXPR RB  (72)
-	PRIMARY_EXPR : ID .  (74)
-	FUNCTION_CALL : ID . $$22 LP ARGUMENTLIST RP  (108)
-	$$22 : .  (107)
-
-	LB  shift 104
-	ADD  reduce 74
-	SUB  reduce 74
-	MUL  reduce 74
-	DIV  reduce 74
-	EQ  reduce 74
-	NE  reduce 74
-	LT  reduce 74
-	GT  reduce 74
-	LE  reduce 74
-	GE  reduce 74
-	AND  reduce 74
-	OR  reduce 74
-	SCOL  reduce 74
-	COMMA  reduce 74
-	LP  reduce 107
-	RP  reduce 74
-	RB  reduce 74
-	BITAND  reduce 74
-	BITOR  reduce 74
-
-	$$22  goto 73
-
-
 state 63
-	RETURN_STMT : RETURN EXPR .  (52)
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	DECLARATION : STRING ID . ASSIGN STR  (47)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	BITAND  shift 93
-	BITOR  shift 94
-	SCOL  reduce 52
+	ASSIGN  shift 105
+	.  error
 
 
 state 64
-	STMT : INPUT LP . ID RP SCOL  (40)
-	STMT : INPUT LP . ID LB EXPR RB RP SCOL  (41)
+	POSTFIX_EXPR : ID . LB EXPR RB  (74)
+	PRIMARY_EXPR : ID .  (76)
+	FUNCTION_CALL : ID . $$22 LP ARGUMENTLIST RP  (110)
+	$$22 : .  (109)
 
-	ID  shift 105
-	.  error
+	LB  shift 106
+	ADD  reduce 76
+	SUB  reduce 76
+	MUL  reduce 76
+	DIV  reduce 76
+	EQ  reduce 76
+	NE  reduce 76
+	LT  reduce 76
+	GT  reduce 76
+	LE  reduce 76
+	GE  reduce 76
+	AND  reduce 76
+	OR  reduce 76
+	SCOL  reduce 76
+	COMMA  reduce 76
+	LP  reduce 109
+	RP  reduce 76
+	RB  reduce 76
+	BITAND  reduce 76
+	BITOR  reduce 76
+
+	$$22  goto 75
 
 
 state 65
-	STMT : OUTPUT LP . EXPR RP SCOL  (42)
+	RETURN_STMT : RETURN EXPR .  (54)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 106
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	BITAND  shift 95
+	BITOR  shift 96
+	SCOL  reduce 54
 
 
 state 66
-	IF_STMT : IF $$6 . LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
+	STMT : INPUT LP . ID RP SCOL  (42)
+	STMT : INPUT LP . ID LB EXPR RB RP SCOL  (43)
 
-	LP  shift 107
+	ID  shift 107
 	.  error
 
 
 state 67
-	WHILE_STMT : WHILE $$15 . LP EXPR RP $$16 LF $$17 STMTLIST RF  (101)
+	STMT : OUTPUT LP . EXPR RP SCOL  (44)
 
-	LP  shift 108
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
 	.  error
+
+	EXPR  goto 108
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 68
-	FOR_STMT : FOR LP . ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
+	IF_STMT : IF $$6 . LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
 
-	ID  shift 109
+	LP  shift 109
 	.  error
-
-	ASSIGNMENT  goto 110
 
 
 state 69
-	STMT : BREAK SCOL .  (38)
+	WHILE_STMT : WHILE $$15 . LP EXPR RP $$16 LF $$17 STMTLIST RF  (103)
 
-	.  reduce 38
+	LP  shift 110
+	.  error
 
 
 state 70
-	STMT : CONTINUE SCOL .  (39)
+	FOR_STMT : FOR LP . ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
 
-	.  reduce 39
+	ID  shift 111
+	.  error
+
+	ASSIGNMENT  goto 112
 
 
 state 71
-	ASSIGNMENT : ID ASSIGN . EXPR  (83)
+	STMT : BREAK SCOL .  (40)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 111
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	.  reduce 40
 
 
 state 72
-	POSTFIX_EXPR : ID LB . EXPR RB  (72)
-	ASSIGNMENT : ID LB . EXPR RB ASSIGN EXPR  (84)
+	STMT : CONTINUE SCOL .  (41)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 112
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	.  reduce 41
 
 
 state 73
-	FUNCTION_CALL : ID $$22 . LP ARGUMENTLIST RP  (108)
+	ASSIGNMENT : ID ASSIGN . EXPR  (85)
 
-	LP  shift 113
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
 	.  error
+
+	EXPR  goto 113
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 74
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	PRIMARY_EXPR : LP EXPR . RP  (76)
+	POSTFIX_EXPR : ID LB . EXPR RB  (74)
+	ASSIGNMENT : ID LB . EXPR RB ASSIGN EXPR  (86)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RP  shift 114
-	BITAND  shift 93
-	BITOR  shift 94
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
 	.  error
+
+	EXPR  goto 114
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 75
-	DECLARATION : DATA_TYPE ID .  (43)
-	DECLARATION : DATA_TYPE ID . ASSIGN EXPR  (44)
-	DECLARATION : DATA_TYPE ID . LB INT_NUM RB  (46)
-	DECLARATION : DATA_TYPE ID . LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF  (48)
+	FUNCTION_CALL : ID $$22 . LP ARGUMENTLIST RP  (110)
 
-	ASSIGN  shift 115
-	LB  shift 116
-	SCOL  reduce 43
+	LP  shift 115
+	.  error
 
 
 state 76
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	PRIMARY_EXPR : LP EXPR . RP  (78)
+
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RP  shift 116
+	BITAND  shift 95
+	BITOR  shift 96
+	.  error
+
+
+state 77
+	DECLARATION : DATA_TYPE ID .  (45)
+	DECLARATION : DATA_TYPE ID . ASSIGN EXPR  (46)
+	DECLARATION : DATA_TYPE ID . LB INT_NUM RB  (48)
+	DECLARATION : DATA_TYPE ID . LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF  (50)
+
+	ASSIGN  shift 117
+	LB  shift 118
+	SCOL  reduce 45
+
+
+state 78
 	FUNCTION : FUNCTION_PREFIX LF $$1 STMTLIST RF .  (6)
 
 	.  reduce 6
 
 
-state 77
-	STMTLIST : STMT STMTLIST .  (20)
-
-	.  reduce 20
-
-
-state 78
-	STMT : DECLARATION SCOL .  (31)
-
-	.  reduce 31
-
-
 state 79
-	STMT : ASSIGNMENT SCOL .  (32)
+	STMTLIST : STMT STMTLIST .  (22)
 
-	.  reduce 32
+	.  reduce 22
 
 
 state 80
-	EXPR : EXPR ADD . EXPR  (54)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 117
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 81
-	EXPR : EXPR SUB . EXPR  (55)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 118
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 82
-	EXPR : EXPR MUL . EXPR  (56)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 119
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 83
-	EXPR : EXPR DIV . EXPR  (57)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 120
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 84
-	EXPR : EXPR EQ . EXPR  (58)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 121
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 85
-	EXPR : EXPR NE . EXPR  (59)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 122
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 86
-	EXPR : EXPR LT . EXPR  (60)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 123
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 87
-	EXPR : EXPR GT . EXPR  (61)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 124
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 88
-	EXPR : EXPR LE . EXPR  (62)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 125
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 89
-	EXPR : EXPR GE . EXPR  (63)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 126
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 90
-	EXPR : EXPR AND . EXPR  (64)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 127
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 91
-	EXPR : EXPR OR . EXPR  (65)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 128
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 92
-	STMT : EXPR SCOL .  (33)
+	STMT : DECLARATION SCOL .  (33)
 
 	.  reduce 33
 
 
-state 93
-	EXPR : EXPR BITAND . EXPR  (66)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 129
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 94
-	EXPR : EXPR BITOR . EXPR  (67)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 130
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 95
-	STMT : RETURN_STMT SCOL .  (34)
+state 81
+	STMT : ASSIGNMENT SCOL .  (34)
 
 	.  reduce 34
 
 
-state 96
-	PRIMARY_EXPR : ID .  (74)
+state 82
+	EXPR : EXPR ADD . EXPR  (56)
 
-	.  reduce 74
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 119
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 83
+	EXPR : EXPR SUB . EXPR  (57)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 120
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 84
+	EXPR : EXPR MUL . EXPR  (58)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 121
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 85
+	EXPR : EXPR DIV . EXPR  (59)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 122
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 86
+	EXPR : EXPR EQ . EXPR  (60)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 123
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 87
+	EXPR : EXPR NE . EXPR  (61)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 124
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 88
+	EXPR : EXPR LT . EXPR  (62)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 125
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 89
+	EXPR : EXPR GT . EXPR  (63)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 126
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 90
+	EXPR : EXPR LE . EXPR  (64)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 127
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 91
+	EXPR : EXPR GE . EXPR  (65)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 128
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 92
+	EXPR : EXPR AND . EXPR  (66)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 129
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 93
+	EXPR : EXPR OR . EXPR  (67)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 130
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 94
+	STMT : EXPR SCOL .  (35)
+
+	.  reduce 35
+
+
+state 95
+	EXPR : EXPR BITAND . EXPR  (68)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 131
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 96
+	EXPR : EXPR BITOR . EXPR  (69)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 132
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 97
-	UNARY_EXPR : UNARY_OP PRIMARY_EXPR .  (73)
+	STMT : RETURN_STMT SCOL .  (36)
 
-	.  reduce 73
+	.  reduce 36
 
 
 state 98
-	PARAM : DATA_TYPE . ID  (19)
-
-	ID  shift 131
-	.  error
-
-
-state 99
-	FUNCTION_PREFIX : FUNCTION_TYPE ID $$2 LP PARAMLIST . RP  (8)
-
-	RP  shift 132
-	.  error
-
-
-state 100
-	PARAMLIST : PARAM . $$3 COMMA PARAMLIST  (16)
-	PARAMLIST : PARAM .  (17)
-	$$3 : .  (15)
-
-	COMMA  reduce 15
-	RP  reduce 17
-
-	$$3  goto 133
-
-
-state 101
-	CLASSMEMBER : ACCESS_MODIFIER FUNCTION .  (26)
-
-	.  reduce 26
-
-
-102: shift/reduce conflict (shift 134, reduce 10) on ID
-state 102
-	FUNCTION_TYPE : DATA_TYPE .  (10)
-	CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE . ID SCOL  (25)
-
-	ID  shift 134
-
-
-state 103
-	DECLARATION : STRING ID ASSIGN . STR  (45)
-
-	STR  shift 135
-	.  error
-
-
-state 104
-	POSTFIX_EXPR : ID LB . EXPR RB  (72)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 136
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 105
-	STMT : INPUT LP ID . RP SCOL  (40)
-	STMT : INPUT LP ID . LB EXPR RB RP SCOL  (41)
-
-	RP  shift 137
-	LB  shift 138
-	.  error
-
-
-state 106
-	STMT : OUTPUT LP EXPR . RP SCOL  (42)
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RP  shift 139
-	BITAND  shift 93
-	BITOR  shift 94
-	.  error
-
-
-state 107
-	IF_STMT : IF $$6 LP . EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 140
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 108
-	WHILE_STMT : WHILE $$15 LP . EXPR RP $$16 LF $$17 STMTLIST RF  (101)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
-
-	EXPR  goto 141
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 109
-	ASSIGNMENT : ID . ASSIGN EXPR  (83)
-	ASSIGNMENT : ID . LB EXPR RB ASSIGN EXPR  (84)
-
-	ASSIGN  shift 71
-	LB  shift 142
-	.  error
-
-
-state 110
-	FOR_STMT : FOR LP ASSIGNMENT . SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
-
-	SCOL  shift 143
-	.  error
-
-
-state 111
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	ASSIGNMENT : ID ASSIGN EXPR .  (83)
-
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	BITAND  shift 93
-	BITOR  shift 94
-	SCOL  reduce 83
-	RP  reduce 83
-
-
-state 112
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	POSTFIX_EXPR : ID LB EXPR . RB  (72)
-	ASSIGNMENT : ID LB EXPR . RB ASSIGN EXPR  (84)
-
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RB  shift 144
-	BITAND  shift 93
-	BITOR  shift 94
-	.  error
-
-
-state 113
-	FUNCTION_CALL : ID $$22 LP . ARGUMENTLIST RP  (108)
-	ARGUMENTLIST : .  (111)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RP  reduce 111
-
-	EXPR  goto 145
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	ARGUMENTLIST  goto 146
-	ARG  goto 147
-	POSTFIX_EXPR  goto 53
-
-
-state 114
-	PRIMARY_EXPR : LP EXPR RP .  (76)
+	PRIMARY_EXPR : ID .  (76)
 
 	.  reduce 76
 
 
-state 115
-	DECLARATION : DATA_TYPE ID ASSIGN . EXPR  (44)
+state 99
+	UNARY_EXPR : UNARY_OP PRIMARY_EXPR .  (75)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
+	.  reduce 75
+
+
+state 100
+	PARAM : DATA_TYPE . ID  (21)
+
+	ID  shift 133
 	.  error
 
-	EXPR  goto 148
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+
+state 101
+	FUNCTION_PREFIX : FUNCTION_TYPE ID $$2 LP PARAMLIST . RP  (8)
+
+	RP  shift 134
+	.  error
+
+
+state 102
+	PARAMLIST : PARAM . $$3 COMMA PARAMLIST  (18)
+	PARAMLIST : PARAM .  (19)
+	$$3 : .  (17)
+
+	COMMA  reduce 17
+	RP  reduce 19
+
+	$$3  goto 135
+
+
+state 103
+	CLASSMEMBER : ACCESS_MODIFIER FUNCTION .  (28)
+
+	.  reduce 28
+
+
+104: shift/reduce conflict (shift 136, reduce 10) on ID
+state 104
+	FUNCTION_TYPE : DATA_TYPE .  (10)
+	CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE . ID SCOL  (27)
+
+	ID  shift 136
+
+
+state 105
+	DECLARATION : STRING ID ASSIGN . STR  (47)
+
+	STR  shift 137
+	.  error
+
+
+state 106
+	POSTFIX_EXPR : ID LB . EXPR RB  (74)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 138
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 107
+	STMT : INPUT LP ID . RP SCOL  (42)
+	STMT : INPUT LP ID . LB EXPR RB RP SCOL  (43)
+
+	RP  shift 139
+	LB  shift 140
+	.  error
+
+
+state 108
+	STMT : OUTPUT LP EXPR . RP SCOL  (44)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RP  shift 141
+	BITAND  shift 95
+	BITOR  shift 96
+	.  error
+
+
+state 109
+	IF_STMT : IF $$6 LP . EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 142
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 110
+	WHILE_STMT : WHILE $$15 LP . EXPR RP $$16 LF $$17 STMTLIST RF  (103)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 143
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 111
+	ASSIGNMENT : ID . ASSIGN EXPR  (85)
+	ASSIGNMENT : ID . LB EXPR RB ASSIGN EXPR  (86)
+
+	ASSIGN  shift 73
+	LB  shift 144
+	.  error
+
+
+state 112
+	FOR_STMT : FOR LP ASSIGNMENT . SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
+
+	SCOL  shift 145
+	.  error
+
+
+state 113
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	ASSIGNMENT : ID ASSIGN EXPR .  (85)
+
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	BITAND  shift 95
+	BITOR  shift 96
+	SCOL  reduce 85
+	RP  reduce 85
+
+
+state 114
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	POSTFIX_EXPR : ID LB EXPR . RB  (74)
+	ASSIGNMENT : ID LB EXPR . RB ASSIGN EXPR  (86)
+
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RB  shift 146
+	BITAND  shift 95
+	BITOR  shift 96
+	.  error
+
+
+state 115
+	FUNCTION_CALL : ID $$22 LP . ARGUMENTLIST RP  (110)
+	ARGUMENTLIST : .  (113)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RP  reduce 113
+
+	EXPR  goto 147
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	ARGUMENTLIST  goto 148
+	ARG  goto 149
+	POSTFIX_EXPR  goto 55
 
 
 state 116
-	DECLARATION : DATA_TYPE ID LB . INT_NUM RB  (46)
-	DECLARATION : DATA_TYPE ID LB . INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF  (48)
+	PRIMARY_EXPR : LP EXPR RP .  (78)
 
-	INT_NUM  shift 149
+	.  reduce 78
+
+
+state 117
+	DECLARATION : DATA_TYPE ID ASSIGN . EXPR  (46)
+
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 150
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 118
+	DECLARATION : DATA_TYPE ID LB . INT_NUM RB  (48)
+	DECLARATION : DATA_TYPE ID LB . INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF  (50)
+
+	INT_NUM  shift 151
 	.  error
 
 
-117: shift/reduce conflict (shift 93, reduce 54) on BITAND
-117: shift/reduce conflict (shift 94, reduce 54) on BITOR
-state 117
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR ADD EXPR .  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-
-	MUL  shift 82
-	DIV  shift 83
-	BITAND  shift 93
-	BITOR  shift 94
-	ADD  reduce 54
-	SUB  reduce 54
-	EQ  reduce 54
-	NE  reduce 54
-	LT  reduce 54
-	GT  reduce 54
-	LE  reduce 54
-	GE  reduce 54
-	AND  reduce 54
-	OR  reduce 54
-	SCOL  reduce 54
-	COMMA  reduce 54
-	RP  reduce 54
-	RB  reduce 54
-
-
-118: shift/reduce conflict (shift 93, reduce 55) on BITAND
-118: shift/reduce conflict (shift 94, reduce 55) on BITOR
-state 118
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR SUB EXPR .  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-
-	MUL  shift 82
-	DIV  shift 83
-	BITAND  shift 93
-	BITOR  shift 94
-	ADD  reduce 55
-	SUB  reduce 55
-	EQ  reduce 55
-	NE  reduce 55
-	LT  reduce 55
-	GT  reduce 55
-	LE  reduce 55
-	GE  reduce 55
-	AND  reduce 55
-	OR  reduce 55
-	SCOL  reduce 55
-	COMMA  reduce 55
-	RP  reduce 55
-	RB  reduce 55
-
-
-119: shift/reduce conflict (shift 93, reduce 56) on BITAND
-119: shift/reduce conflict (shift 94, reduce 56) on BITOR
+119: shift/reduce conflict (shift 95, reduce 56) on BITAND
+119: shift/reduce conflict (shift 96, reduce 56) on BITOR
 state 119
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR MUL EXPR .  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR ADD EXPR .  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	BITAND  shift 93
-	BITOR  shift 94
+	MUL  shift 84
+	DIV  shift 85
+	BITAND  shift 95
+	BITOR  shift 96
 	ADD  reduce 56
 	SUB  reduce 56
-	MUL  reduce 56
-	DIV  reduce 56
 	EQ  reduce 56
 	NE  reduce 56
 	LT  reduce 56
@@ -1800,31 +1740,31 @@ state 119
 	RB  reduce 56
 
 
-120: shift/reduce conflict (shift 93, reduce 57) on BITAND
-120: shift/reduce conflict (shift 94, reduce 57) on BITOR
+120: shift/reduce conflict (shift 95, reduce 57) on BITAND
+120: shift/reduce conflict (shift 96, reduce 57) on BITOR
 state 120
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR DIV EXPR .  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR SUB EXPR .  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	BITAND  shift 93
-	BITOR  shift 94
+	MUL  shift 84
+	DIV  shift 85
+	BITAND  shift 95
+	BITOR  shift 96
 	ADD  reduce 57
 	SUB  reduce 57
-	MUL  reduce 57
-	DIV  reduce 57
 	EQ  reduce 57
 	NE  reduce 57
 	LT  reduce 57
@@ -1839,37 +1779,37 @@ state 120
 	RB  reduce 57
 
 
-121: shift/reduce conflict (shift 93, reduce 58) on BITAND
-121: shift/reduce conflict (shift 94, reduce 58) on BITOR
+121: shift/reduce conflict (shift 95, reduce 58) on BITAND
+121: shift/reduce conflict (shift 96, reduce 58) on BITOR
 state 121
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR EQ EXPR .  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR MUL EXPR .  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	BITAND  shift 93
-	BITOR  shift 94
+	BITAND  shift 95
+	BITOR  shift 96
+	ADD  reduce 58
+	SUB  reduce 58
+	MUL  reduce 58
+	DIV  reduce 58
 	EQ  reduce 58
 	NE  reduce 58
+	LT  reduce 58
+	GT  reduce 58
+	LE  reduce 58
+	GE  reduce 58
 	AND  reduce 58
 	OR  reduce 58
 	SCOL  reduce 58
@@ -1878,37 +1818,37 @@ state 121
 	RB  reduce 58
 
 
-122: shift/reduce conflict (shift 93, reduce 59) on BITAND
-122: shift/reduce conflict (shift 94, reduce 59) on BITOR
+122: shift/reduce conflict (shift 95, reduce 59) on BITAND
+122: shift/reduce conflict (shift 96, reduce 59) on BITOR
 state 122
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR NE EXPR .  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR DIV EXPR .  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	BITAND  shift 93
-	BITOR  shift 94
+	BITAND  shift 95
+	BITOR  shift 96
+	ADD  reduce 59
+	SUB  reduce 59
+	MUL  reduce 59
+	DIV  reduce 59
 	EQ  reduce 59
 	NE  reduce 59
+	LT  reduce 59
+	GT  reduce 59
+	LE  reduce 59
+	GE  reduce 59
 	AND  reduce 59
 	OR  reduce 59
 	SCOL  reduce 59
@@ -1917,37 +1857,37 @@ state 122
 	RB  reduce 59
 
 
-123: shift/reduce conflict (shift 93, reduce 60) on BITAND
-123: shift/reduce conflict (shift 94, reduce 60) on BITOR
+123: shift/reduce conflict (shift 95, reduce 60) on BITAND
+123: shift/reduce conflict (shift 96, reduce 60) on BITOR
 state 123
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR LT EXPR .  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR EQ EXPR .  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	BITAND  shift 95
+	BITOR  shift 96
 	EQ  reduce 60
 	NE  reduce 60
-	LT  reduce 60
-	GT  reduce 60
-	LE  reduce 60
-	GE  reduce 60
 	AND  reduce 60
 	OR  reduce 60
 	SCOL  reduce 60
@@ -1956,37 +1896,37 @@ state 123
 	RB  reduce 60
 
 
-124: shift/reduce conflict (shift 93, reduce 61) on BITAND
-124: shift/reduce conflict (shift 94, reduce 61) on BITOR
+124: shift/reduce conflict (shift 95, reduce 61) on BITAND
+124: shift/reduce conflict (shift 96, reduce 61) on BITOR
 state 124
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR GT EXPR .  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR NE EXPR .  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	BITAND  shift 95
+	BITOR  shift 96
 	EQ  reduce 61
 	NE  reduce 61
-	LT  reduce 61
-	GT  reduce 61
-	LE  reduce 61
-	GE  reduce 61
 	AND  reduce 61
 	OR  reduce 61
 	SCOL  reduce 61
@@ -1995,31 +1935,31 @@ state 124
 	RB  reduce 61
 
 
-125: shift/reduce conflict (shift 93, reduce 62) on BITAND
-125: shift/reduce conflict (shift 94, reduce 62) on BITOR
+125: shift/reduce conflict (shift 95, reduce 62) on BITAND
+125: shift/reduce conflict (shift 96, reduce 62) on BITOR
 state 125
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR LE EXPR .  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR LT EXPR .  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	BITAND  shift 95
+	BITOR  shift 96
 	EQ  reduce 62
 	NE  reduce 62
 	LT  reduce 62
@@ -2034,31 +1974,31 @@ state 125
 	RB  reduce 62
 
 
-126: shift/reduce conflict (shift 93, reduce 63) on BITAND
-126: shift/reduce conflict (shift 94, reduce 63) on BITOR
+126: shift/reduce conflict (shift 95, reduce 63) on BITAND
+126: shift/reduce conflict (shift 96, reduce 63) on BITOR
 state 126
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR GE EXPR .  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR GT EXPR .  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	BITAND  shift 95
+	BITOR  shift 96
 	EQ  reduce 63
 	NE  reduce 63
 	LT  reduce 63
@@ -2073,37 +2013,37 @@ state 126
 	RB  reduce 63
 
 
-127: shift/reduce conflict (shift 93, reduce 64) on BITAND
-127: shift/reduce conflict (shift 94, reduce 64) on BITOR
+127: shift/reduce conflict (shift 95, reduce 64) on BITAND
+127: shift/reduce conflict (shift 96, reduce 64) on BITOR
 state 127
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR AND EXPR .  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR LE EXPR .  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	BITAND  shift 95
+	BITOR  shift 96
+	EQ  reduce 64
+	NE  reduce 64
+	LT  reduce 64
+	GT  reduce 64
+	LE  reduce 64
+	GE  reduce 64
 	AND  reduce 64
 	OR  reduce 64
 	SCOL  reduce 64
@@ -2112,37 +2052,37 @@ state 127
 	RB  reduce 64
 
 
-128: shift/reduce conflict (shift 93, reduce 65) on BITAND
-128: shift/reduce conflict (shift 94, reduce 65) on BITOR
+128: shift/reduce conflict (shift 95, reduce 65) on BITAND
+128: shift/reduce conflict (shift 96, reduce 65) on BITOR
 state 128
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR OR EXPR .  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR GE EXPR .  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	BITAND  shift 95
+	BITOR  shift 96
+	EQ  reduce 65
+	NE  reduce 65
+	LT  reduce 65
+	GT  reduce 65
+	LE  reduce 65
+	GE  reduce 65
 	AND  reduce 65
 	OR  reduce 65
 	SCOL  reduce 65
@@ -2151,1367 +2091,1443 @@ state 128
 	RB  reduce 65
 
 
-129: shift/reduce conflict (shift 80, reduce 66) on ADD
-129: shift/reduce conflict (shift 81, reduce 66) on SUB
-129: shift/reduce conflict (shift 82, reduce 66) on MUL
-129: shift/reduce conflict (shift 83, reduce 66) on DIV
-129: shift/reduce conflict (shift 84, reduce 66) on EQ
-129: shift/reduce conflict (shift 85, reduce 66) on NE
-129: shift/reduce conflict (shift 86, reduce 66) on LT
-129: shift/reduce conflict (shift 87, reduce 66) on GT
-129: shift/reduce conflict (shift 88, reduce 66) on LE
-129: shift/reduce conflict (shift 89, reduce 66) on GE
-129: shift/reduce conflict (shift 90, reduce 66) on AND
-129: shift/reduce conflict (shift 91, reduce 66) on OR
-129: shift/reduce conflict (shift 93, reduce 66) on BITAND
-129: shift/reduce conflict (shift 94, reduce 66) on BITOR
+129: shift/reduce conflict (shift 95, reduce 66) on BITAND
+129: shift/reduce conflict (shift 96, reduce 66) on BITOR
 state 129
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR BITAND EXPR .  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR AND EXPR .  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	BITAND  shift 95
+	BITOR  shift 96
+	AND  reduce 66
+	OR  reduce 66
 	SCOL  reduce 66
 	COMMA  reduce 66
 	RP  reduce 66
 	RB  reduce 66
 
 
-130: shift/reduce conflict (shift 80, reduce 67) on ADD
-130: shift/reduce conflict (shift 81, reduce 67) on SUB
-130: shift/reduce conflict (shift 82, reduce 67) on MUL
-130: shift/reduce conflict (shift 83, reduce 67) on DIV
-130: shift/reduce conflict (shift 84, reduce 67) on EQ
-130: shift/reduce conflict (shift 85, reduce 67) on NE
-130: shift/reduce conflict (shift 86, reduce 67) on LT
-130: shift/reduce conflict (shift 87, reduce 67) on GT
-130: shift/reduce conflict (shift 88, reduce 67) on LE
-130: shift/reduce conflict (shift 89, reduce 67) on GE
-130: shift/reduce conflict (shift 90, reduce 67) on AND
-130: shift/reduce conflict (shift 91, reduce 67) on OR
-130: shift/reduce conflict (shift 93, reduce 67) on BITAND
-130: shift/reduce conflict (shift 94, reduce 67) on BITOR
+130: shift/reduce conflict (shift 95, reduce 67) on BITAND
+130: shift/reduce conflict (shift 96, reduce 67) on BITOR
 state 130
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	EXPR : EXPR BITOR EXPR .  (67)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR OR EXPR .  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	BITAND  shift 93
-	BITOR  shift 94
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	BITAND  shift 95
+	BITOR  shift 96
+	AND  reduce 67
+	OR  reduce 67
 	SCOL  reduce 67
 	COMMA  reduce 67
 	RP  reduce 67
 	RB  reduce 67
 
 
+131: shift/reduce conflict (shift 82, reduce 68) on ADD
+131: shift/reduce conflict (shift 83, reduce 68) on SUB
+131: shift/reduce conflict (shift 84, reduce 68) on MUL
+131: shift/reduce conflict (shift 85, reduce 68) on DIV
+131: shift/reduce conflict (shift 86, reduce 68) on EQ
+131: shift/reduce conflict (shift 87, reduce 68) on NE
+131: shift/reduce conflict (shift 88, reduce 68) on LT
+131: shift/reduce conflict (shift 89, reduce 68) on GT
+131: shift/reduce conflict (shift 90, reduce 68) on LE
+131: shift/reduce conflict (shift 91, reduce 68) on GE
+131: shift/reduce conflict (shift 92, reduce 68) on AND
+131: shift/reduce conflict (shift 93, reduce 68) on OR
+131: shift/reduce conflict (shift 95, reduce 68) on BITAND
+131: shift/reduce conflict (shift 96, reduce 68) on BITOR
 state 131
-	PARAM : DATA_TYPE ID .  (19)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR BITAND EXPR .  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	.  reduce 19
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	BITAND  shift 95
+	BITOR  shift 96
+	SCOL  reduce 68
+	COMMA  reduce 68
+	RP  reduce 68
+	RB  reduce 68
 
 
+132: shift/reduce conflict (shift 82, reduce 69) on ADD
+132: shift/reduce conflict (shift 83, reduce 69) on SUB
+132: shift/reduce conflict (shift 84, reduce 69) on MUL
+132: shift/reduce conflict (shift 85, reduce 69) on DIV
+132: shift/reduce conflict (shift 86, reduce 69) on EQ
+132: shift/reduce conflict (shift 87, reduce 69) on NE
+132: shift/reduce conflict (shift 88, reduce 69) on LT
+132: shift/reduce conflict (shift 89, reduce 69) on GT
+132: shift/reduce conflict (shift 90, reduce 69) on LE
+132: shift/reduce conflict (shift 91, reduce 69) on GE
+132: shift/reduce conflict (shift 92, reduce 69) on AND
+132: shift/reduce conflict (shift 93, reduce 69) on OR
+132: shift/reduce conflict (shift 95, reduce 69) on BITAND
+132: shift/reduce conflict (shift 96, reduce 69) on BITOR
 state 132
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	EXPR : EXPR BITOR EXPR .  (69)
+
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	BITAND  shift 95
+	BITOR  shift 96
+	SCOL  reduce 69
+	COMMA  reduce 69
+	RP  reduce 69
+	RB  reduce 69
+
+
+state 133
+	PARAM : DATA_TYPE ID .  (21)
+
+	.  reduce 21
+
+
+state 134
 	FUNCTION_PREFIX : FUNCTION_TYPE ID $$2 LP PARAMLIST RP .  (8)
 
 	.  reduce 8
 
 
-state 133
-	PARAMLIST : PARAM $$3 . COMMA PARAMLIST  (16)
-
-	COMMA  shift 150
-	.  error
-
-
-state 134
-	CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE ID . SCOL  (25)
-
-	SCOL  shift 151
-	.  error
-
-
 state 135
-	DECLARATION : STRING ID ASSIGN STR .  (45)
+	PARAMLIST : PARAM $$3 . COMMA PARAMLIST  (18)
 
-	.  reduce 45
+	COMMA  shift 152
+	.  error
 
 
 state 136
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	POSTFIX_EXPR : ID LB EXPR . RB  (72)
-
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RB  shift 152
-	BITAND  shift 93
-	BITOR  shift 94
-	.  error
-
-
-state 137
-	STMT : INPUT LP ID RP . SCOL  (40)
+	CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE ID . SCOL  (27)
 
 	SCOL  shift 153
 	.  error
 
 
+state 137
+	DECLARATION : STRING ID ASSIGN STR .  (47)
+
+	.  reduce 47
+
+
 state 138
-	STMT : INPUT LP ID LB . EXPR RB RP SCOL  (41)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	POSTFIX_EXPR : ID LB EXPR . RB  (74)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RB  shift 154
+	BITAND  shift 95
+	BITOR  shift 96
 	.  error
-
-	EXPR  goto 154
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
 
 
 state 139
-	STMT : OUTPUT LP EXPR RP . SCOL  (42)
+	STMT : INPUT LP ID RP . SCOL  (42)
 
 	SCOL  shift 155
 	.  error
 
 
 state 140
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	IF_STMT : IF $$6 LP EXPR . RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
+	STMT : INPUT LP ID LB . EXPR RB RP SCOL  (43)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RP  shift 156
-	BITAND  shift 93
-	BITOR  shift 94
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
 	.  error
+
+	EXPR  goto 156
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 141
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	WHILE_STMT : WHILE $$15 LP EXPR . RP $$16 LF $$17 STMTLIST RF  (101)
+	STMT : OUTPUT LP EXPR RP . SCOL  (44)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RP  shift 157
-	BITAND  shift 93
-	BITOR  shift 94
+	SCOL  shift 157
 	.  error
 
 
 state 142
-	ASSIGNMENT : ID LB . EXPR RB ASSIGN EXPR  (84)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	IF_STMT : IF $$6 LP EXPR . RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RP  shift 158
+	BITAND  shift 95
+	BITOR  shift 96
 	.  error
-
-	EXPR  goto 158
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
 
 
 state 143
-	FOR_STMT : FOR LP ASSIGNMENT SCOL . $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
-	$$18 : .  (102)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	WHILE_STMT : WHILE $$15 LP EXPR . RP $$16 LF $$17 STMTLIST RF  (103)
 
-	.  reduce 102
-
-	$$18  goto 159
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RP  shift 159
+	BITAND  shift 95
+	BITOR  shift 96
+	.  error
 
 
 state 144
-	POSTFIX_EXPR : ID LB EXPR RB .  (72)
-	ASSIGNMENT : ID LB EXPR RB . ASSIGN EXPR  (84)
+	ASSIGNMENT : ID LB . EXPR RB ASSIGN EXPR  (86)
 
-	ASSIGN  shift 160
-	ADD  reduce 72
-	SUB  reduce 72
-	MUL  reduce 72
-	DIV  reduce 72
-	EQ  reduce 72
-	NE  reduce 72
-	LT  reduce 72
-	GT  reduce 72
-	LE  reduce 72
-	GE  reduce 72
-	AND  reduce 72
-	OR  reduce 72
-	SCOL  reduce 72
-	BITAND  reduce 72
-	BITOR  reduce 72
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 160
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 145
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	ARG : EXPR .  (112)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL . $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
+	$$18 : .  (104)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	BITAND  shift 93
-	BITOR  shift 94
-	COMMA  reduce 112
-	RP  reduce 112
+	.  reduce 104
+
+	$$18  goto 161
 
 
 state 146
-	FUNCTION_CALL : ID $$22 LP ARGUMENTLIST . RP  (108)
+	POSTFIX_EXPR : ID LB EXPR RB .  (74)
+	ASSIGNMENT : ID LB EXPR RB . ASSIGN EXPR  (86)
 
-	RP  shift 161
-	.  error
+	ASSIGN  shift 162
+	ADD  reduce 74
+	SUB  reduce 74
+	MUL  reduce 74
+	DIV  reduce 74
+	EQ  reduce 74
+	NE  reduce 74
+	LT  reduce 74
+	GT  reduce 74
+	LE  reduce 74
+	GE  reduce 74
+	AND  reduce 74
+	OR  reduce 74
+	SCOL  reduce 74
+	BITAND  reduce 74
+	BITOR  reduce 74
 
 
 state 147
-	ARGUMENTLIST : ARG . COMMA ARGUMENTLIST  (109)
-	ARGUMENTLIST : ARG .  (110)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	ARG : EXPR .  (114)
 
-	COMMA  shift 162
-	RP  reduce 110
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	BITAND  shift 95
+	BITOR  shift 96
+	COMMA  reduce 114
+	RP  reduce 114
 
 
 state 148
-	DECLARATION : DATA_TYPE ID ASSIGN EXPR .  (44)
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	FUNCTION_CALL : ID $$22 LP ARGUMENTLIST . RP  (110)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	BITAND  shift 93
-	BITOR  shift 94
-	SCOL  reduce 44
-
-
-state 149
-	DECLARATION : DATA_TYPE ID LB INT_NUM . RB  (46)
-	DECLARATION : DATA_TYPE ID LB INT_NUM . RB ASSIGN $$4 LF ARR_VALUES RF  (48)
-
-	RB  shift 163
+	RP  shift 163
 	.  error
 
 
+state 149
+	ARGUMENTLIST : ARG . COMMA ARGUMENTLIST  (111)
+	ARGUMENTLIST : ARG .  (112)
+
+	COMMA  shift 164
+	RP  reduce 112
+
+
 state 150
-	PARAMLIST : PARAM $$3 COMMA . PARAMLIST  (16)
-	PARAMLIST : .  (18)
+	DECLARATION : DATA_TYPE ID ASSIGN EXPR .  (46)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	BITAND  shift 95
+	BITOR  shift 96
+	SCOL  reduce 46
+
+
+state 151
+	DECLARATION : DATA_TYPE ID LB INT_NUM . RB  (48)
+	DECLARATION : DATA_TYPE ID LB INT_NUM . RB ASSIGN $$4 LF ARR_VALUES RF  (50)
+
+	RB  shift 165
+	.  error
+
+
+state 152
+	PARAMLIST : PARAM $$3 COMMA . PARAMLIST  (18)
+	PARAMLIST : .  (20)
 
 	INT  shift 3
 	CHAR  shift 4
 	FLOAT  shift 5
 	STRING  shift 6
-	RP  reduce 18
+	RP  reduce 20
 
-	DATA_TYPE  goto 98
-	PARAMLIST  goto 164
-	PARAM  goto 100
-
-
-state 151
-	CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE ID SCOL .  (25)
-
-	.  reduce 25
-
-
-state 152
-	POSTFIX_EXPR : ID LB EXPR RB .  (72)
-
-	.  reduce 72
+	DATA_TYPE  goto 100
+	PARAMLIST  goto 166
+	PARAM  goto 102
 
 
 state 153
-	STMT : INPUT LP ID RP SCOL .  (40)
+	CLASSMEMBER : ACCESS_MODIFIER DATA_TYPE ID SCOL .  (27)
 
-	.  reduce 40
+	.  reduce 27
 
 
 state 154
-	STMT : INPUT LP ID LB EXPR . RB RP SCOL  (41)
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
+	POSTFIX_EXPR : ID LB EXPR RB .  (74)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RB  shift 165
-	BITAND  shift 93
-	BITOR  shift 94
-	.  error
+	.  reduce 74
 
 
 state 155
-	STMT : OUTPUT LP EXPR RP SCOL .  (42)
+	STMT : INPUT LP ID RP SCOL .  (42)
 
 	.  reduce 42
 
 
 state 156
-	IF_STMT : IF $$6 LP EXPR RP . $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
-	$$7 : .  (86)
+	STMT : INPUT LP ID LB EXPR . RB RP SCOL  (43)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
 
-	.  reduce 86
-
-	$$7  goto 166
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RB  shift 167
+	BITAND  shift 95
+	BITOR  shift 96
+	.  error
 
 
 state 157
-	WHILE_STMT : WHILE $$15 LP EXPR RP . $$16 LF $$17 STMTLIST RF  (101)
-	$$16 : .  (99)
+	STMT : OUTPUT LP EXPR RP SCOL .  (44)
 
-	.  reduce 99
-
-	$$16  goto 167
+	.  reduce 44
 
 
 state 158
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	ASSIGNMENT : ID LB EXPR . RB ASSIGN EXPR  (84)
+	IF_STMT : IF $$6 LP EXPR RP . $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
+	$$7 : .  (88)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RB  shift 168
-	BITAND  shift 93
-	BITOR  shift 94
-	.  error
+	.  reduce 88
+
+	$$7  goto 168
 
 
 state 159
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 . EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
+	WHILE_STMT : WHILE $$15 LP EXPR RP . $$16 LF $$17 STMTLIST RF  (103)
+	$$16 : .  (101)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
+	.  reduce 101
 
-	EXPR  goto 169
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	$$16  goto 169
 
 
 state 160
-	ASSIGNMENT : ID LB EXPR RB ASSIGN . EXPR  (84)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	ASSIGNMENT : ID LB EXPR . RB ASSIGN EXPR  (86)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RB  shift 170
+	BITAND  shift 95
+	BITOR  shift 96
 	.  error
-
-	EXPR  goto 170
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
 
 
 state 161
-	FUNCTION_CALL : ID $$22 LP ARGUMENTLIST RP .  (108)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 . EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
 
-	.  reduce 108
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 171
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 162
-	ARGUMENTLIST : ARG COMMA . ARGUMENTLIST  (109)
-	ARGUMENTLIST : .  (111)
+	ASSIGNMENT : ID LB EXPR RB ASSIGN . EXPR  (86)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RP  reduce 111
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
 
-	EXPR  goto 145
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	ARGUMENTLIST  goto 171
-	ARG  goto 147
-	POSTFIX_EXPR  goto 53
+	EXPR  goto 172
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 163
-	DECLARATION : DATA_TYPE ID LB INT_NUM RB .  (46)
-	DECLARATION : DATA_TYPE ID LB INT_NUM RB . ASSIGN $$4 LF ARR_VALUES RF  (48)
+	FUNCTION_CALL : ID $$22 LP ARGUMENTLIST RP .  (110)
 
-	ASSIGN  shift 172
-	SCOL  reduce 46
+	.  reduce 110
 
 
 state 164
-	PARAMLIST : PARAM $$3 COMMA PARAMLIST .  (16)
+	ARGUMENTLIST : ARG COMMA . ARGUMENTLIST  (111)
+	ARGUMENTLIST : .  (113)
 
-	.  reduce 16
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RP  reduce 113
+
+	EXPR  goto 147
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	ARGUMENTLIST  goto 173
+	ARG  goto 149
+	POSTFIX_EXPR  goto 55
 
 
 state 165
-	STMT : INPUT LP ID LB EXPR RB . RP SCOL  (41)
+	DECLARATION : DATA_TYPE ID LB INT_NUM RB .  (48)
+	DECLARATION : DATA_TYPE ID LB INT_NUM RB . ASSIGN $$4 LF ARR_VALUES RF  (50)
 
-	RP  shift 173
-	.  error
+	ASSIGN  shift 174
+	SCOL  reduce 48
 
 
 state 166
-	IF_STMT : IF $$6 LP EXPR RP $$7 . LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
+	PARAMLIST : PARAM $$3 COMMA PARAMLIST .  (18)
 
-	LF  shift 174
-	.  error
+	.  reduce 18
 
 
 state 167
-	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 . LF $$17 STMTLIST RF  (101)
+	STMT : INPUT LP ID LB EXPR RB . RP SCOL  (43)
 
-	LF  shift 175
+	RP  shift 175
 	.  error
 
 
 state 168
-	ASSIGNMENT : ID LB EXPR RB . ASSIGN EXPR  (84)
+	IF_STMT : IF $$6 LP EXPR RP $$7 . LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
 
-	ASSIGN  shift 160
+	LF  shift 176
 	.  error
 
 
 state 169
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR . SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
+	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 . LF $$17 STMTLIST RF  (103)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	SCOL  shift 176
-	BITAND  shift 93
-	BITOR  shift 94
+	LF  shift 177
 	.  error
 
 
 state 170
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	ASSIGNMENT : ID LB EXPR RB ASSIGN EXPR .  (84)
+	ASSIGNMENT : ID LB EXPR RB . ASSIGN EXPR  (86)
 
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	BITAND  shift 93
-	BITOR  shift 94
-	SCOL  reduce 84
-	RP  reduce 84
+	ASSIGN  shift 162
+	.  error
 
 
 state 171
-	ARGUMENTLIST : ARG COMMA ARGUMENTLIST .  (109)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR . SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
 
-	.  reduce 109
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	SCOL  shift 178
+	BITAND  shift 95
+	BITOR  shift 96
+	.  error
 
 
 state 172
-	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN . $$4 LF ARR_VALUES RF  (48)
-	$$4 : .  (47)
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	ASSIGNMENT : ID LB EXPR RB ASSIGN EXPR .  (86)
 
-	.  reduce 47
-
-	$$4  goto 177
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	BITAND  shift 95
+	BITOR  shift 96
+	SCOL  reduce 86
+	RP  reduce 86
 
 
 state 173
-	STMT : INPUT LP ID LB EXPR RB RP . SCOL  (41)
+	ARGUMENTLIST : ARG COMMA ARGUMENTLIST .  (111)
 
-	SCOL  shift 178
-	.  error
+	.  reduce 111
 
 
 state 174
-	IF_STMT : IF $$6 LP EXPR RP $$7 LF . $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
-	$$8 : .  (87)
+	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN . $$4 LF ARR_VALUES RF  (50)
+	$$4 : .  (49)
 
-	.  reduce 87
+	.  reduce 49
 
-	$$8  goto 179
+	$$4  goto 179
 
 
 state 175
-	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF . $$17 STMTLIST RF  (101)
-	$$17 : .  (100)
+	STMT : INPUT LP ID LB EXPR RB RP . SCOL  (43)
 
-	.  reduce 100
-
-	$$17  goto 180
+	SCOL  shift 180
+	.  error
 
 
 state 176
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL . $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
-	$$19 : .  (103)
+	IF_STMT : IF $$6 LP EXPR RP $$7 LF . $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
+	$$8 : .  (89)
 
-	.  reduce 103
+	.  reduce 89
 
-	$$19  goto 181
+	$$8  goto 181
 
 
 state 177
-	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 . LF ARR_VALUES RF  (48)
+	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF . $$17 STMTLIST RF  (103)
+	$$17 : .  (102)
 
-	LF  shift 182
-	.  error
+	.  reduce 102
+
+	$$17  goto 182
 
 
 state 178
-	STMT : INPUT LP ID LB EXPR RB RP SCOL .  (41)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL . $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
+	$$19 : .  (105)
 
-	.  reduce 41
+	.  reduce 105
+
+	$$19  goto 183
 
 
 state 179
-	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 . STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (89)
-	STMTLIST : .  (21)
+	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 . LF ARR_VALUES RF  (50)
 
-	INT  shift 3
-	CHAR  shift 4
-	FLOAT  shift 5
-	STRING  shift 21
-	RETURN  shift 22
-	INPUT  shift 23
-	OUTPUT  shift 24
-	IF  shift 25
-	WHILE  shift 26
-	FOR  shift 27
-	BREAK  shift 28
-	CONTINUE  shift 29
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 32
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RF  reduce 21
-
-	DATA_TYPE  goto 38
-	STMTLIST  goto 183
-	STMT  goto 40
-	DECLARATION  goto 41
-	ASSIGNMENT  goto 42
-	EXPR  goto 43
-	RETURN_STMT  goto 44
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	IF_STMT  goto 49
-	WHILE_STMT  goto 50
-	FOR_STMT  goto 51
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	LF  shift 184
+	.  error
 
 
 state 180
-	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 . STMTLIST RF  (101)
-	STMTLIST : .  (21)
+	STMT : INPUT LP ID LB EXPR RB RP SCOL .  (43)
+
+	.  reduce 43
+
+
+state 181
+	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 . STMTLIST RF $$9 ELIF_STMT ELSE_STMT  (91)
+	STMTLIST : .  (23)
 
 	INT  shift 3
 	CHAR  shift 4
 	FLOAT  shift 5
-	STRING  shift 21
-	RETURN  shift 22
-	INPUT  shift 23
-	OUTPUT  shift 24
-	IF  shift 25
-	WHILE  shift 26
-	FOR  shift 27
-	BREAK  shift 28
-	CONTINUE  shift 29
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 32
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RF  reduce 21
+	STRING  shift 23
+	RETURN  shift 24
+	INPUT  shift 25
+	OUTPUT  shift 26
+	IF  shift 27
+	WHILE  shift 28
+	FOR  shift 29
+	BREAK  shift 30
+	CONTINUE  shift 31
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 34
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RF  reduce 23
 
-	DATA_TYPE  goto 38
-	STMTLIST  goto 184
-	STMT  goto 40
-	DECLARATION  goto 41
-	ASSIGNMENT  goto 42
-	EXPR  goto 43
-	RETURN_STMT  goto 44
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	IF_STMT  goto 49
-	WHILE_STMT  goto 50
-	FOR_STMT  goto 51
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 181
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 . ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (106)
-
-	ID  shift 109
-	.  error
-
-	ASSIGNMENT  goto 185
+	DATA_TYPE  goto 40
+	STMTLIST  goto 185
+	STMT  goto 42
+	DECLARATION  goto 43
+	ASSIGNMENT  goto 44
+	EXPR  goto 45
+	RETURN_STMT  goto 46
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	IF_STMT  goto 51
+	WHILE_STMT  goto 52
+	FOR_STMT  goto 53
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 182
-	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF . ARR_VALUES RF  (48)
+	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 . STMTLIST RF  (103)
+	STMTLIST : .  (23)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	CHARACTER  shift 36
-	.  error
+	INT  shift 3
+	CHAR  shift 4
+	FLOAT  shift 5
+	STRING  shift 23
+	RETURN  shift 24
+	INPUT  shift 25
+	OUTPUT  shift 26
+	IF  shift 27
+	WHILE  shift 28
+	FOR  shift 29
+	BREAK  shift 30
+	CONTINUE  shift 31
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 34
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RF  reduce 23
 
-	CONST  goto 186
-	ARR_VALUES  goto 187
+	DATA_TYPE  goto 40
+	STMTLIST  goto 186
+	STMT  goto 42
+	DECLARATION  goto 43
+	ASSIGNMENT  goto 44
+	EXPR  goto 45
+	RETURN_STMT  goto 46
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	IF_STMT  goto 51
+	WHILE_STMT  goto 52
+	FOR_STMT  goto 53
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 183
-	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST . RF $$9 ELIF_STMT ELSE_STMT  (89)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 . ASSIGNMENT RP $$20 LF $$21 STMTLIST RF  (108)
 
-	RF  shift 188
+	ID  shift 111
 	.  error
+
+	ASSIGNMENT  goto 187
 
 
 state 184
-	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 STMTLIST . RF  (101)
+	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF . ARR_VALUES RF  (50)
 
-	RF  shift 189
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	CHARACTER  shift 38
 	.  error
+
+	CONST  goto 188
+	ARR_VALUES  goto 189
 
 
 state 185
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT . RP $$20 LF $$21 STMTLIST RF  (106)
+	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST . RF $$9 ELIF_STMT ELSE_STMT  (91)
 
-	RP  shift 190
+	RF  shift 190
 	.  error
 
 
 state 186
-	ARR_VALUES : CONST . $$5 COMMA ARR_VALUES  (50)
-	ARR_VALUES : CONST .  (51)
-	$$5 : .  (49)
+	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 STMTLIST . RF  (103)
 
-	COMMA  reduce 49
-	RF  reduce 51
-
-	$$5  goto 191
+	RF  shift 191
+	.  error
 
 
 state 187
-	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES . RF  (48)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT . RP $$20 LF $$21 STMTLIST RF  (108)
 
-	RF  shift 192
+	RP  shift 192
 	.  error
 
 
 state 188
-	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF . $$9 ELIF_STMT ELSE_STMT  (89)
-	$$9 : .  (88)
+	ARR_VALUES : CONST . $$5 COMMA ARR_VALUES  (52)
+	ARR_VALUES : CONST .  (53)
+	$$5 : .  (51)
 
-	.  reduce 88
+	COMMA  reduce 51
+	RF  reduce 53
 
-	$$9  goto 193
+	$$5  goto 193
 
 
 state 189
-	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 STMTLIST RF .  (101)
+	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES . RF  (50)
 
-	.  reduce 101
+	RF  shift 194
+	.  error
 
 
 state 190
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP . $$20 LF $$21 STMTLIST RF  (106)
-	$$20 : .  (104)
+	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF . $$9 ELIF_STMT ELSE_STMT  (91)
+	$$9 : .  (90)
 
-	.  reduce 104
+	.  reduce 90
 
-	$$20  goto 194
+	$$9  goto 195
 
 
 state 191
-	ARR_VALUES : CONST $$5 . COMMA ARR_VALUES  (50)
+	WHILE_STMT : WHILE $$15 LP EXPR RP $$16 LF $$17 STMTLIST RF .  (103)
 
-	COMMA  shift 195
-	.  error
+	.  reduce 103
 
 
 state 192
-	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF .  (48)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP . $$20 LF $$21 STMTLIST RF  (108)
+	$$20 : .  (106)
 
-	.  reduce 48
+	.  reduce 106
+
+	$$20  goto 196
 
 
-193: shift/reduce conflict (shift 196, reduce 95) on ELSE
 state 193
-	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 . ELIF_STMT ELSE_STMT  (89)
-	ELIF_STMT : .  (95)
+	ARR_VALUES : CONST $$5 . COMMA ARR_VALUES  (52)
 
-	ELSE  shift 196
-
-	ELIF_STMT  goto 197
+	COMMA  shift 197
+	.  error
 
 
 state 194
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 . LF $$21 STMTLIST RF  (106)
-
-	LF  shift 198
-	.  error
-
-
-state 195
-	ARR_VALUES : CONST $$5 COMMA . ARR_VALUES  (50)
-
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	CHARACTER  shift 36
-	.  error
-
-	CONST  goto 186
-	ARR_VALUES  goto 199
-
-
-state 196
-	ELIF_STMT : ELSE . IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (94)
-
-	IF  shift 200
-	.  error
-
-
-state 197
-	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT . ELSE_STMT  (89)
-
-	ELSE  shift 201
-	.  error
-
-	ELSE_STMT  goto 202
-
-
-state 198
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF . $$21 STMTLIST RF  (106)
-	$$21 : .  (105)
-
-	.  reduce 105
-
-	$$21  goto 203
-
-
-state 199
-	ARR_VALUES : CONST $$5 COMMA ARR_VALUES .  (50)
+	DECLARATION : DATA_TYPE ID LB INT_NUM RB ASSIGN $$4 LF ARR_VALUES RF .  (50)
 
 	.  reduce 50
 
 
-state 200
-	ELIF_STMT : ELSE IF . $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (94)
-	$$10 : .  (90)
+195: shift/reduce conflict (shift 198, reduce 97) on ELSE
+state 195
+	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 . ELIF_STMT ELSE_STMT  (91)
+	ELIF_STMT : .  (97)
 
-	.  reduce 90
+	ELSE  shift 198
 
-	$$10  goto 204
+	ELIF_STMT  goto 199
 
 
-state 201
-	ELSE_STMT : ELSE . LF $$14 STMTLIST RF  (97)
+state 196
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 . LF $$21 STMTLIST RF  (108)
 
-	LF  shift 205
+	LF  shift 200
 	.  error
 
 
-state 202
-	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT .  (89)
+state 197
+	ARR_VALUES : CONST $$5 COMMA . ARR_VALUES  (52)
 
-	.  reduce 89
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	CHARACTER  shift 38
+	.  error
+
+	CONST  goto 188
+	ARR_VALUES  goto 201
+
+
+state 198
+	ELIF_STMT : ELSE . IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (96)
+
+	IF  shift 202
+	.  error
+
+
+state 199
+	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT . ELSE_STMT  (91)
+
+	ELSE  shift 203
+	.  error
+
+	ELSE_STMT  goto 204
+
+
+state 200
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF . $$21 STMTLIST RF  (108)
+	$$21 : .  (107)
+
+	.  reduce 107
+
+	$$21  goto 205
+
+
+state 201
+	ARR_VALUES : CONST $$5 COMMA ARR_VALUES .  (52)
+
+	.  reduce 52
+
+
+state 202
+	ELIF_STMT : ELSE IF . $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (96)
+	$$10 : .  (92)
+
+	.  reduce 92
+
+	$$10  goto 206
 
 
 state 203
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 . STMTLIST RF  (106)
-	STMTLIST : .  (21)
+	ELSE_STMT : ELSE . LF $$14 STMTLIST RF  (99)
+
+	LF  shift 207
+	.  error
+
+
+state 204
+	IF_STMT : IF $$6 LP EXPR RP $$7 LF $$8 STMTLIST RF $$9 ELIF_STMT ELSE_STMT .  (91)
+
+	.  reduce 91
+
+
+state 205
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 . STMTLIST RF  (108)
+	STMTLIST : .  (23)
 
 	INT  shift 3
 	CHAR  shift 4
 	FLOAT  shift 5
-	STRING  shift 21
-	RETURN  shift 22
-	INPUT  shift 23
-	OUTPUT  shift 24
-	IF  shift 25
-	WHILE  shift 26
-	FOR  shift 27
-	BREAK  shift 28
-	CONTINUE  shift 29
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 32
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RF  reduce 21
+	STRING  shift 23
+	RETURN  shift 24
+	INPUT  shift 25
+	OUTPUT  shift 26
+	IF  shift 27
+	WHILE  shift 28
+	FOR  shift 29
+	BREAK  shift 30
+	CONTINUE  shift 31
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 34
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RF  reduce 23
 
-	DATA_TYPE  goto 38
-	STMTLIST  goto 206
-	STMT  goto 40
-	DECLARATION  goto 41
-	ASSIGNMENT  goto 42
-	EXPR  goto 43
-	RETURN_STMT  goto 44
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	IF_STMT  goto 49
-	WHILE_STMT  goto 50
-	FOR_STMT  goto 51
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
-
-
-state 204
-	ELIF_STMT : ELSE IF $$10 . LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (94)
-
-	LP  shift 207
-	.  error
-
-
-state 205
-	ELSE_STMT : ELSE LF . $$14 STMTLIST RF  (97)
-	$$14 : .  (96)
-
-	.  reduce 96
-
-	$$14  goto 208
+	DATA_TYPE  goto 40
+	STMTLIST  goto 208
+	STMT  goto 42
+	DECLARATION  goto 43
+	ASSIGNMENT  goto 44
+	EXPR  goto 45
+	RETURN_STMT  goto 46
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	IF_STMT  goto 51
+	WHILE_STMT  goto 52
+	FOR_STMT  goto 53
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 206
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST . RF  (106)
+	ELIF_STMT : ELSE IF $$10 . LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (96)
 
-	RF  shift 209
+	LP  shift 209
 	.  error
 
 
 state 207
-	ELIF_STMT : ELSE IF $$10 LP . EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (94)
+	ELSE_STMT : ELSE LF . $$14 STMTLIST RF  (99)
+	$$14 : .  (98)
 
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 62
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	.  error
+	.  reduce 98
 
-	EXPR  goto 210
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	$$14  goto 210
 
 
 state 208
-	ELSE_STMT : ELSE LF $$14 . STMTLIST RF  (97)
-	STMTLIST : .  (21)
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST . RF  (108)
 
-	INT  shift 3
-	CHAR  shift 4
-	FLOAT  shift 5
-	STRING  shift 21
-	RETURN  shift 22
-	INPUT  shift 23
-	OUTPUT  shift 24
-	IF  shift 25
-	WHILE  shift 26
-	FOR  shift 27
-	BREAK  shift 28
-	CONTINUE  shift 29
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 32
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RF  reduce 21
-
-	DATA_TYPE  goto 38
-	STMTLIST  goto 211
-	STMT  goto 40
-	DECLARATION  goto 41
-	ASSIGNMENT  goto 42
-	EXPR  goto 43
-	RETURN_STMT  goto 44
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	IF_STMT  goto 49
-	WHILE_STMT  goto 50
-	FOR_STMT  goto 51
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	RF  shift 211
+	.  error
 
 
 state 209
-	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF .  (106)
+	ELIF_STMT : ELSE IF $$10 LP . EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (96)
 
-	.  reduce 106
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 64
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	.  error
+
+	EXPR  goto 212
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
 state 210
-	EXPR : EXPR . ADD EXPR  (54)
-	EXPR : EXPR . SUB EXPR  (55)
-	EXPR : EXPR . MUL EXPR  (56)
-	EXPR : EXPR . DIV EXPR  (57)
-	EXPR : EXPR . EQ EXPR  (58)
-	EXPR : EXPR . NE EXPR  (59)
-	EXPR : EXPR . LT EXPR  (60)
-	EXPR : EXPR . GT EXPR  (61)
-	EXPR : EXPR . LE EXPR  (62)
-	EXPR : EXPR . GE EXPR  (63)
-	EXPR : EXPR . AND EXPR  (64)
-	EXPR : EXPR . OR EXPR  (65)
-	EXPR : EXPR . BITAND EXPR  (66)
-	EXPR : EXPR . BITOR EXPR  (67)
-	ELIF_STMT : ELSE IF $$10 LP EXPR . RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (94)
-
-	ADD  shift 80
-	SUB  shift 81
-	MUL  shift 82
-	DIV  shift 83
-	EQ  shift 84
-	NE  shift 85
-	LT  shift 86
-	GT  shift 87
-	LE  shift 88
-	GE  shift 89
-	AND  shift 90
-	OR  shift 91
-	RP  shift 212
-	BITAND  shift 93
-	BITOR  shift 94
-	.  error
-
-
-state 211
-	ELSE_STMT : ELSE LF $$14 STMTLIST . RF  (97)
-
-	RF  shift 213
-	.  error
-
-
-state 212
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP . $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (94)
-	$$11 : .  (91)
-
-	.  reduce 91
-
-	$$11  goto 214
-
-
-state 213
-	ELSE_STMT : ELSE LF $$14 STMTLIST RF .  (97)
-
-	.  reduce 97
-
-
-state 214
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 . LF $$12 STMTLIST RF $$13 ELIF_STMT  (94)
-
-	LF  shift 215
-	.  error
-
-
-state 215
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF . $$12 STMTLIST RF $$13 ELIF_STMT  (94)
-	$$12 : .  (92)
-
-	.  reduce 92
-
-	$$12  goto 216
-
-
-state 216
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 . STMTLIST RF $$13 ELIF_STMT  (94)
-	STMTLIST : .  (21)
+	ELSE_STMT : ELSE LF $$14 . STMTLIST RF  (99)
+	STMTLIST : .  (23)
 
 	INT  shift 3
 	CHAR  shift 4
 	FLOAT  shift 5
-	STRING  shift 21
-	RETURN  shift 22
-	INPUT  shift 23
-	OUTPUT  shift 24
-	IF  shift 25
-	WHILE  shift 26
-	FOR  shift 27
-	BREAK  shift 28
-	CONTINUE  shift 29
-	INT_NUM  shift 30
-	FLOAT_NUM  shift 31
-	ID  shift 32
-	ADD  shift 33
-	SUB  shift 34
-	LP  shift 35
-	CHARACTER  shift 36
-	NEG  shift 37
-	RF  reduce 21
+	STRING  shift 23
+	RETURN  shift 24
+	INPUT  shift 25
+	OUTPUT  shift 26
+	IF  shift 27
+	WHILE  shift 28
+	FOR  shift 29
+	BREAK  shift 30
+	CONTINUE  shift 31
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 34
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RF  reduce 23
 
-	DATA_TYPE  goto 38
-	STMTLIST  goto 217
-	STMT  goto 40
-	DECLARATION  goto 41
-	ASSIGNMENT  goto 42
-	EXPR  goto 43
-	RETURN_STMT  goto 44
-	UNARY_EXPR  goto 45
-	PRIMARY_EXPR  goto 46
-	UNARY_OP  goto 47
-	CONST  goto 48
-	IF_STMT  goto 49
-	WHILE_STMT  goto 50
-	FOR_STMT  goto 51
-	FUNCTION_CALL  goto 52
-	POSTFIX_EXPR  goto 53
+	DATA_TYPE  goto 40
+	STMTLIST  goto 213
+	STMT  goto 42
+	DECLARATION  goto 43
+	ASSIGNMENT  goto 44
+	EXPR  goto 45
+	RETURN_STMT  goto 46
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	IF_STMT  goto 51
+	WHILE_STMT  goto 52
+	FOR_STMT  goto 53
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
 
 
-state 217
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST . RF $$13 ELIF_STMT  (94)
+state 211
+	FOR_STMT : FOR LP ASSIGNMENT SCOL $$18 EXPR SCOL $$19 ASSIGNMENT RP $$20 LF $$21 STMTLIST RF .  (108)
 
-	RF  shift 218
+	.  reduce 108
+
+
+state 212
+	EXPR : EXPR . ADD EXPR  (56)
+	EXPR : EXPR . SUB EXPR  (57)
+	EXPR : EXPR . MUL EXPR  (58)
+	EXPR : EXPR . DIV EXPR  (59)
+	EXPR : EXPR . EQ EXPR  (60)
+	EXPR : EXPR . NE EXPR  (61)
+	EXPR : EXPR . LT EXPR  (62)
+	EXPR : EXPR . GT EXPR  (63)
+	EXPR : EXPR . LE EXPR  (64)
+	EXPR : EXPR . GE EXPR  (65)
+	EXPR : EXPR . AND EXPR  (66)
+	EXPR : EXPR . OR EXPR  (67)
+	EXPR : EXPR . BITAND EXPR  (68)
+	EXPR : EXPR . BITOR EXPR  (69)
+	ELIF_STMT : ELSE IF $$10 LP EXPR . RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (96)
+
+	ADD  shift 82
+	SUB  shift 83
+	MUL  shift 84
+	DIV  shift 85
+	EQ  shift 86
+	NE  shift 87
+	LT  shift 88
+	GT  shift 89
+	LE  shift 90
+	GE  shift 91
+	AND  shift 92
+	OR  shift 93
+	RP  shift 214
+	BITAND  shift 95
+	BITOR  shift 96
 	.  error
 
 
-state 218
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF . $$13 ELIF_STMT  (94)
-	$$13 : .  (93)
+state 213
+	ELSE_STMT : ELSE LF $$14 STMTLIST . RF  (99)
+
+	RF  shift 215
+	.  error
+
+
+state 214
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP . $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT  (96)
+	$$11 : .  (93)
 
 	.  reduce 93
 
-	$$13  goto 219
+	$$11  goto 216
 
 
-219: shift/reduce conflict (shift 196, reduce 95) on ELSE
-state 219
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 . ELIF_STMT  (94)
-	ELIF_STMT : .  (95)
+state 215
+	ELSE_STMT : ELSE LF $$14 STMTLIST RF .  (99)
 
-	ELSE  shift 196
-
-	ELIF_STMT  goto 220
+	.  reduce 99
 
 
-state 220
-	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT .  (94)
+state 216
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 . LF $$12 STMTLIST RF $$13 ELIF_STMT  (96)
+
+	LF  shift 217
+	.  error
+
+
+state 217
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF . $$12 STMTLIST RF $$13 ELIF_STMT  (96)
+	$$12 : .  (94)
 
 	.  reduce 94
 
+	$$12  goto 218
+
+
+state 218
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 . STMTLIST RF $$13 ELIF_STMT  (96)
+	STMTLIST : .  (23)
+
+	INT  shift 3
+	CHAR  shift 4
+	FLOAT  shift 5
+	STRING  shift 23
+	RETURN  shift 24
+	INPUT  shift 25
+	OUTPUT  shift 26
+	IF  shift 27
+	WHILE  shift 28
+	FOR  shift 29
+	BREAK  shift 30
+	CONTINUE  shift 31
+	INT_NUM  shift 32
+	FLOAT_NUM  shift 33
+	ID  shift 34
+	ADD  shift 35
+	SUB  shift 36
+	LP  shift 37
+	CHARACTER  shift 38
+	NEG  shift 39
+	RF  reduce 23
+
+	DATA_TYPE  goto 40
+	STMTLIST  goto 219
+	STMT  goto 42
+	DECLARATION  goto 43
+	ASSIGNMENT  goto 44
+	EXPR  goto 45
+	RETURN_STMT  goto 46
+	UNARY_EXPR  goto 47
+	PRIMARY_EXPR  goto 48
+	UNARY_OP  goto 49
+	CONST  goto 50
+	IF_STMT  goto 51
+	WHILE_STMT  goto 52
+	FOR_STMT  goto 53
+	FUNCTION_CALL  goto 54
+	POSTFIX_EXPR  goto 55
+
+
+state 219
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST . RF $$13 ELIF_STMT  (96)
+
+	RF  shift 220
+	.  error
+
+
+state 220
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF . $$13 ELIF_STMT  (96)
+	$$13 : .  (95)
+
+	.  reduce 95
+
+	$$13  goto 221
+
+
+221: shift/reduce conflict (shift 198, reduce 97) on ELSE
+state 221
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 . ELIF_STMT  (96)
+	ELIF_STMT : .  (97)
+
+	ELSE  shift 198
+
+	ELIF_STMT  goto 222
+
+
+state 222
+	ELIF_STMT : ELSE IF $$10 LP EXPR RP $$11 LF $$12 STMTLIST RF $$13 ELIF_STMT .  (96)
+
+	.  reduce 96
+
 
 Rules never reduced:
-	CLASSMEMBER :  (27)
-	ELIF_STMT :  (95)
+	CLASSMEMBER :  (29)
+	ELIF_STMT :  (97)
 
 
-State 20 contains 4 shift/reduce conflicts.
-State 21 contains 1 shift/reduce conflict.
-State 102 contains 1 shift/reduce conflict.
-State 117 contains 2 shift/reduce conflicts.
-State 118 contains 2 shift/reduce conflicts.
+State 22 contains 4 shift/reduce conflicts.
+State 23 contains 1 shift/reduce conflict.
+State 104 contains 1 shift/reduce conflict.
 State 119 contains 2 shift/reduce conflicts.
 State 120 contains 2 shift/reduce conflicts.
 State 121 contains 2 shift/reduce conflicts.
@@ -3522,14 +3538,16 @@ State 125 contains 2 shift/reduce conflicts.
 State 126 contains 2 shift/reduce conflicts.
 State 127 contains 2 shift/reduce conflicts.
 State 128 contains 2 shift/reduce conflicts.
-State 129 contains 14 shift/reduce conflicts.
-State 130 contains 14 shift/reduce conflicts.
-State 193 contains 1 shift/reduce conflict.
-State 219 contains 1 shift/reduce conflict.
+State 129 contains 2 shift/reduce conflicts.
+State 130 contains 2 shift/reduce conflicts.
+State 131 contains 14 shift/reduce conflicts.
+State 132 contains 14 shift/reduce conflicts.
+State 195 contains 1 shift/reduce conflict.
+State 221 contains 1 shift/reduce conflict.
 
 
 49 terminals, 55 nonterminals
-113 grammar rules, 221 states
+115 grammar rules, 223 states
 
 grammar parser grammar
 symbol# value# symbol
