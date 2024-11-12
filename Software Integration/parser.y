@@ -576,6 +576,7 @@ IF_STMT         :   IF {
                 ELIF_STMT ELSE_STMT {
                     tac.push_back(string($1.parentNext) + ":");
                 };
+
 ELIF_STMT       :   ELSE IF {
                     string str = tac[tac.size()-2].substr(5);
                     char* hold = const_cast<char*>(str.c_str());
@@ -603,7 +604,8 @@ ELSE_STMT       :   ELSE LF {
                 STMTLIST RF {
                     scope_history.pop(); 
                     scope_counter--;
-                };
+                }
+                | ;
 WHILE_STMT      :   WHILE {
                     sprintf($1.loop_body, "#L%d", label_counter);
                     loop_continue.push(label_counter++);
@@ -660,6 +662,7 @@ FUNCTION_CALL   :   ID {
                     strcpy($$.type, function_table[string($1.lexeme)].return_type.c_str());
                     function_call.pop();
                     sprintf($$.lexeme, "%s", get_temp().c_str());
+                    tac.push_back(string($$.lexeme) + " = @call " + string($1.lexeme) + " " + function_table[string($1.lexeme)].return_type + " " + to_string(function_table[string($1.lexeme)].num_params));
                 };
 ARGUMENTLIST    :   ARG COMMA ARGUMENTLIST {
                     int size = function_call.top().second.size();

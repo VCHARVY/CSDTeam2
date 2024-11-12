@@ -1,0 +1,11 @@
+function main 3 0 INT
+push constant 1 INT
+pop local 0 INT
+push constant 77 INT
+pop local 1 INT
+push local 0 INT
+push local 1 INT
+add INT
+pop local 2 INT
+push local 2 INT
+return

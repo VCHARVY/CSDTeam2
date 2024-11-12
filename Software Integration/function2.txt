@@ -1,0 +1,19 @@
+add: INT
+- arg INT a
+- arg INT b
+@t0 = a + b INT
+return @t0 INT
+end:
+
+main: INT
+@t1 = 8 INT
+param @t1 INT
+@t2 = 99 INT
+param @t2 INT
+@t3 = @call add INT 2
+- INT a
+a = @t3 INT
+@t3 = 0 INT
+return @t3 INT
+end:
+

@@ -6,6 +6,8 @@ parser: y.tab.c lex.yy.c y.tab.h
 lex.yy.c: lexer.l
 	lex lexer.l
 y.tab.c: parser.y
-	yacc -v -d -t parser.y 
+	yacc -v -d -t parser.y
+tac_to_vm: tac_to_vm.cpp
+	g++ -o tac_to_vm tac_to_vm.cpp
 clean:
-	rm -f parser y.tab.c lex.yy.c y.tab.h y.output output.txt vm.vm
+	rm -f parser y.tab.c lex.yy.c y.tab.h y.output output.txt vm.vm tac_to_vm

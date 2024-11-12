@@ -1,0 +1,83 @@
+function fib 18 0 INT
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push constant 1 INT
+pop local 2 INT
+push argument 0 INT
+push local 2 INT
+eq INT
+pop local 3 INT
+push local 4 INT
+if-goto Label1
+goto Label2
+push constant 0 INT
+pop local 5 INT
+push local 5 INT
+pop local 1 INT
+goto Label0
+push constant 2 INT
+pop local 6 INT
+push argument 0 INT
+push local 6 INT
+eq INT
+pop local 7 INT
+push local 4 INT
+if-goto Label4
+goto Label5
+push constant 1 INT
+pop local 8 INT
+push local 8 INT
+pop local 1 INT
+goto Label3
+push constant 2 INT
+pop local 9 INT
+push argument 0 INT
+push local 9 INT
+ge INT
+pop local 10 INT
+push local 4 INT
+if-goto Label7
+goto Label8
+push constant 1 INT
+pop local 11 INT
+push argument 0 INT
+push local 11 INT
+sub INT
+pop local 12 INT
+push local 12 INT
+call fib 1
+pop local 13 INT
+push constant 2 INT
+pop local 14 INT
+push argument 0 INT
+push local 14 INT
+sub INT
+pop local 15 INT
+push local 15 INT
+call fib 1
+pop local 16 INT
+push local 13 INT
+push local 16 INT
+add INT
+pop local 17 INT
+push local 17 INT
+pop local 1 INT
+goto Label6
+push local 1 INT
+return
+function main 4 0 INT
+push constant 5 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push local 1 INT
+call fib 1
+pop local 2 INT
+push local 2 INT
+pop local 1 INT
+push constant 0 INT
+pop local 3 INT
+push local 3 INT
+return
