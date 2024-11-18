@@ -144,7 +144,7 @@ class SemanticAnalyzer:
                     is_valid_shifted_register(instruction.operands[1])):
                 self.errors.append(f"Error: Invalid source operand in '{mnemonic}'")
 
-        elif mnemonic in {'add', 'sub', 'rsb', 'adc', 'sbc', 'rsc', 'and', 'orr', 'eor', 'bic'}:
+        elif mnemonic in {'add', 'sub', 'rsb', 'adc', 'sbc', 'rsc', 'and'}:             #'orr', 'eor', 'bic'
             if operand_count != 3:
                 self.errors.append(f"Error: '{mnemonic}' instruction requires exactly 3 operands")
             elif not self.is_valid_register(instruction.operands[0]):
@@ -162,7 +162,7 @@ class SemanticAnalyzer:
             elif not all(self.is_valid_register(op) for op in instruction.operands):
                 self.errors.append(f"Error: Invalid register in '{mnemonic}'")
 
-        elif mnemonic in {'umull', 'umlal', 'smull', 'smlal'}:
+        elif mnemonic in {'umull'}:         #, 'umlal', 'smull', 'smlal'
             if operand_count != 4:
                 self.errors.append(f"Error: '{mnemonic}' instruction requires exactly 4 operands")
             elif not all(self.is_valid_register(op) for op in instruction.operands):
@@ -300,17 +300,6 @@ class SemanticAnalyzer:
                     (operands[2] in {'lsl', 'lsr', 'asr', 'ror'} or self.is_valid_immediate(operands[2])))  # [Rn, Rm, shift] or [Rn, Rm, #imm]
         return False
 
-    # def is_valid_post_index_operands(self, operands):
-    #     if len(operands) == 0:
-    #         return True
-    #     if len(operands) == 1:
-    #         return self.is_valid_immediate(operands[0]) or self.is_valid_register(operands[0])
-    #     if len(operands) == 3 and operands[1] == ',':
-    #         return (self.is_valid_register(operands[0]) and 
-    #                 (operands[2] in {'lsl', 'lsr', 'asr', 'ror'} or self.is_valid_immediate(operands[2])))
-    #     return False
-
-
     def validate_memory_access(self, instruction: Instruction):
         #Call function from mem_val
         return 
@@ -332,9 +321,8 @@ class SemanticAnalyzer:
 
     def validate_label_references(self, instruction: Instruction):
         branch_instructions = {
-            'b', 'bl', 'bx', 'blx', 'bal', 'beq', 'bne', 'bpl', 'bmi', 'bcc', 'blo', 
-            'bcs', 'bhs', 'bvc', 'bvs', 'bgt', 'bge', 'blt', 'ble', 'bhi', 'bls'
-        }
+            'b', 'beq', 'bne' 
+        }       #'bl', 'bx', 'blx', 'bal', 'bcs', 'bhs', 'bvc', 'bvs', 'bgt', 'bge', 'blt', 'ble', 'bhi', 'bls', 'bpl', 'bmi', 'bcc', 'blo',
         
         if instruction.mnemonic in branch_instructions:
             if not instruction.operands:
@@ -351,12 +339,12 @@ class SemanticAnalyzer:
                     branch_distance = self.symbol_table[label] - self.current_address
                     
                     # Different instructions have different range limits
-                    if instruction.mnemonic in {'b', 'bl', 'bal'}:
-                        if not (-33554432 <= branch_distance <= 33554428):
-                            self.errors.append(f"Error: Branch to '{label}' is out of range for {instruction.mnemonic}")
-                    else:  # Conditional branches have a smaller range
-                        if not (-1048576 <= branch_distance <= 1048572):
-                            self.errors.append(f"Error: Conditional branch to '{label}' is out of range for {instruction.mnemonic}")
+                    # if instruction.mnemonic in {'b', 'bl', 'bal'}:
+                    #     if not (-33554432 <= branch_distance <= 33554428):
+                    #         self.errors.append(f"Error: Branch to '{label}' is out of range for {instruction.mnemonic}")
+                    # else:  # Conditional branches have a smaller range
+                    #     if not (-1048576 <= branch_distance <= 1048572):
+                    #         self.errors.append(f"Error: Conditional branch to '{label}' is out of range for {instruction.mnemonic}")
 
             # Additional checks for bx and blx
             if instruction.mnemonic in {'bx', 'blx'}:
@@ -371,7 +359,7 @@ class SemanticAnalyzer:
         arithmetic_instructions = {'add', 'sub', 'rsb', 'adc', 'sbc', 'rsc', 'mul', 'mla'}
         logical_instructions = {'and', 'orr', 'eor', 'bic'}
         data_processing_instructions = arithmetic_instructions.union(logical_instructions)
-        floating_point_instructions = {'vadd', 'vsub', 'vmul', 'vdiv'}
+        #floating_point_instructions = {'vadd', 'vsub', 'vmul', 'vdiv'}
         
         def is_register(op):
             return op.startswith('r') or op.startswith('s') or op.startswith('d')
@@ -379,12 +367,12 @@ class SemanticAnalyzer:
         def is_immediate(op):
             return op.startswith('#')
         
-        def is_float_immediate(op):
-            try:
-                float(op.lstrip('#'))
-                return '.' in op
-            except ValueError:
-                return False
+        # def is_float_immediate(op):
+        #     try:
+        #         float(op.lstrip('#'))
+        #         return '.' in op
+        #     except ValueError:
+        #         return False
         
         if instruction.mnemonic in data_processing_instructions:
             if len(instruction.operands) >= 2:  # Some instructions might have 2 or 3 operands
@@ -392,10 +380,10 @@ class SemanticAnalyzer:
                 if (is_register(op1) and is_immediate(op2)) or (is_immediate(op1) and is_register(op2)):
                     self.errors.append(f"Warning: Mixing register and immediate operands in '{instruction.mnemonic}'")
         
-        elif instruction.mnemonic in floating_point_instructions:
-            for op in instruction.operands:
-                if is_immediate(op) and not is_float_immediate(op):
-                    self.errors.append(f"Error: Using integer immediate in floating-point operation '{instruction.mnemonic}'")
+        # elif instruction.mnemonic in floating_point_instructions:
+        #     for op in instruction.operands:
+        #         if is_immediate(op) and not is_float_immediate(op):
+        #             self.errors.append(f"Error: Using integer immediate in floating-point operation '{instruction.mnemonic}'")
         
         # Check for mixing integer and floating-point operations
         if instruction.mnemonic in arithmetic_instructions:
@@ -408,9 +396,9 @@ class SemanticAnalyzer:
         if instruction.mnemonic in data_processing_instructions:
             if any(op.startswith('s') or op.startswith('d') for op in instruction.operands):
                 self.errors.append(f"Error: Using floating-point registers in integer operation '{instruction.mnemonic}'")
-        elif instruction.mnemonic in floating_point_instructions:
-            if any(op.startswith('r') for op in instruction.operands):
-                self.errors.append(f"Error: Using integer registers in floating-point operation '{instruction.mnemonic}'")
+        # elif instruction.mnemonic in floating_point_instructions:
+        #     if any(op.startswith('r') for op in instruction.operands):
+        #         self.errors.append(f"Error: Using integer registers in floating-point operation '{instruction.mnemonic}'")
 
     def process_directive(self, instruction: Instruction):
         if instruction.mnemonic.startswith('.'):
@@ -423,21 +411,21 @@ class SemanticAnalyzer:
                     self.data_section = True
             
             # Alignment directive
-            elif instruction.mnemonic == '.align':
-                if len(instruction.operands) != 1:
-                    self.errors.append("Error: .align directive requires exactly one operand")
-                else:
-                    try:
-                        alignment = int(instruction.operands[0])
-                        if not (alignment > 0 and (alignment & (alignment - 1) == 0)):
-                            self.errors.append("Error: .align value must be a power of 2")
-                    except ValueError:
-                        self.errors.append("Error: .align value must be an integer")
+            # elif instruction.mnemonic == '.align':
+            #     if len(instruction.operands) != 1:
+            #         self.errors.append("Error: .align directive requires exactly one operand")
+            #     else:
+            #         try:
+            #             alignment = int(instruction.operands[0])
+            #             if not (alignment > 0 and (alignment & (alignment - 1) == 0)):
+            #                 self.errors.append("Error: .align value must be a power of 2")
+            #         except ValueError:
+            #             self.errors.append("Error: .align value must be an integer")
             
             # Architecture and instruction set directives
-            elif instruction.mnemonic in ['.arch', '.arm', '.code16', '.code32', '.cpu']:
-                # These directives typically don't require additional processing in a simple assembler
-                pass
+            # elif instruction.mnemonic in ['.arch', '.arm', '.code16', '.code32', '.cpu']:
+            #     # These directives typically don't require additional processing in a simple assembler
+            #     pass
             
             # Symbol visibility directives
             elif instruction.mnemonic in ['.global', '.hidden']:
@@ -466,24 +454,24 @@ class SemanticAnalyzer:
                     self.current_function.no_return = True
             
             # Section attribute directive
-            elif instruction.mnemonic == '.nocode':
-                if self.current_section != 'text':
-                    self.errors.append("Error: .nocode directive must be in the .text section")
-                else:
-                    self.no_code_section = True
+            # elif instruction.mnemonic == '.nocode':
+            #     if self.current_section != 'text':
+            #         self.errors.append("Error: .nocode directive must be in the .text section")
+            #     else:
+            #         self.no_code_section = True
             
             # Data initialization directives
-            elif instruction.mnemonic == '.fill':
-                if len(instruction.operands) not in [2, 3]:
-                    self.errors.append("Error: .fill directive requires 2 or 3 operands")
-                else:
-                    # Implementation depends on how you're handling data in your assembler
-                    pass
+            # elif instruction.mnemonic == '.fill':
+            #     if len(instruction.operands) not in [2, 3]:
+            #         self.errors.append("Error: .fill directive requires 2 or 3 operands")
+            #     else:
+            #         # Implementation depends on how you're handling data in your assembler
+            #         pass
             
-            # Literal pool directive
-            elif instruction.mnemonic == '.ltorg':
-                # Implementation depends on how you're handling literal pools in your assembler
-                pass
+            # # Literal pool directive
+            # elif instruction.mnemonic == '.ltorg':
+            #     # Implementation depends on how you're handling literal pools in your assembler
+            #     pass
             
             # Unrecognized directive
             else:
