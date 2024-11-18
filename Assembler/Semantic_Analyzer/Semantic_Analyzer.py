@@ -42,8 +42,8 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import List, Dict, Union
-from Parser import Label, Instruction, Parser
-from Tokenize import tokenize
+from Parser import Label, Instruction
+# from Tokenize import tokenize
 
 
 class SemanticError(Exception):
@@ -478,28 +478,28 @@ class SemanticAnalyzer:
                 self.errors.append(f"Error: Unrecognized directive {instruction.mnemonic}")
 
 
-if __name__ == "__main__":
-    input_code = """
-        mov r0, #5
-        add r1, r2, r3
-        bne label1
-    label1: ldr r4, [r5]
-        cmp r0, #10
-        beq exit
-        str r1, [sp, #-4]!
-    exit:
-    """
+# if __name__ == "__main__":
+#     input_code = """
+#         mov r0, #5
+#         add r1, r2, r3
+#         bne label1
+#     label1: ldr r4, [r5]
+#         cmp r0, #10
+#         beq exit
+#         str r1, [sp, #-4]!
+#     exit:
+#     """
 
-    tokens = tokenize(input_code)
-    parser = Parser(tokens)
-    ast = parser.parse()
+#     tokens = tokenize(input_code)
+#     parser = Parser(tokens)
+#     ast = parser.parse()
 
-    analyzer = SemanticAnalyzer(ast)
-    errors = analyzer.analyze()
+#     analyzer = SemanticAnalyzer(ast)
+#     errors = analyzer.analyze()
     
 
-    if errors:
-        for error in errors:
-            print(error)
-    else:
-        print("No semantic errors found.")
+#     if errors:
+#         for error in errors:
+#             print(error)
+#     else:
+#         print("No semantic errors found.")
