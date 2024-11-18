@@ -1,18 +1,33 @@
 import os
 from opcode_table import opcode_table
-from Tokenize import tokenize
+from Tokenize import Tokenizer
+
+input_code = """
+    mov r0, #5
+    add r1, r2, r3
+    bne label1
+label1: ldr r4, [r5] @ Load value from memory
+    cmp r0, #10
+    beq exit
+    str r1, [sp, #-4]!
+exit:
+"""
 
 def assemble_asm_to_object(asm_file, obj_file):
     try:
-        # Check if the input ASM file exists
+        print("H")
         if not os.path.exists(asm_file):
             print(f"Error: {asm_file} not found.")
             return
 
         with open(asm_file, 'r') as asm:
             with open(obj_file, 'wb') as obj:
-                tokens = tokenize(asm)   ## check data types matches, input must be a string
-                
+                print("H")
+                tokenizer = Tokenizer(input_code)
+                tokens = tokenizer.tokenize()
+                print("H")
+                for token in tokens:
+                    print(token)
                 
                 
                 # if instruction in opcode_table:
@@ -27,9 +42,10 @@ def assemble_asm_to_object(asm_file, obj_file):
         print(f"An error occurred: {e}")
 
 def main():
-    asm_file = input("Enter the ASM file (e.g., 'Prog.asm'): ")
-    obj_file = input("Enter the output object file (e.g., 'Prog.o'): ")
-
+    # asm_file = input("Enter the ASM file (e.g., 'Prog.asm'): ")
+    # obj_file = input("Enter the output object file (e.g., 'Prog.o'): ")
+    asm_file = "prog.asm"
+    obj_file = "p.o"
     assemble_asm_to_object(asm_file, obj_file)
 
 if __name__ == "__main__":

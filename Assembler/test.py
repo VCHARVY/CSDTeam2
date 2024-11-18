@@ -16,13 +16,32 @@ class CodeGenerator:
         self.ast = ast
         self.symbol_table = symbol_table
         self.machine_code = []
+        self.current_address = 0  # Track current instruction address for labels
+
+    def build_symbol_table(self):
+        """First pass to build symbol table with label addresses"""
+        current_addr = 0
+        for node in self.ast:
+            if isinstance(node, Label):
+                self.symbol_table[node.name] = current_addr
+            elif isinstance(node, Instruction):
+                current_addr += 4  # Each instruction is 4 bytes long
+        return self.symbol_table
 
     def generate_machine_code(self) -> List[int]:
         """Generate machine code for the entire AST."""
+        # First pass: build symbol table with label addresses
+        self.build_symbol_table()
+        
+        # Second pass: generate machine code
+        self.current_address = 0
         for node in self.ast:
             if isinstance(node, Instruction):
                 binary_instruction = self.encode_instruction(node)
                 self.machine_code.append(binary_instruction)
+                self.current_address += 4
+            # Skip Label nodes in second pass - they've already been processed
+        
         return self.machine_code
 
     def encode_instruction(self, instruction: Instruction) -> int:
@@ -44,20 +63,20 @@ class CodeGenerator:
 
         # Branch instructions (B, BL, BLX, BX)
         if mnemonic in ['B', 'BL', 'BLX', 'BX']:
-            if operand_count != 1:
-                raise ValueError(f"Branch instruction {mnemonic} expects 1 operand")
-            if instruction.operands[0].startswith('#'):
+            target = instruction.operands[0]
+            if target.startswith('#'):
                 is_imm = 1
-                value = self.encode_immediate(instruction.operands[0])
-            elif instruction.operands[0] in self.symbol_table:
-                value = self.symbol_table[instruction.operands[0]] & 0x7FFF
+                value = self.encode_immediate(target)
+            elif target in self.symbol_table:
+                # Calculate relative offset for branch
+                target_addr = self.symbol_table[target]
+                offset = target_addr - (self.current_address + 8)  # PC+8 for ARM
+                value = (offset >> 2) & 0x7FFF  # Convert to words and mask
             else:
-                raise ValueError(f"Invalid branch target: {instruction.operands[0]}")
+                raise ValueError(f"Invalid branch target: {target}")
 
         # System instructions (SWI, CLZ, MSR, MRS)
         elif mnemonic in ['SWI', 'CLZ', 'MSR', 'MRS']:
-            if operand_count != 1:
-                raise ValueError(f"{mnemonic} instruction expects 1 operand")
             if instruction.operands[0].startswith('#'):
                 is_imm = 1
                 value = self.encode_immediate(instruction.operands[0])
@@ -66,8 +85,6 @@ class CodeGenerator:
 
         # Compare instructions (CMP, CMN, TEQ, TST)
         elif mnemonic in ['CMP', 'CMN', 'TEQ', 'TST']:
-            if operand_count != 2:
-                raise ValueError(f"{mnemonic} instruction expects 2 operands")
             rd_addr = self.encode_register(instruction.operands[0])
             if instruction.operands[1].startswith('#'):
                 is_imm = 1
@@ -77,8 +94,6 @@ class CodeGenerator:
 
         # Data movement (MOV, MVN)
         elif mnemonic in ['MOV', 'MVN']:
-            if operand_count != 2:
-                raise ValueError(f"{mnemonic} instruction expects 2 operands")
             rd_addr = self.encode_register(instruction.operands[0])
             if instruction.operands[1].startswith('#'):
                 is_imm = 1
@@ -88,8 +103,6 @@ class CodeGenerator:
 
         # Memory operations (LDR, STR)
         elif mnemonic in ['LDR', 'STR']:
-            if operand_count != 2:
-                raise ValueError(f"{mnemonic} instruction expects 2 operands")
             rd_addr = self.encode_register(instruction.operands[0])
             if instruction.operands[1].startswith('#'):
                 is_imm = 1
@@ -99,8 +112,6 @@ class CodeGenerator:
 
         # Basic arithmetic/logic (ADD, SUB, AND, ORR, etc.)
         else:
-            if operand_count != 2:
-                raise ValueError(f"{mnemonic} instruction expects 2 operands")
             rd_addr = self.encode_register(instruction.operands[0])
             if instruction.operands[1].startswith('#'):
                 is_imm = 1
@@ -143,22 +154,28 @@ def format_binary(num: int, width: int = 32) -> str:
     return format(num, f'0{width}b')
 
 if __name__ == "__main__":
-    # Example usage with only 2-operand instructions
+    # Example usage with labels
     test_program = [
-        Instruction("ADD", ["r1", "r2"]),
-        Instruction("MOV", ["r4", "#10"]),
-        Instruction("CMP", ["r1", "r2"]),
-        Instruction("B", ["#1000"]),
-        Instruction("LDR", ["r1", "#100"]),
+        Label("start"),
+        Instruction("MOV", ["r1", "#0"]),
+        Label("loop"),
+        Instruction("ADD", ["r1", "#1"]),
+        Instruction("CMP", ["r1", "#10"]),
+        Instruction("B", ["loop"]),
+        Label("end"),
+        Instruction("MOV", ["r0", "r1"])
     ]
     
-    symbol_table = {'loop': 0x100}
-    code_gen = CodeGenerator(test_program, symbol_table)
+    code_gen = CodeGenerator(test_program, {})
     machine_code = code_gen.generate_machine_code()
     
-    print("Generated Machine Code:")
+    print("Symbol Table:")
+    for label, address in code_gen.symbol_table.items():
+        print(f"{label}: 0x{address:04x}")
+    
+    print("\nGenerated Machine Code:")
     for i, code in enumerate(machine_code):
-        print(f"Instruction {i}: {format_binary(code)}")
+        print(f"Address 0x{i*4:04x}: {format_binary(code)}")
         # Print instruction breakdown
         itype = (code >> 30) & 0x3
         u_ctrl = (code >> 24) & 0x3F
