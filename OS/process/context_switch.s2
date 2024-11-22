@@ -1,0 +1,22 @@
+; save_context.s
+global save_context
+global restore_context
+
+section .text
+save_context:
+    pusha                    ; Save general-purpose registers
+    pushfd                   ; Save EFLAGS
+    mov eax, [esp + 36]      ; Load PCB address into EAX (passed by caller)
+    mov [eax], esp           ; Save ESP
+    pop [eax + 4]            ; Save EFLAGS
+    popa
+    ret
+
+restore_context:
+    mov eax, [esp + 4]       ; Load PCB address into EAX
+    mov esp, [eax]           ; Restore ESP
+    push [eax + 4]           ; Restore EFLAGS
+    popfd
+    popa                     ; Restore general-purpose registers
+    ret
+
