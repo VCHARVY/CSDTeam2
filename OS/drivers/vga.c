@@ -3,7 +3,7 @@
 uint16_t column=0;
 uint16_t line=0;
 uint16_t* const vga=(uint16_t* const)0xB8000;
-const uint16_t defaultColor=(COLOR8_BLACK<<8)|(COLOR8_LIGHT_GRAY<<12);
+const uint16_t defaultColor=(COLOR8_BLACK<<12)|(COLOR8_LIGHT_GRAY<<8);
 uint16_t currentColor=defaultColor;
 
 void Reset(){
@@ -37,18 +37,28 @@ void scrollUp(){
     }
 }
 void renderChar(char c, uint16_t x, uint16_t y) {
-    //pass
+    //pass (NO need to implement)
 }
 void print(const char* s) {
     while (*s) {
         if (*s == '\n') {
             newLine();
-        } else {
+        } 
+        else if (*s == '\b') {
+            if (column > 0) {
+                column--;
+            } else if (line > 0) {
+                line--;
+                column = WIDTH - 1;
+            }
+            vga[line * WIDTH + column] = ' ' | currentColor;
+        } 
+        else {
             if (column == WIDTH) {
                 newLine();
             }
             // renderChar(*s, column , line );
-            vga[line*WIDTH+column]=*s|currentColor;//normal font
+            vga[line*WIDTH+column]=*s|currentColor;
             column++;
         }
         s++;
@@ -56,7 +66,6 @@ void print(const char* s) {
 }
 
 bool testVGAMemory() {
-    // Save the current state
     uint16_t original = vga[0];
     
     // Write a test value

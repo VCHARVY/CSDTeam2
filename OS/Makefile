@@ -1,8 +1,8 @@
 run: OS.iso
-	qemu-system-i386 -cdrom OS.iso
+	qemu-system-i386  -cdrom OS.iso
 debug: OS.iso
 	qemu-system-i386 -s -S -cdrom OS.iso &
-	gdb OS/boot/kernel -ex "target remote localhost:1234"
+	gdb OS/boot/kernel -tui -ex "target remote 127.0.0.1:1234"
 all: kernel.bin OS.iso
 
 kernel.o: kernel.c
@@ -17,8 +17,20 @@ keyboard.o : drivers/keyboard.c
 boot.o: boot.s
 	nasm -f elf32 boot.s -o boot.o
 
-kernel.bin: kernel.o vga.o boot.o keyboard.o linker.ld
-	ld -m elf_i386 -T linker.ld -o kernel vga.o kernel.o boot.o keyboard.o
+process.o: process/process.c
+	gcc -m32 -g -fno-stack-protector -fno-builtin -c ./process/process.c -o process.o
+
+context_switch.o: process/context_switch.s
+	nasm -f elf32 process/context_switch.s -o context_switch.o
+
+PCB.o: process/PCB.c
+	gcc -m32 -g -fno-stack-protector -fno-builtin -c ./process/PCB.c -o PCB.o
+file_system.o: file_system/init.c 
+	gcc -m32 -g -fno-stack-protector -fno-builtin -c ./file_system/init.c -o file_system.o
+string.o:file_system/string.c
+	gcc -m32 -g -fno-stack-protector -fno-builtin -c ./file_system/string.c -o string.o
+kernel.bin: kernel.o vga.o boot.o file_system.o keyboard.o process.o context_switch.o PCB.o string.o linker.ld
+	ld -m elf_i386 -T linker.ld -o kernel vga.o kernel.o boot.o keyboard.o process.o context_switch.o PCB.o file_system.o string.o
 	cp kernel OS/boot
 
 OS.iso: kernel.bin
