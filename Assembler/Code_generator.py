@@ -38,7 +38,7 @@ class CodeGenerator:
         value = 0
 
         # Branch instructions (B, BL, BLX, BX)
-        if mnemonic in ['B', 'BL', 'BLX', 'BX']:
+        if mnemonic in ['B', 'BL', 'BLX', 'BX', 'BGT', 'BLT', 'BGE']:
             target = instruction.operands[0]
             if target.startswith('#'):
                 # Direct immediate value
@@ -148,29 +148,29 @@ class CodeGenerator:
         return format(num, f'0{width}b')
 
 # Example usage
-if __name__ == "__main__":
-    # Example AST with 3-operand and label instructions
-    test_program = [
-        Instruction("ADD", "", ["r0", "r1", "#5"]),
-        Instruction("MOV", "", ["r4", "#10"]),
-        Instruction("CMP", "", ["r1", "r2"]),
-        Instruction("B", "", ["exit"]),
-        Label("exit")
-    ]
+# if __name__ == "__main__":
+#     # Example AST with 3-operand and label instructions
+#     test_program = [
+#         Instruction("ADD", "", ["r0", "r1", "#5"]),
+#         Instruction("MOV", "", ["r4", "#10"]),
+#         Instruction("CMP", "", ["r1", "r2"]),
+#         Instruction("B", "", ["exit"]),
+#         Label("exit")
+#     ]
     
-    symbol_table = {'exit': 0x100}
-    code_gen = CodeGenerator(test_program, symbol_table)
-    machine_code = code_gen.generate_machine_code()
+#     symbol_table = {'exit': 0x100}
+#     code_gen = CodeGenerator(test_program, symbol_table)
+#     machine_code = code_gen.generate_machine_code()
     
-    print("Generated Machine Code:")
-    for i, code in enumerate(machine_code):
-        print(f"Instruction {i}: {CodeGenerator.format_binary(code)}")
-        # Print instruction breakdown
-        itype = (code >> 30) & 0x3
-        u_ctrl = (code >> 24) & 0x3F
-        rd = (code >> 20) & 0xF
-        rm = (code >> 16) & 0xF
-        rn = (code >> 12) & 0xF
-        is_imm = (code >> 15) & 0x1
-        value = code & 0x7FFF
-        print(f"  Type: {itype:02b}, Control: {u_ctrl:06b}, Rd: {rd:04b}, Rm: {rm:04b}, Rn: {rn:04b}, Imm: {is_imm}, Value: {value:015b}")
+#     print("Generated Machine Code:")
+#     for i, code in enumerate(machine_code):
+#         print(f"Instruction {i}: {CodeGenerator.format_binary(code)}")
+#         # Print instruction breakdown
+#         itype = (code >> 30) & 0x3
+#         u_ctrl = (code >> 24) & 0x3F
+#         rd = (code >> 20) & 0xF
+#         rm = (code >> 16) & 0xF
+#         rn = (code >> 12) & 0xF
+#         is_imm = (code >> 15) & 0x1
+#         value = code & 0x7FFF
+#         print(f"  Type: {itype:02b}, Control: {u_ctrl:06b}, Rd: {rd:04b}, Rm: {rm:04b}, Rn: {rn:04b}, Imm: {is_imm}, Value: {value:015b}")

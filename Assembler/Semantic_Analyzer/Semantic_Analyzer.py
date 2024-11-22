@@ -66,7 +66,7 @@ class SemanticAnalyzer:
     def analyze(self):
         self.build_symbol_table()
         self.validate_instructions()
-        return self.errors
+        return self.errors, self.symbol_table
 
     def build_symbol_table(self):
         for node in self.ast:
@@ -79,7 +79,7 @@ class SemanticAnalyzer:
             elif isinstance(node, Instruction):
                 self.current_address += 4  # Assuming all instructions are 4 bytes long   
 
-        print(self.symbol_table)
+        return(self.symbol_table)
 
     def validate_instructions(self):
         for node in self.ast:
@@ -377,8 +377,8 @@ class SemanticAnalyzer:
         if instruction.mnemonic in data_processing_instructions:
             if len(instruction.operands) >= 2:  # Some instructions might have 2 or 3 operands
                 op1, op2 = instruction.operands[1], instruction.operands[-1]
-                if (is_register(op1) and is_immediate(op2)) or (is_immediate(op1) and is_register(op2)):
-                    self.errors.append(f"Warning: Mixing register and immediate operands in '{instruction.mnemonic}'")
+                # if (is_register(op1) and is_immediate(op2)) or (is_immediate(op1) and is_register(op2)):
+                #     self.errors.append(f"Warning: Mixing register and immediate operands in '{instruction.mnemonic}'")
         
         # elif instruction.mnemonic in floating_point_instructions:
         #     for op in instruction.operands:

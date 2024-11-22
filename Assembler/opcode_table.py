@@ -33,7 +33,8 @@ opcode_table= {
     'TEQ': 30,
     'TST': 31,
     'UMULL': 32,
+    'BLT' : 33,
+    'BGE' : 34,
+    'BGT' : 35
     #'UMLAL': 33,
 }
-
-

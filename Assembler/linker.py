@@ -1,47 +1,42 @@
 import sys
 from typing import Dict, List, Tuple
+import ast  # For safely parsing dictionary strings
 
 class Linker:
     def __init__(self):
         self.global_symbol_table: Dict[str, int] = {}
-        self.external_references: Dict[str, List[Tuple[int, int]]] = {}  # symbol -> [(program_id, address)]
         self.base_addresses: Dict[int, int] = {}
         self.program_lengths: Dict[int, int] = {}
-        
-    def read_object_file(self, filename: str) -> Tuple[List[str], Dict[str, int], List[str], int]:
+
+    def read_object_file(self, filename: str) -> Tuple[List[str], Dict[str, int], int]:
         """
         Read an object file and return its components.
         Expected format:
-        - Machine code (hex or binary)
-        - Symbol table
-        - External references
-        - Program length
+        - Machine code (binary)
+        #
+        - Symbol table (dictionary)
+        #
+        - Program length (integer)
         """
         try:
-            with open(filename, 'r') as f:
-                content = f.read().strip().split('#')
-                
-            code = content[0].strip().split('\n')
+            with open(filename, "r") as f:
+                content = f.read().strip().split("#")
             
-            # Parse symbol table (format: symbol:value)
-            symbol_table = {}
-            for line in content[1].strip().split('\n'):
-                if line:
-                    symbol, value = line.split(':')
-                    symbol_table[symbol.strip()] = int(value.strip())
-                    
-            # Parse external references
-            externals = content[2].strip().split('\n') if len(content) > 2 else []
+            # Parse machine code
+            machine_code = content[0].strip().split("\n")
             
-            # Get program length
-            length = int(content[3].strip()) if len(content) > 3 else len(code)
+            # Parse symbol table (as dictionary)
+            symbol_table = ast.literal_eval(content[1].strip())
+            if not isinstance(symbol_table, dict):
+                raise ValueError("Symbol table is not a valid dictionary")
             
-            return code, symbol_table, externals, length
+            # Parse program length
+            program_length = int(content[2].strip())
             
+            return machine_code, symbol_table, program_length
         except Exception as e:
             print(f"Error reading object file {filename}: {e}")
             sys.exit(1)
-    
 
     def allocate_memory(self, programs: List[Tuple[str, int]]) -> None:
         """
@@ -49,81 +44,63 @@ class Linker:
         programs: List of (filename, base_address) tuples
         """
         current_address = 0
-        
         for prog_id, (filename, base_addr) in enumerate(programs, 1):
-            _, _, _, length = self.read_object_file(filename)
+            _, _, length = self.read_object_file(filename)
             
             if base_addr == -1:  # Auto-allocate
                 base_addr = current_address
-                
+            
             self.base_addresses[prog_id] = base_addr
             self.program_lengths[prog_id] = length
             current_address = base_addr + length
-    
+
     def collect_symbols(self, programs: List[Tuple[str, int]]) -> None:
         """
         Collect all symbols from all programs and build global symbol table.
-        Handle conflicts and external references.
+        Handle conflicts.
         """
         for prog_id, (filename, _) in enumerate(programs, 1):
-            _, symbol_table, externals, _ = self.read_object_file(filename)
-            
-            # Add symbols to global table with relocated addresses
+            _, symbol_table, _ = self.read_object_file(filename)
             base_addr = self.base_addresses[prog_id]
+            
+            # Add symbols to global table with relocation
             for symbol, value in symbol_table.items():
                 relocated_value = value + base_addr
-                
                 if symbol in self.global_symbol_table:
                     print(f"Error: Symbol '{symbol}' multiply defined")
                     sys.exit(1)
-                    
                 self.global_symbol_table[symbol] = relocated_value
-            
-            # Record external references
-            for ext in externals:
-                if ext not in self.external_references:
-                    self.external_references[ext] = []
-                self.external_references[ext].append((prog_id, 0))  # Address to be filled later
-    
+
     def link(self, programs: List[Tuple[str, int]], output_file: str) -> None:
         """
-        Main linking process.
+        Perform the linking process.
         programs: List of (filename, base_address) tuples
-        output_file: Name of the output executable
+        output_file: Name of the output file
         """
-        # Step 1: Allocate memory
-        #self.allocate_memory(programs)
-        
-        # Step 2: Collect all symbols
-        #self.collect_symbols(programs)
-        
-        # Step 3: Resolve external references and relocate addresses
+        self.allocate_memory(programs)
+        self.collect_symbols(programs)
+
         final_code = []
         
         for prog_id, (filename, _) in enumerate(programs, 1):
-            code, symbol_table, externals, _ = self.read_object_file(filename)
+            machine_code, _, _ = self.read_object_file(filename)
             base_addr = self.base_addresses[prog_id]
             
-            # Process each instruction
-            for instruction in code:
-                # Handle relocation
-                if 'OFFSET' in instruction:
-                    # Extract offset and add base address
-                    offset = int(instruction.split('OFFSET')[1].strip())
+            # Relocate machine code
+            for instruction in machine_code:
+                if "OFFSET" in instruction:
+                    offset = int(instruction.split("OFFSET")[1].strip())
                     relocated_offset = offset + base_addr
                     instruction = instruction.replace(f"OFFSET {offset}", str(relocated_offset))
                 
-                # Handle external references
-                for ext in externals:
-                    if ext in instruction and ext in self.global_symbol_table:
-                        instruction = instruction.replace(ext, str(self.global_symbol_table[ext]))
-                
                 final_code.append(instruction)
         
-        # Write final executable
-        with open(output_file, 'w') as f:
+        # Write the linked code to the output file
+        with open(output_file, "w") as f:
             for instruction in final_code:
-                f.write(instruction + '\n')
+                f.write(instruction + "\n")
+        
+        print(f"Linking complete. Output written to {output_file}")
 
 # Example usage
 def main():

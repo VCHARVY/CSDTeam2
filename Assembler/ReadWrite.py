@@ -6,14 +6,6 @@ from Semantic_Analyzer.Semantic_Analyzer import SemanticAnalyzer
 from opcode_table import opcode_table
 from Code_generator import CodeGenerator
 
-input_code = """
-    add r0, r1, #5
-    mov r4, #10
-    cmp r1, r2
-    b exit
-exit:
-"""
-
 def assemble_asm_to_object(asm_file, obj_file):
     try:
         if not os.path.exists(asm_file):
@@ -21,7 +13,10 @@ def assemble_asm_to_object(asm_file, obj_file):
             return
 
         with open(asm_file, 'r') as asm:
-            with open(obj_file, 'wb') as obj:
+            with open(obj_file, 'w') as obj:
+                input_code = asm.read()
+                print(input_code)
+
                 tokenizer = Tokenizer(input_code)
                 tokens = tokenizer.tokenize()
                 for token in tokens:
@@ -32,20 +27,23 @@ def assemble_asm_to_object(asm_file, obj_file):
                 print(ast)
                 
                 analyzer = SemanticAnalyzer(ast)
-                errors = analyzer.analyze()
+                errors, symbol_table = analyzer.analyze()
                 if errors:
                     for error in errors:
                         print(error)
                 else:
                     print("No semantic errors found.")
                 
-                symbol_table = {'exit': 0x100}
+                #symbol_table = {'exit': 0x100, 'label1' : 0x101, 'lab2' : 0x102,}
                 code_gen = CodeGenerator(ast, symbol_table)
                 machine_code = code_gen.generate_machine_code()
-
+                i = 0
                 print("Generated Machine Code:")
                 for i, code in enumerate(machine_code):
-                    print(f"Instruction {i}: {code_gen.format_binary(code)}")
+                    s = code_gen.format_binary(code)
+                    obj.write(s)
+                    obj.write("\n")
+                    print(f"Instruction {i}: {s}")
                     # Print instruction breakdown
                     itype = (code >> 30) & 0x3
                     u_ctrl = (code >> 24) & 0x3F
@@ -54,23 +52,21 @@ def assemble_asm_to_object(asm_file, obj_file):
                     is_imm = (code >> 15) & 0x1
                     value = code & 0x7FFF
                     print(f"  Type: {itype:02b}, Control: {u_ctrl:06b}, Rd: {rd:04b}, Rm: {rm:04b}, Imm: {is_imm}, Value: {value:015b}")
-
-                # if instruction in opcode_table:
-                #     binary_code=opcode_table[instruction]
-                #             # binary_data=int(binary_code).to_bytes(4, byteorder='big')
-                #         #obj.write(binary_code+'\n')
-                #     print("binary code: ",binary_code)
-                # else:
-                #     print(f"Warning: Unknown instruction {instruction}")
+                    i+=1
+                
+                obj.write("#")
+                obj.write(str(symbol_table))   
+                obj.write("\n#")
+                obj.write(str(i))         
         print(f"Successfully assembled {asm_file} into {obj_file}")
     except Exception as e:
         print(f"An error occurred: {e}")
 
 def main():
-    # asm_file = input("Enter the ASM file (e.g., 'Prog.asm'): ")
-    # obj_file = input("Enter the output object file (e.g., 'Prog.o'): ")
-    asm_file = "prog.asm"
-    obj_file = "p.o"
+    asm_file = input("Enter the ASM file (e.g., 'Prog.asm'): ")
+    obj_file = input("Enter the output object file (e.g., 'Prog.o'): ")
+    # asm_file = "comp1.asm"
+    # obj_file = "p1.o"
     assemble_asm_to_object(asm_file, obj_file)
 
 if __name__ == "__main__":
