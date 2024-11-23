@@ -1,0 +1,42 @@
+SYMBOL TABLE
+==========================
+
+Function Name: add
+  Return Type: INT
+  Number of Parameters: 2
+  Parameter Types: INT INT 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: b
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 1
+
+    Variable Name: a
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 1
+
+-----------------------------------
+
+Function Name: main
+  Return Type: INT
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: a
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 6
+
+-----------------------------------
+

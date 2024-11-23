@@ -1,0 +1,13 @@
+#include "io.jc"
+int v = 0;
+int main(){
+    int n;
+    sysin(n);
+    int fact = 1;
+    int i;
+    for (i = 1; i <= n; i=i+1) {
+        fact = fact * i;
+    }
+    syswrite(fact);
+    return 0;
+}

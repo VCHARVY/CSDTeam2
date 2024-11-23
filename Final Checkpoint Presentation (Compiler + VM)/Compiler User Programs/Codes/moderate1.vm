@@ -1,0 +1,103 @@
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function isPrime 13 0 INT
+push constant 1 INT
+pop local 2 INT
+push argument 0 INT
+push local 2 INT
+le INT
+pop local 3 INT
+push local 4 INT
+if-goto #L1
+goto #L2
+label #L1
+push constant 0 INT
+pop local 5 INT
+push local 5 INT
+return
+goto #L0
+label #L2
+label #L0
+push constant 2 INT
+pop local 7 INT
+push local 7 INT
+pop local 6 INT
+label #L3
+push local 6 INT
+push local 6 INT
+mul INT
+pop local 8 INT
+push local 8 INT
+push argument 0 INT
+le INT
+pop local 9 INT
+push local 4 INT
+if-goto #L4
+goto #L5
+label #L4
+push constant 1 INT
+pop local 8 INT
+push local 6 INT
+push local 8 INT
+add INT
+pop local 9 INT
+push local 9 INT
+pop local 6 INT
+goto #L3
+label #L4
+push constant 0 INT
+pop local 9 INT
+push local 6 INT
+push local 9 INT
+eq INT
+pop local 10 INT
+push argument 0 INT
+push local 10 INT
+mod INT
+pop local 11 INT
+push local 4 INT
+if-goto #L8
+goto #L9
+label #L8
+push constant 0 INT
+pop local 10 INT
+push local 10 INT
+return
+goto #L7
+label #L9
+label #L7
+goto #L6
+label #L5
+push constant 1 INT
+pop local 12 INT
+push local 12 INT
+return
+function main 5 0 INT
+input INT
+pop local 0 INT
+push constant "Prime" STR
+pop constant 0 STR
+push local 0 INT
+call isPrime 1
+pop local 1 INT
+push constant 0 INT
+pop local 2 INT
+push local 1 INT
+push local 2 INT
+eq INT
+pop local 3 INT
+push local 4 INT
+if-goto #L11
+goto #L12
+label #L11
+push constant 0 STR
+print STR
+goto #L10
+label #L12
+label #L10
+push constant 0 INT
+pop local 1 INT
+push local 1 INT
+return

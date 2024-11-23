@@ -1,0 +1,16 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+main: INT
+- INT a
+- INT b
+input a INT
+input b INT
+@t1 = a + b INT
+- INT sum
+sum = @t1 INT
+output sum INT
+@t1 = 0 INT
+return @t1 INT
+end:
+

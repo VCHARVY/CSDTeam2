@@ -1,0 +1,130 @@
+SYMBOL TABLE
+==========================
+
+Function Name: global
+  Return Type: 
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: v
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 2
+
+-----------------------------------
+
+Function Name: stringConcat
+  Return Type: VOID
+  Number of Parameters: 2
+  Parameter Types: CHAR CHAR 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: i
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 26
+
+    Variable Name: srcLen
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 25
+
+    Variable Name: destLen
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 24
+
+    Variable Name: src
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 23
+
+    Variable Name: dest
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 23
+
+-----------------------------------
+
+Function Name: stringLength
+  Return Type: INT
+  Number of Parameters: 1
+  Parameter Types: CHAR 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: length
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 4
+
+    Variable Name: str
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 3
+
+-----------------------------------
+
+Function Name: stringReverse
+  Return Type: VOID
+  Number of Parameters: 1
+  Parameter Types: CHAR 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: temp
+      Data Type: CHAR
+      Scope: 2
+      Size: 0
+      Is Array: No
+      Line Number: 16
+
+    Variable Name: j
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 14
+
+    Variable Name: i
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 13
+
+    Variable Name: length
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 12
+
+    Variable Name: str
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 11
+
+-----------------------------------
+

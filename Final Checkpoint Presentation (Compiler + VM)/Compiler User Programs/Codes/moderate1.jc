@@ -1,0 +1,23 @@
+#include "io.jc"
+int a = 0;
+int isPrime(int num) {
+    if (num <= 1) {
+        return 0;
+    }
+    int i;
+    for (i = 2; i * i <= num; i=i+1) {
+        if (num % i == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+int main(){
+    int number;
+    sysin(number);
+    string ans = "Prime";
+    if (isPrime(number) == 0) {
+        syswrite(ans);
+    } 
+    return 0;
+}

@@ -1,0 +1,65 @@
+SYMBOL TABLE
+==========================
+
+Function Name: global
+  Return Type: 
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: a
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 2
+
+-----------------------------------
+
+Function Name: isPrime
+  Return Type: INT
+  Number of Parameters: 1
+  Parameter Types: INT 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: i
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 7
+
+    Variable Name: num
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 3
+
+-----------------------------------
+
+Function Name: main
+  Return Type: INT
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: ans
+      Data Type: STR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 18
+
+    Variable Name: number
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 16
+
+-----------------------------------
+

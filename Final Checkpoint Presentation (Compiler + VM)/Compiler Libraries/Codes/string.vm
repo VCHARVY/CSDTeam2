@@ -1,0 +1,143 @@
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function stringLength 10 0 INT
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+label #L0
+push local 5 CHAR
+pop local 4 CHAR
+push local 7 CHAR
+pop local 6 CHAR
+push local 4 CHAR
+push local 6 CHAR
+neq CHAR
+pop local 8 CHAR
+push local 9 INT
+if-goto #L1
+goto #L2
+label #L1
+push constant 1 INT
+pop local 4 CHAR
+push local 3 INT
+push local 4 CHAR
+add INT
+pop local 8 CHAR
+push local 8 CHAR
+pop local 3 INT
+goto #L0
+label #L2
+push local 3 INT
+return
+function stringReverse 13 0 VOID
+push argument 1 CHAR
+call stringLength 1
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push constant 1 INT
+pop local 0 INT
+push local 1 INT
+push local 0 INT
+sub INT
+pop local 3 INT
+push local 3 INT
+pop local 4 INT
+push constant 0 INT
+pop local 3 INT
+push local 3 INT
+pop local 2 INT
+label #L3
+push local 2 INT
+push local 4 INT
+lt INT
+pop local 5 INT
+push local 6 INT
+if-goto #L4
+goto #L5
+label #L4
+push constant 1 INT
+pop local 5 INT
+push local 2 INT
+push local 5 INT
+add INT
+pop local 7 INT
+push local 7 INT
+pop local 2 INT
+goto #L3
+label #L4
+push local 8 CHAR
+pop local 7 INT
+push local 7 INT
+pop local 9 CHAR
+push local 10 CHAR
+pop local 7 INT
+push local 7 INT
+pop local 8 CHAR
+push local 9 CHAR
+pop local 10 CHAR
+push constant 1 INT
+pop local 11 INT
+push local 4 INT
+push local 11 INT
+sub INT
+pop local 12 INT
+push local 12 INT
+pop local 4 INT
+goto #L6
+label #L5
+function stringConcat 14 0 VOID
+push argument 2 CHAR
+call stringLength 1
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push argument 3 CHAR
+call stringLength 1
+pop local 0 INT
+push local 0 INT
+pop local 2 INT
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 3 INT
+label #L7
+push local 3 INT
+push local 2 INT
+lt INT
+pop local 4 INT
+push local 5 INT
+if-goto #L8
+goto #L9
+label #L8
+push constant 1 INT
+pop local 4 INT
+push local 3 INT
+push local 4 INT
+add INT
+pop local 6 INT
+push local 6 INT
+pop local 3 INT
+goto #L7
+label #L8
+push local 1 INT
+push local 3 INT
+add INT
+pop local 6 INT
+push local 8 CHAR
+pop local 7 CHAR
+push local 7 CHAR
+pop local 9 CHAR
+goto #L10
+label #L9
+push local 1 INT
+push local 2 INT
+add INT
+pop local 10 INT
+push local 12 CHAR
+pop local 11 CHAR
+push local 11 CHAR
+pop local 13 CHAR

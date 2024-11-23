@@ -1,0 +1,12 @@
+#include "io.jc"
+//addition of 2 numbers
+int v = 0;
+int main(){
+    int a;
+    int b;
+    sysin(a);
+    sysin(b);
+    int sum = a + b;
+    syswrite(sum);
+    return 0;
+}

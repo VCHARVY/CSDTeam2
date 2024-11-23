@@ -1,0 +1,48 @@
+// File: math_ops.vm
+// Contains math-related functions and static variables
+
+function add
+    push constant 10
+    push constant 20
+    add
+    return
+
+function subtract
+    push constant 30
+    push constant 10
+    sub
+    return
+
+// Static variable for storing a constant
+push static 0
+push constant 42
+pop static 0
+
+function multiply
+    push static 0  // Use the static variable defined earlier
+    push constant 3
+    call multiply_helper 1
+    return
+
+function multiply_helper
+    push argument 0
+    push constant 2
+    mul
+    return// File: string_ops.vm
+// Contains string-related functions
+
+function concatenate
+    push constant 72   // 'H'
+    push constant 105  // 'i'
+    call add_char 2
+    return
+
+function add_char
+    push argument 0
+    push argument 1
+    add
+    return
+
+function check_add
+    call add 0  // Referencing add function from math_ops.vm
+    return

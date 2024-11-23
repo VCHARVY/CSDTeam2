@@ -1,0 +1,519 @@
+@t0 = 1 INT
+- INT countLine
+countLine = @t0 INT
+- CHAR name[16]
+- CHAR data[256]
+- INT size
+- CHAR used
+- INT pid
+- INT pc
+- INT sp
+- INT state
+- CHAR output_buffer[256]
+- CHAR input_buffer[256]
+- INT input_index
+- INT output_index
+- INT time_used
+dec1: INT
+- INT pcb_table[10]
+- STRUCT* current_process
+- STRUCT* ready_queue
+- INT scancode_to_ascii[128]
+scancode_to_ascii[0] = 0 INT
+scancode_to_ascii[1] = 27 INT
+scancode_to_ascii[2] = 49 INT
+scancode_to_ascii[3] = 50 INT
+scancode_to_ascii[4] = 51 INT
+scancode_to_ascii[5] = 52 INT
+scancode_to_ascii[6] = 53 INT
+scancode_to_ascii[7] = 54 INT
+scancode_to_ascii[8] = 55 INT
+scancode_to_ascii[9] = 56 INT
+scancode_to_ascii[10] = 57 INT
+scancode_to_ascii[11] = 48 INT
+scancode_to_ascii[12] = 45 INT
+scancode_to_ascii[13] = 61 INT
+scancode_to_ascii[14] = 8 INT
+scancode_to_ascii[15] = 9 INT
+scancode_to_ascii[16] = 113 INT
+scancode_to_ascii[17] = 119 INT
+scancode_to_ascii[18] = 101 INT
+scancode_to_ascii[19] = 114 INT
+scancode_to_ascii[20] = 116 INT
+scancode_to_ascii[21] = 121 INT
+scancode_to_ascii[22] = 117 INT
+scancode_to_ascii[23] = 105 INT
+scancode_to_ascii[24] = 111 INT
+scancode_to_ascii[25] = 112 INT
+scancode_to_ascii[26] = 91 INT
+scancode_to_ascii[27] = 93 INT
+scancode_to_ascii[28] = 10 INT
+scancode_to_ascii[29] = 0 INT
+scancode_to_ascii[30] = 97 INT
+scancode_to_ascii[31] = 115 INT
+scancode_to_ascii[32] = 100 INT
+scancode_to_ascii[33] = 102 INT
+scancode_to_ascii[34] = 103 INT
+scancode_to_ascii[35] = 104 INT
+scancode_to_ascii[36] = 106 INT
+scancode_to_ascii[37] = 107 INT
+scancode_to_ascii[38] = 108 INT
+scancode_to_ascii[39] = 59 INT
+scancode_to_ascii[40] = 39 INT
+scancode_to_ascii[41] = 96 INT
+scancode_to_ascii[42] = 0 INT
+scancode_to_ascii[43] = 92 INT
+scancode_to_ascii[44] = 122 INT
+scancode_to_ascii[45] = 120 INT
+scancode_to_ascii[46] = 99 INT
+scancode_to_ascii[47] = 118 INT
+scancode_to_ascii[48] = 98 INT
+scancode_to_ascii[49] = 110 INT
+scancode_to_ascii[50] = 109 INT
+scancode_to_ascii[51] = 44 INT
+scancode_to_ascii[52] = 46 INT
+scancode_to_ascii[53] = 47 INT
+scancode_to_ascii[54] = 0 INT
+scancode_to_ascii[55] = 42 INT
+scancode_to_ascii[56] = 0 INT
+scancode_to_ascii[57] = 32 INT
+scancode_to_ascii[58] = 0 INT
+scancode_to_ascii[59] = 0 INT
+scancode_to_ascii[60] = 0 INT
+scancode_to_ascii[61] = 0 INT
+scancode_to_ascii[62] = 0 INT
+scancode_to_ascii[63] = 0 INT
+scancode_to_ascii[64] = 0 INT
+scancode_to_ascii[65] = 0 INT
+scancode_to_ascii[66] = 0 INT
+scancode_to_ascii[67] = 0 INT
+scancode_to_ascii[68] = 0 INT
+scancode_to_ascii[69] = 0 INT
+@t1 = 0 INT
+return @t1 INT
+end:
+
+memset: VOID*
+- arg VOID* dest
+- arg INT val
+- arg INT count
+- INT* ptr
+ptr = dest INT*
+
+#L0:
+@t2 = 0 INT
+@t3 = count > @t2 INT
+
+if @t3 GOTO #L1 else GOTO #L2
+
+#L1:
+ptr = val INT*
+@t3 = 1 INT
+@t4 = count - @t3 INT
+count = @t4 INT
+GOTO #L0
+#L2:
+return dest VOID*
+end:
+
+inb: CHAR
+- arg INT port
+- CHAR ret
+return ret CHAR
+end:
+
+is_key_released: CHAR
+- arg CHAR scancode
+@t4 = 80 INT
+@t5 = scancode & @t4 INT
+return @t5 CHAR
+end:
+
+get_keypress: CHAR
+@t6 = 60 INT
+param @t6 INT
+@t7 = @call inb CHAR 1
+- CHAR scancode
+scancode = @t7 CHAR
+param scancode CHAR
+@t7 = @call is_key_released CHAR 1
+if @t7 GOTO #L4 else GOTO #L5
+#L4:
+@t8 = 0 INT
+return @t8 CHAR
+GOTO #L3
+#L5:
+#L3:
+- INT scancode_to_ascii[128]
+scancode_to_ascii[70] = 0 INT
+scancode_to_ascii[71] = 27 INT
+scancode_to_ascii[72] = 49 INT
+scancode_to_ascii[73] = 50 INT
+scancode_to_ascii[74] = 51 INT
+scancode_to_ascii[75] = 52 INT
+scancode_to_ascii[76] = 53 INT
+scancode_to_ascii[77] = 54 INT
+scancode_to_ascii[78] = 55 INT
+scancode_to_ascii[79] = 56 INT
+scancode_to_ascii[80] = 57 INT
+scancode_to_ascii[81] = 48 INT
+scancode_to_ascii[82] = 45 INT
+scancode_to_ascii[83] = 61 INT
+scancode_to_ascii[84] = 8 INT
+scancode_to_ascii[85] = 9 INT
+scancode_to_ascii[86] = 113 INT
+scancode_to_ascii[87] = 119 INT
+scancode_to_ascii[88] = 101 INT
+scancode_to_ascii[89] = 114 INT
+scancode_to_ascii[90] = 116 INT
+scancode_to_ascii[91] = 121 INT
+scancode_to_ascii[92] = 117 INT
+scancode_to_ascii[93] = 105 INT
+scancode_to_ascii[94] = 111 INT
+scancode_to_ascii[95] = 112 INT
+scancode_to_ascii[96] = 91 INT
+scancode_to_ascii[97] = 93 INT
+scancode_to_ascii[98] = 10 INT
+scancode_to_ascii[99] = 0 INT
+scancode_to_ascii[100] = 97 INT
+scancode_to_ascii[101] = 115 INT
+scancode_to_ascii[102] = 100 INT
+scancode_to_ascii[103] = 102 INT
+scancode_to_ascii[104] = 103 INT
+scancode_to_ascii[105] = 104 INT
+scancode_to_ascii[106] = 106 INT
+scancode_to_ascii[107] = 107 INT
+scancode_to_ascii[108] = 108 INT
+scancode_to_ascii[109] = 59 INT
+scancode_to_ascii[110] = 39 INT
+scancode_to_ascii[111] = 96 INT
+scancode_to_ascii[112] = 0 INT
+scancode_to_ascii[113] = 92 INT
+scancode_to_ascii[114] = 122 INT
+scancode_to_ascii[115] = 120 INT
+scancode_to_ascii[116] = 99 INT
+scancode_to_ascii[117] = 118 INT
+scancode_to_ascii[118] = 98 INT
+scancode_to_ascii[119] = 110 INT
+scancode_to_ascii[120] = 109 INT
+scancode_to_ascii[121] = 44 INT
+scancode_to_ascii[122] = 46 INT
+scancode_to_ascii[123] = 47 INT
+scancode_to_ascii[124] = 0 INT
+scancode_to_ascii[125] = 42 INT
+@t9 = scancode_to_ascii[scancode] INT
+return @t9 CHAR
+end:
+
+simple_keyboard_driver: VOID
+- INT scancode_to_ascii[128]
+- CHAR key
+@t10 = 0 INT
+- CHAR key_pressed
+key_pressed = @t10 CHAR
+
+#L6:
+@t11 = 1 INT
+
+if @t11 GOTO #L7 else GOTO #L8
+
+#L7:
+@t12 = 60 INT
+param @t12 INT
+@t13 = @call inb CHAR 1
+- CHAR scancode
+scancode = @t13 CHAR
+param scancode CHAR
+@t13 = @call is_key_released CHAR 1
+if @t13 GOTO #L14 else GOTO #L12
+#L14:
+if key_pressed GOTO #L11 else GOTO #L12
+#L11:
+@t14 = 1 CHAR
+GOTO #L13
+#L12:
+@t14 = 0 CHAR
+#L13:
+if @t14 GOTO #L15 else GOTO #L16
+#L15:
+@t13 = 1 INT
+key_pressed = @t13 CHAR
+@t15 = scancode_to_ascii[scancode] INT
+key = @t15 CHAR
+GOTO #L9
+#L16:
+#L9:
+param scancode CHAR
+@t15 = @call is_key_released CHAR 1
+if @t15 GOTO #L18 else GOTO #L19
+#L18:
+@t16 = 0 INT
+key_pressed = @t16 CHAR
+GOTO #L17
+#L19:
+#L17:
+GOTO #L6
+#L8:
+end:
+
+Reset: VOID
+@t17 = 0 INT
+- INT column
+column = @t17 INT
+@t18 = 0 INT
+- INT line
+line = @t18 INT
+@t19 = 8000 INT
+- INT* vga
+vga = @t19 INT*
+@t20 = 0 INT
+- INT defaultColor
+defaultColor = @t20 INT
+- INT currentColor
+currentColor = defaultColor INT
+@t21 = 0 INT
+line = @t21 INT
+@t22 = 0 INT
+column = @t22 INT
+currentColor = defaultColor INT
+- INT x
+- INT y
+@t23 = 0 INT
+y = @t23 INT
+
+#L20:
+@t24 = 25 INT
+@t25 = y < @t24 INT
+
+if @t25 GOTO #L21 else GOTO #L22
+
+#L21:
+@t25 = 1 INT
+@t26 = y + @t25 INT
+y = @t26 INT
+GOTO #L20
+
+#L21:
+@t26 = 0 INT
+x = @t26 INT
+
+#L24:
+@t27 = 80 INT
+@t28 = x < @t27 INT
+
+if @t28 GOTO #L25 else GOTO #L26
+
+#L25:
+@t28 = 1 INT
+@t29 = x + @t28 INT
+x = @t29 INT
+GOTO #L24
+
+#L25:
+@t29 = 80 INT
+@t30 = y * @t29 INT
+@t31 = @t30 + x INT
+- INT temp
+temp = @t31 INT
+@t30 = defaultColor + temp INT
+vga = @t30 INT*
+GOTO #L27
+#L26:
+GOTO #L23
+#L22:
+end:
+
+newLine: VOID
+@t31 = 0 INT
+- INT column
+column = @t31 INT
+@t30 = 0 INT
+- INT line
+line = @t30 INT
+@t32 = 8000 INT
+- INT* vga
+vga = @t32 INT*
+@t33 = 0 INT
+- INT defaultColor
+defaultColor = @t33 INT
+- INT currentColor
+currentColor = defaultColor INT
+@t34 = 0 INT
+column = @t34 INT
+@t35 = 1 INT
+@t36 = line + @t35 INT
+line = @t36 INT
+@t36 = 25 INT
+@t37 = line >= @t36 INT
+if @t37 GOTO #L29 else GOTO #L30
+#L29:
+@t38 = 25 INT
+@t39 = 1 INT
+@t40 = @t38 - @t39 INT
+line = @t40 INT
+GOTO #L28
+#L30:
+#L28:
+end:
+
+scrollUp: VOID
+- INT x
+- INT y
+@t40 = 0 INT
+- INT vga
+vga = @t40 INT
+@t41 = 0 INT
+- INT defaultColor
+defaultColor = @t41 INT
+@t42 = 0 INT
+y = @t42 INT
+
+#L31:
+@t43 = 25 INT
+@t44 = y < @t43 INT
+
+if @t44 GOTO #L32 else GOTO #L33
+
+#L32:
+@t44 = 1 INT
+@t45 = y + @t44 INT
+y = @t45 INT
+GOTO #L31
+
+#L32:
+@t45 = 0 INT
+x = @t45 INT
+
+#L35:
+@t46 = 80 INT
+@t47 = x < @t46 INT
+
+if @t47 GOTO #L36 else GOTO #L37
+
+#L36:
+@t47 = 1 INT
+@t48 = x + @t47 INT
+x = @t48 INT
+GOTO #L35
+
+#L36:
+@t48 = 80 INT
+@t49 = y * @t48 INT
+@t50 = @t49 + x INT
+- INT temp
+temp = @t50 INT
+@t49 = defaultColor + temp INT
+vga = @t49 INT
+GOTO #L38
+#L37:
+GOTO #L34
+#L33:
+@t50 = 0 INT
+x = @t50 INT
+
+#L39:
+@t49 = 80 INT
+@t51 = x < @t49 INT
+
+if @t51 GOTO #L40 else GOTO #L41
+
+#L40:
+@t51 = 1 INT
+@t52 = x + @t51 INT
+x = @t52 INT
+GOTO #L39
+
+#L40:
+@t52 = 80 INT
+@t53 = y * @t52 INT
+@t54 = @t53 + x INT
+- INT temp
+temp = @t54 INT
+@t53 = defaultColor + temp INT
+vga = @t53 INT
+GOTO #L42
+#L41:
+end:
+
+renderChar: VOID
+- arg CHAR c
+- arg INT x
+- arg INT y
+end:
+
+print: VOID
+- arg CHAR* s
+- INT column
+@t54 = 3 INT
+- INT h
+h = @t54 INT
+
+#L43:
+@t53 = 0 INT
+@t55 = h > @t53 INT
+
+if @t55 GOTO #L44 else GOTO #L45
+
+#L44:
+@t55 = 1 INT
+- INT str
+str = @t55 INT
+@t56 = 0 INT
+@t57 = str == @t56 INT
+if @t57 GOTO #L47 else GOTO #L48
+#L47:
+@t58 = @call newLine VOID 0
+GOTO #L46
+#L48:
+#L46:
+@t59 = 1 INT
+@t60 = h - @t59 INT
+h = @t60 INT
+GOTO #L43
+#L45:
+end:
+
+print_nu: VOID
+- arg INT num
+- CHAR str[10]
+@t60 = 0 INT
+- INT i
+i = @t60 INT
+@t61 = 0 INT
+@t62 = '0' CHAR
+str[@t61] = @t62 CHAR
+
+#L49:
+@t63 = 0 INT
+@t64 = num > @t63 INT
+
+if @t64 GOTO #L50 else GOTO #L51
+
+#L50:
+@t64 = 10 INT
+@t65 = num + @t64 INT
+str[i] = @t65 CHAR
+@t66 = 10 INT
+@t67 = num / @t66 INT
+num = @t67 INT
+@t67 = 1 INT
+@t68 = i + @t67 INT
+i = @t68 INT
+GOTO #L49
+#L51:
+@t68 = 0 INT
+str[i] = @t68 CHAR
+param str CHAR
+@t69 = @call print VOID 1
+end:
+
+test_process2: VOID
+@t70 = @call terminal  0
+end:
+
+main: INT
+@t71 = @call terminal  0
+@t72 = 0 INT
+return @t72 INT
+end:
+

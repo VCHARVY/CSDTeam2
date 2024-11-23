@@ -1,0 +1,66 @@
+@t0 = 0 INT
+- INT a
+a = @t0 INT
+isPrime: INT
+- arg INT num
+@t1 = 1 INT
+@t2 = num <= @t1 INT
+if @t2 GOTO #L1 else GOTO #L2
+#L1:
+@t3 = 0 INT
+return @t3 INT
+GOTO #L0
+#L2:
+#L0:
+- INT i
+@t4 = 2 INT
+i = @t4 INT
+
+#L3:
+@t5 = i * i INT
+@t6 = @t5 <= num INT
+
+if @t6 GOTO #L4 else GOTO #L5
+
+#L4:
+@t5 = 1 INT
+@t6 = i + @t5 INT
+i = @t6 INT
+GOTO #L3
+
+#L4:
+@t6 = 0 INT
+@t7 = i == @t6 INT
+@t8 = num %  @t7 INT
+if @t8 GOTO #L8 else GOTO #L9
+#L8:
+@t7 = 0 INT
+return @t7 INT
+GOTO #L7
+#L9:
+#L7:
+GOTO #L6
+#L5:
+@t9 = 1 INT
+return @t9 INT
+end:
+
+main: INT
+- INT number
+input number INT
+- STR ans
+ans = "Prime" STR
+param number INT
+@t10 = @call isPrime INT 1
+@t11 = 0 INT
+@t12 = @t10 == @t11 INT
+if @t12 GOTO #L11 else GOTO #L12
+#L11:
+output ans STR
+GOTO #L10
+#L12:
+#L10:
+@t10 = 0 INT
+return @t10 INT
+end:
+

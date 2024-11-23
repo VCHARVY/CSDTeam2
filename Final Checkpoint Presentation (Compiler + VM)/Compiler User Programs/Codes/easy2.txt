@@ -1,0 +1,34 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+main: INT
+- INT n
+input n INT
+@t1 = 1 INT
+- INT fact
+fact = @t1 INT
+- INT i
+@t2 = 1 INT
+i = @t2 INT
+
+#L0:
+@t3 = i <= n INT
+
+if @t3 GOTO #L1 else GOTO #L2
+
+#L1:
+@t3 = 1 INT
+@t4 = i + @t3 INT
+i = @t4 INT
+GOTO #L0
+
+#L1:
+@t4 = fact * i INT
+fact = @t4 INT
+GOTO #L3
+#L2:
+output fact INT
+@t4 = 0 INT
+return @t4 INT
+end:
+

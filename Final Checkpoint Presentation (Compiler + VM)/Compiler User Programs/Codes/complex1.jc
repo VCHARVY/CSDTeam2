@@ -1,0 +1,32 @@
+#include "io.jc"
+int v =0;
+int main(){
+
+    int mat[9]={1,2,3,1,1,1,1,1,1};
+
+    int det = mat[0] * (mat[4] * mat[8] - mat[5] * mat[7])
+            - mat[1] * (mat[3] * mat[8] - mat[5] * mat[6])
+            + mat[2] * (mat[3] * mat[7] - mat[4] * mat[6]);
+
+
+
+    // Adjoint matrix calculation
+    int adj[9];
+    adj[0] = mat[4] * mat[8] - mat[5] * mat[7];
+    adj[1] = mat[2] * mat[7] - mat[1] * mat[8];
+    adj[2] = mat[1] * mat[5] - mat[2] * mat[4];
+    adj[3] = mat[5] * mat[6] - mat[3] * mat[8];
+    adj[4] = mat[0] * mat[8] - mat[2] * mat[6];
+    adj[5] = mat[2] * mat[3] - mat[0] * mat[5];
+    adj[6] = mat[3] * mat[7] - mat[4] * mat[6];
+    adj[7] = mat[1] * mat[6] - mat[0] * mat[7];
+    adj[8] = mat[0] * mat[4] - mat[1] * mat[3];
+
+    // Inverse matrix calculation (adjoint divided by determinant)
+    int i;
+    for (i = 0; i < 9; i=i+1) {
+        int temp = adj[i]/det;
+        syswrite(temp);
+    }
+    return 0;
+}
