@@ -1,0 +1,32 @@
+// math.jc - Math library for JC
+int v=0;
+int lcm(int a, int b) {
+    int gcd;
+    int temp_a = a;
+    int temp_b = b;
+    while (temp_b != 0) {
+        int temp = temp_b;
+        temp_b = temp_a % temp_b;
+        temp_a = temp;
+    }
+    gcd = temp_a;
+    return (a * b) / gcd;
+}
+
+int hcf(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int power(int base, int exp) {
+    int result = 1;
+    int i;
+    for (i = 0; i < exp; i=i+1) {
+        result = result * base;
+    }
+    return result;
+}

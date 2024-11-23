@@ -1,0 +1,75 @@
+// Allocate memory and set base address
+push constant 2048       // Base address (just an example address)
+pop local 0              // Store base address in local 0
+
+// Initialize a[0] = 1
+push local 0
+push constant 0
+add
+pop pointer 1
+push constant 1
+pop that 0
+
+// Initialize a[1] = 2
+push local 0
+push constant 1
+add
+pop pointer 1
+push constant 2
+pop that 0
+
+// Initialize a[2] = 3
+push local 0
+push constant 2
+add
+pop pointer 1
+push constant 3
+pop that 0
+
+// Initialize a[3] = 4
+push local 0
+push constant 3
+add
+pop pointer 1
+push constant 4
+pop that 0
+
+// Initialize a[4] = 5
+push local 0
+push constant 4
+add
+pop pointer 1
+push constant 5
+pop that 0
+
+// Initialize a[5] = 6
+push local 0
+push constant 5
+add
+pop pointer 1
+push constant 6
+pop that 0
+
+// Initialize a[6] = 7
+push local 0
+push constant 6
+add
+pop pointer 1
+push constant 7
+pop that 0
+
+// Initialize a[7] = 8
+push local 0
+push constant 7
+add
+pop pointer 1
+push constant 8
+pop that 0
+
+// Initialize a[8] = 9
+push local 0
+push constant 8
+add
+pop pointer 1
+push constant 9
+pop that 0

@@ -1,0 +1,86 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+bubbleSort: VOID
+- arg INT arr
+- arg INT n
+- INT i
+- INT j
+@t1 = 0 INT
+i = @t1 INT
+
+#L0:
+@t2 = 1 INT
+@t3 = n - @t2 INT
+@t4 = i < @t3 INT
+
+if @t4 GOTO #L1 else GOTO #L2
+
+#L1:
+@t3 = 1 INT
+@t4 = i + @t3 INT
+i = @t4 INT
+GOTO #L0
+
+#L1:
+@t4 = 0 INT
+j = @t4 INT
+
+#L4:
+@t5 = n - i INT
+@t6 = 1 INT
+@t7 = @t5 - @t6 INT
+@t5 = j < @t7 INT
+
+if @t5 GOTO #L5 else GOTO #L6
+
+#L5:
+@t7 = 1 INT
+@t5 = j + @t7 INT
+j = @t5 INT
+GOTO #L4
+
+#L5:
+@t5 = arr[j] INT
+@t8 = 1 INT
+@t9 = j + @t8 INT
+@t10 = arr[@t9] INT
+@t9 = @t5 > @t10 INT
+if @t9 GOTO #L9 else GOTO #L10
+#L9:
+@t5 = arr[j] INT
+- INT temp
+temp = @t5 INT
+@t10 = 1 INT
+@t5 = j + @t10 INT
+@t11 = arr[@t5] INT
+arr[j] = @t11 INT
+@t5 = 1 INT
+@t12 = j + @t5 INT
+arr[@t12] = temp INT
+GOTO #L8
+#L10:
+#L8:
+GOTO #L7
+#L6:
+GOTO #L3
+#L2:
+end:
+
+main: INT
+- INT arr[5]
+arr[0] = 64 INT
+arr[1] = 34 INT
+arr[2] = 25 INT
+arr[3] = 12 INT
+arr[4] = 22 INT
+@t13 = 5 INT
+- INT n
+n = @t13 INT
+param arr INT
+param n INT
+@t14 = @call bubbleSort VOID 2
+@t15 = 0 INT
+return @t15 INT
+end:
+

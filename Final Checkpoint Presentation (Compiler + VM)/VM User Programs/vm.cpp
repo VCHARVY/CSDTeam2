@@ -47,12 +47,10 @@ public:
             else if (segment == "this")
             {
                 fout << "str r1, [r9, #0]" << endl;
-                // fout << "mov r1, r9" << endl;
             }
             else if (segment == "that")
             {
                 fout << "str r1, [r9, #4]" << endl;
-                // fout << "mov r1, r9" << endl;
             }
             else if (segment == "static")
             {

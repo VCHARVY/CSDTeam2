@@ -1,0 +1,266 @@
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function countVowels 34 0 INT
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push constant 0 INT
+pop local 4 INT
+push local 4 INT
+pop local 5 INT
+label #L0
+push local 7 CHAR
+pop local 6 CHAR
+push constant 0 INT
+pop local 8 INT
+push local 6 CHAR
+push local 8 INT
+neq INT
+pop local 9 INT
+push local 10 INT
+if-goto #L1
+goto #L2
+label #L1
+push local 7 CHAR
+pop local 6 CHAR
+push local 6 CHAR
+pop local 11 CHAR
+push local 12 CHAR
+pop local 9 INT
+push local 11 CHAR
+push local 9 INT
+eq CHAR
+pop local 6 CHAR
+push local 14 CHAR
+pop local 13 CHAR
+push local 11 CHAR
+push local 13 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L5
+goto #L8
+label #L8
+push local 10 INT
+if-goto #L5
+goto #L6
+label #L5
+push constant 1 INT
+pop local 16 CHAR
+goto #L7
+label #L6
+push constant 0 INT
+pop local 16 CHAR
+label #L7
+push local 17 CHAR
+pop local 6 CHAR
+push local 11 CHAR
+push local 6 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L10
+goto #L13
+label #L13
+push local 10 INT
+if-goto #L10
+goto #L11
+label #L10
+push constant 1 INT
+pop local 18 CHAR
+goto #L12
+label #L11
+push constant 0 INT
+pop local 18 CHAR
+label #L12
+push local 19 CHAR
+pop local 16 CHAR
+push local 11 CHAR
+push local 16 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L15
+goto #L18
+label #L18
+push local 10 INT
+if-goto #L15
+goto #L16
+label #L15
+push constant 1 INT
+pop local 20 CHAR
+goto #L17
+label #L16
+push constant 0 INT
+pop local 20 CHAR
+label #L17
+push local 21 CHAR
+pop local 18 CHAR
+push local 11 CHAR
+push local 18 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L20
+goto #L23
+label #L23
+push local 10 INT
+if-goto #L20
+goto #L21
+label #L20
+push constant 1 INT
+pop local 22 CHAR
+goto #L22
+label #L21
+push constant 0 INT
+pop local 22 CHAR
+label #L22
+push local 23 CHAR
+pop local 20 CHAR
+push local 11 CHAR
+push local 20 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L25
+goto #L28
+label #L28
+push local 10 INT
+if-goto #L25
+goto #L26
+label #L25
+push constant 1 INT
+pop local 24 CHAR
+goto #L27
+label #L26
+push constant 0 INT
+pop local 24 CHAR
+label #L27
+push local 25 CHAR
+pop local 22 CHAR
+push local 11 CHAR
+push local 22 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L30
+goto #L33
+label #L33
+push local 10 INT
+if-goto #L30
+goto #L31
+label #L30
+push constant 1 INT
+pop local 26 CHAR
+goto #L32
+label #L31
+push constant 0 INT
+pop local 26 CHAR
+label #L32
+push local 27 CHAR
+pop local 24 CHAR
+push local 11 CHAR
+push local 24 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L35
+goto #L38
+label #L38
+push local 10 INT
+if-goto #L35
+goto #L36
+label #L35
+push constant 1 INT
+pop local 28 CHAR
+goto #L37
+label #L36
+push constant 0 INT
+pop local 28 CHAR
+label #L37
+push local 29 CHAR
+pop local 26 CHAR
+push local 11 CHAR
+push local 26 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L40
+goto #L43
+label #L43
+push local 10 INT
+if-goto #L40
+goto #L41
+label #L40
+push constant 1 INT
+pop local 30 CHAR
+goto #L42
+label #L41
+push constant 0 INT
+pop local 30 CHAR
+label #L42
+push local 31 CHAR
+pop local 28 CHAR
+push local 11 CHAR
+push local 28 CHAR
+eq CHAR
+pop local 15 CHAR
+push local 10 INT
+if-goto #L45
+goto #L48
+label #L48
+push local 10 INT
+if-goto #L45
+goto #L46
+label #L45
+push constant 1 INT
+pop local 32 CHAR
+goto #L47
+label #L46
+push constant 0 INT
+pop local 32 CHAR
+label #L47
+push local 10 INT
+if-goto #L49
+goto #L50
+label #L49
+push constant 1 INT
+pop local 30 CHAR
+push local 3 INT
+push local 30 CHAR
+add INT
+pop local 15 CHAR
+push local 15 CHAR
+pop local 3 INT
+goto #L3
+label #L50
+label #L3
+push constant 1 INT
+pop local 15 CHAR
+push local 5 INT
+push local 15 CHAR
+add INT
+pop local 33 INT
+push local 33 INT
+pop local 5 INT
+goto #L0
+label #L2
+push local 3 INT
+return
+function main 4 0 INT
+input CHAR
+pop local 1 CHAR
+push local 1 CHAR
+call countVowels 1
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push local 3 INT
+print INT
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+return

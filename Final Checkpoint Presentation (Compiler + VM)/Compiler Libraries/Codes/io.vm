@@ -1,0 +1,303 @@
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function intToStr 37 0 VOID
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push constant 0 INT
+pop local 4 INT
+push local 4 INT
+pop local 5 INT
+push constant 0 INT
+pop local 6 INT
+push argument 0 INT
+push local 6 INT
+eq INT
+pop local 7 INT
+push local 8 INT
+if-goto #L1
+goto #L2
+label #L1
+push local 10 CHAR
+pop local 9 CHAR
+push local 9 CHAR
+pop local 11 CHAR
+push constant 1 INT
+pop local 12 INT
+push local 3 INT
+push local 12 INT
+add INT
+pop local 13 INT
+push local 13 INT
+pop local 3 INT
+goto #L0
+label #L2
+push constant 0 INT
+pop local 13 INT
+push argument 0 INT
+push local 13 INT
+lt INT
+pop local 14 INT
+push local 8 INT
+if-goto #L4
+goto #L5
+label #L4
+push constant 1 INT
+pop local 15 INT
+push local 15 INT
+pop local 5 INT
+push argument 0 INT
+neg INT
+pop local 16 INT
+push local 16 INT
+pop argument 0 INT
+goto #L3
+label #L5
+label #L3
+label #L6
+push constant 0 INT
+pop local 16 INT
+push argument 0 INT
+push local 16 INT
+gt INT
+pop local 17 INT
+push local 8 INT
+if-goto #L7
+goto #L8
+label #L7
+push constant 10 INT
+pop local 17 INT
+push argument 0 INT
+push local 17 INT
+mod INT
+pop local 18 INT
+push local 10 CHAR
+pop local 19 CHAR
+push local 18 INT
+push local 19 CHAR
+add INT
+pop local 20 INT
+push local 20 INT
+pop local 11 CHAR
+push constant 1 INT
+pop local 18 INT
+push local 3 INT
+push local 18 INT
+add INT
+pop local 21 INT
+push local 21 INT
+pop local 3 INT
+push constant 10 INT
+pop local 21 INT
+push argument 0 INT
+push local 21 INT
+div INT
+pop local 22 INT
+push local 22 INT
+pop argument 0 INT
+goto #L6
+label #L8
+push local 8 INT
+if-goto #L10
+goto #L11
+label #L10
+push local 23 CHAR
+pop local 22 INT
+push local 22 INT
+pop local 11 CHAR
+push constant 1 INT
+pop local 24 INT
+push local 3 INT
+push local 24 INT
+add INT
+pop local 25 INT
+push local 25 INT
+pop local 3 INT
+goto #L9
+label #L11
+label #L9
+label #L0
+push local 10 CHAR
+pop local 25 INT
+push local 25 INT
+pop local 11 CHAR
+push constant 1 INT
+pop local 27 INT
+push local 3 INT
+push local 27 INT
+sub INT
+pop local 28 INT
+push local 28 INT
+pop local 29 INT
+push constant 0 INT
+pop local 28 INT
+push local 28 INT
+pop local 26 INT
+label #L12
+push local 26 INT
+push local 29 INT
+lt INT
+pop local 30 INT
+push local 8 INT
+if-goto #L13
+goto #L14
+label #L13
+push constant 1 INT
+pop local 30 INT
+push local 26 INT
+push local 30 INT
+add INT
+pop local 31 INT
+push local 31 INT
+pop local 26 INT
+goto #L12
+label #L13
+push local 32 CHAR
+pop local 31 INT
+push local 31 INT
+pop local 33 CHAR
+push local 34 CHAR
+pop local 31 INT
+push local 31 INT
+pop local 32 CHAR
+push local 33 CHAR
+pop local 34 CHAR
+push constant 1 INT
+pop local 35 INT
+push local 29 INT
+push local 35 INT
+sub INT
+pop local 36 INT
+push local 36 INT
+pop local 29 INT
+goto #L15
+label #L14
+function strToInt 23 0 INT
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push constant 0 INT
+pop local 4 INT
+push local 4 INT
+pop local 5 INT
+push local 7 CHAR
+pop local 6 CHAR
+push local 9 CHAR
+pop local 8 CHAR
+push local 6 CHAR
+push local 8 CHAR
+eq CHAR
+pop local 10 CHAR
+push local 11 INT
+if-goto #L17
+goto #L18
+label #L17
+push constant 1 INT
+pop local 6 CHAR
+push local 6 CHAR
+pop local 5 INT
+push constant 1 INT
+pop local 12 INT
+push local 1 INT
+push local 12 INT
+add INT
+pop local 13 INT
+push local 13 INT
+pop local 1 INT
+goto #L16
+label #L18
+label #L16
+label #L19
+push local 7 CHAR
+pop local 13 INT
+push local 15 CHAR
+pop local 14 CHAR
+push local 13 INT
+push local 14 CHAR
+ge CHAR
+pop local 16 CHAR
+push local 7 CHAR
+pop local 13 INT
+push local 18 CHAR
+pop local 17 CHAR
+push local 13 INT
+push local 17 CHAR
+le CHAR
+pop local 19 CHAR
+push local 11 INT
+if-goto #L24
+goto #L22
+label #L24
+push local 11 INT
+if-goto #L21
+goto #L22
+label #L21
+push constant 1 INT
+pop local 13 INT
+goto #L23
+label #L22
+push constant 0 INT
+pop local 13 INT
+label #L23
+push local 11 INT
+if-goto #L25
+goto #L26
+label #L25
+push constant 10 INT
+pop local 16 CHAR
+push local 3 INT
+push local 16 CHAR
+mul INT
+pop local 19 CHAR
+push local 7 CHAR
+pop local 13 INT
+push local 15 CHAR
+pop local 20 CHAR
+push local 13 INT
+push local 20 CHAR
+sub CHAR
+pop local 21 CHAR
+push local 19 CHAR
+push local 21 CHAR
+add INT
+pop local 13 INT
+push local 13 INT
+pop local 3 INT
+push constant 1 INT
+pop local 19 CHAR
+push local 1 INT
+push local 19 CHAR
+add INT
+pop local 21 CHAR
+push local 21 CHAR
+pop local 1 INT
+goto #L19
+label #L26
+push constant 1 INT
+pop local 13 INT
+push local 5 INT
+push local 13 INT
+eq INT
+pop local 21 CHAR
+push local 11 INT
+if-goto #L28
+goto #L29
+label #L28
+push local 3 INT
+neg INT
+pop local 22 INT
+push local 22 INT
+return
+goto #L27
+label #L29
+push local 3 INT
+return
+label #L27

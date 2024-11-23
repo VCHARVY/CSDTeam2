@@ -1,0 +1,152 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+countVowels: INT
+- arg CHAR str
+@t1 = 0 INT
+- INT count
+count = @t1 INT
+@t2 = 0 INT
+- INT i
+i = @t2 INT
+
+#L0:
+@t3 = str[i] CHAR
+@t4 = 0 INT
+@t5 = @t3 != @t4 INT
+
+if @t5 GOTO #L1 else GOTO #L2
+
+#L1:
+@t3 = str[i] CHAR
+- CHAR c
+c = @t3 CHAR
+@t5 = 'a' CHAR
+@t3 = c == @t5 CHAR
+@t6 = 'e' CHAR
+@t7 = c == @t6 CHAR
+if @t3 GOTO #L5 else GOTO #L8
+#L8:
+if @t7 GOTO #L5 else GOTO #L6
+#L5:
+@t8 = 1 CHAR
+GOTO #L7
+#L6:
+@t8 = 0 CHAR
+#L7:
+@t3 = 'i' CHAR
+@t7 = c == @t3 CHAR
+if @t8 GOTO #L10 else GOTO #L13
+#L13:
+if @t7 GOTO #L10 else GOTO #L11
+#L10:
+@t9 = 1 CHAR
+GOTO #L12
+#L11:
+@t9 = 0 CHAR
+#L12:
+@t8 = 'o' CHAR
+@t7 = c == @t8 CHAR
+if @t9 GOTO #L15 else GOTO #L18
+#L18:
+if @t7 GOTO #L15 else GOTO #L16
+#L15:
+@t10 = 1 CHAR
+GOTO #L17
+#L16:
+@t10 = 0 CHAR
+#L17:
+@t9 = 'u' CHAR
+@t7 = c == @t9 CHAR
+if @t10 GOTO #L20 else GOTO #L23
+#L23:
+if @t7 GOTO #L20 else GOTO #L21
+#L20:
+@t11 = 1 CHAR
+GOTO #L22
+#L21:
+@t11 = 0 CHAR
+#L22:
+@t10 = 'A' CHAR
+@t7 = c == @t10 CHAR
+if @t11 GOTO #L25 else GOTO #L28
+#L28:
+if @t7 GOTO #L25 else GOTO #L26
+#L25:
+@t12 = 1 CHAR
+GOTO #L27
+#L26:
+@t12 = 0 CHAR
+#L27:
+@t11 = 'E' CHAR
+@t7 = c == @t11 CHAR
+if @t12 GOTO #L30 else GOTO #L33
+#L33:
+if @t7 GOTO #L30 else GOTO #L31
+#L30:
+@t13 = 1 CHAR
+GOTO #L32
+#L31:
+@t13 = 0 CHAR
+#L32:
+@t12 = 'I' CHAR
+@t7 = c == @t12 CHAR
+if @t13 GOTO #L35 else GOTO #L38
+#L38:
+if @t7 GOTO #L35 else GOTO #L36
+#L35:
+@t14 = 1 CHAR
+GOTO #L37
+#L36:
+@t14 = 0 CHAR
+#L37:
+@t13 = 'O' CHAR
+@t7 = c == @t13 CHAR
+if @t14 GOTO #L40 else GOTO #L43
+#L43:
+if @t7 GOTO #L40 else GOTO #L41
+#L40:
+@t15 = 1 CHAR
+GOTO #L42
+#L41:
+@t15 = 0 CHAR
+#L42:
+@t14 = 'U' CHAR
+@t7 = c == @t14 CHAR
+if @t15 GOTO #L45 else GOTO #L48
+#L48:
+if @t7 GOTO #L45 else GOTO #L46
+#L45:
+@t16 = 1 CHAR
+GOTO #L47
+#L46:
+@t16 = 0 CHAR
+#L47:
+if @t16 GOTO #L49 else GOTO #L50
+#L49:
+@t15 = 1 INT
+@t7 = count + @t15 INT
+count = @t7 INT
+GOTO #L3
+#L50:
+#L3:
+@t7 = 1 INT
+@t17 = i + @t7 INT
+i = @t17 INT
+GOTO #L0
+#L2:
+return count INT
+end:
+
+main: INT
+- CHAR str[100]
+input str CHAR
+param str CHAR
+@t17 = @call countVowels INT 1
+- INT vowels
+vowels = @t17 INT
+output vowels INT
+@t17 = 0 INT
+return @t17 INT
+end:
+

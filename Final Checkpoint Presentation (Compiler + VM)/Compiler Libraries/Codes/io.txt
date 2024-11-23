@@ -1,0 +1,170 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+intToStr: VOID
+- arg INT num
+- arg CHAR buffer
+@t1 = 0 INT
+- INT i
+i = @t1 INT
+@t2 = 0 INT
+- INT isNegative
+isNegative = @t2 INT
+@t3 = 0 INT
+@t4 = num == @t3 INT
+if @t4 GOTO #L1 else GOTO #L2
+#L1:
+@t5 = '0' CHAR
+buffer[i] = @t5 CHAR
+@t6 = 1 INT
+@t7 = i + @t6 INT
+i = @t7 INT
+GOTO #L0
+#L2:
+@t7 = 0 INT
+@t8 = num < @t7 INT
+if @t8 GOTO #L4 else GOTO #L5
+#L4:
+@t9 = 1 INT
+isNegative = @t9 INT
+@t10 = - num INT
+num = @t10 INT
+GOTO #L3
+#L5:
+#L3:
+
+#L6:
+@t10 = 0 INT
+@t11 = num > @t10 INT
+
+if @t11 GOTO #L7 else GOTO #L8
+
+#L7:
+@t11 = 10 INT
+@t12 = num %  @t11 INT
+@t13 = '0' CHAR
+@t14 = @t12 + @t13 INT
+buffer[i] = @t14 CHAR
+@t12 = 1 INT
+@t15 = i + @t12 INT
+i = @t15 INT
+@t15 = 10 INT
+@t16 = num / @t15 INT
+num = @t16 INT
+GOTO #L6
+#L8:
+if isNegative GOTO #L10 else GOTO #L11
+#L10:
+@t16 = '-' CHAR
+buffer[i] = @t16 CHAR
+@t17 = 1 INT
+@t18 = i + @t17 INT
+i = @t18 INT
+GOTO #L9
+#L11:
+#L9:
+#L0:
+@t18 = '0' CHAR
+buffer[i] = @t18 CHAR
+- INT j
+@t19 = 1 INT
+@t20 = i - @t19 INT
+- INT k
+k = @t20 INT
+@t20 = 0 INT
+j = @t20 INT
+
+#L12:
+@t21 = j < k INT
+
+if @t21 GOTO #L13 else GOTO #L14
+
+#L13:
+@t21 = 1 INT
+@t22 = j + @t21 INT
+j = @t22 INT
+GOTO #L12
+
+#L13:
+@t22 = buffer[j] CHAR
+- CHAR temp
+temp = @t22 CHAR
+@t22 = buffer[k] CHAR
+buffer[j] = @t22 CHAR
+buffer[k] = temp CHAR
+@t23 = 1 INT
+@t24 = k - @t23 INT
+k = @t24 INT
+GOTO #L15
+#L14:
+end:
+
+strToInt: INT
+- arg CHAR buffer
+@t24 = 0 INT
+- INT i
+i = @t24 INT
+@t25 = 0 INT
+- INT num
+num = @t25 INT
+@t26 = 0 INT
+- INT isNegative
+isNegative = @t26 INT
+@t27 = buffer[i] CHAR
+@t28 = '-' CHAR
+@t29 = @t27 == @t28 CHAR
+if @t29 GOTO #L17 else GOTO #L18
+#L17:
+@t27 = 1 INT
+isNegative = @t27 INT
+@t30 = 1 INT
+@t31 = i + @t30 INT
+i = @t31 INT
+GOTO #L16
+#L18:
+#L16:
+
+#L19:
+@t31 = buffer[i] CHAR
+@t32 = '0' CHAR
+@t33 = @t31 >= @t32 CHAR
+@t31 = buffer[i] CHAR
+@t34 = '9' CHAR
+@t35 = @t31 <= @t34 CHAR
+if @t33 GOTO #L24 else GOTO #L22
+#L24:
+if @t35 GOTO #L21 else GOTO #L22
+#L21:
+@t31 = 1 CHAR
+GOTO #L23
+#L22:
+@t31 = 0 CHAR
+#L23:
+
+if @t31 GOTO #L25 else GOTO #L26
+
+#L25:
+@t33 = 10 INT
+@t35 = num * @t33 INT
+@t31 = buffer[i] CHAR
+@t36 = '0' CHAR
+@t37 = @t31 - @t36 CHAR
+@t31 = @t35 + @t37 INT
+num = @t31 INT
+@t35 = 1 INT
+@t37 = i + @t35 INT
+i = @t37 INT
+GOTO #L19
+#L26:
+@t31 = 1 INT
+@t37 = isNegative == @t31 INT
+if @t37 GOTO #L28 else GOTO #L29
+#L28:
+@t38 = - num INT
+return @t38 INT
+GOTO #L27
+#L29:
+return num INT
+#L27:
+end:
+

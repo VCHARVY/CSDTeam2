@@ -1,0 +1,8 @@
+class test {
+    int a;
+    char b;
+
+    int tea(int a){
+        return a;
+    }
+}

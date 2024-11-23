@@ -1,0 +1,48 @@
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function main 10 0 INT
+input INT
+pop local 2 INT
+push constant 1 INT
+pop local 3 INT
+push local 3 INT
+pop local 4 INT
+push constant 1 INT
+pop local 6 INT
+push local 6 INT
+pop local 5 INT
+label #L0
+push local 5 INT
+push local 2 INT
+le INT
+pop local 7 INT
+push local 8 INT
+if-goto #L1
+goto #L2
+label #L1
+push constant 1 INT
+pop local 7 INT
+push local 5 INT
+push local 7 INT
+add INT
+pop local 9 INT
+push local 9 INT
+pop local 5 INT
+goto #L0
+label #L1
+push local 4 INT
+push local 5 INT
+mul INT
+pop local 9 INT
+push local 9 INT
+pop local 4 INT
+goto #L3
+label #L2
+push local 4 INT
+print INT
+push constant 0 INT
+pop local 9 INT
+push local 9 INT
+return

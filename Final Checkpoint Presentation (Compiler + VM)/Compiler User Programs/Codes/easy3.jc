@@ -1,0 +1,23 @@
+#include "io.jc"
+int v = 0;
+int countVowels(char[] str) {
+    int count = 0;
+    int i = 0;
+    while (str[i] != 0) {
+        char c = str[i];
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+            c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
+            count= count+1;
+        }
+        i=i+1;
+    }
+    return count;
+}
+
+int main() {
+    char str[100];
+    sysin(str);
+    int vowels = countVowels(str);
+    syswrite(vowels);
+    return 0;
+}

@@ -1,0 +1,31 @@
+//string.jc 
+int v = 0;
+int stringLength(char[] str) {
+    int length = 0;
+    while (str[length] != '0') {
+        length= length+1;
+    }
+    return length;
+}
+
+void stringReverse(char[] str) {
+    int length = stringLength(str);
+    int i;
+    int j  = length - 1;
+    for (i = 0; i < j; i=i+1) {
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        j = j-1;
+    }
+}
+
+void stringConcat(char[] dest, char[] src) {
+    int destLen = stringLength(dest);
+    int srcLen = stringLength(src);
+    int i;
+    for (i = 0; i < srcLen; i=i+1) {
+        dest[destLen + i] = src[i];
+    }
+    dest[destLen + srcLen] = '0';
+}

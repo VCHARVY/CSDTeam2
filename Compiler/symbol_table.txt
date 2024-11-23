@@ -1,0 +1,560 @@
+SYMBOL TABLE
+==========================
+
+Function Name: Reset
+  Return Type: VOID
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: y
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 128
+
+    Variable Name: x
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 127
+
+    Variable Name: currentColor
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 123
+
+    Variable Name: defaultColor
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 122
+
+    Variable Name: vga
+      Data Type: INT*
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 121
+
+    Variable Name: line
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 120
+
+    Variable Name: temp
+      Data Type: INT
+      Scope: 3
+      Size: 0
+      Is Array: No
+      Line Number: 131
+
+    Variable Name: column
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 119
+
+-----------------------------------
+
+Function Name: dec1
+  Return Type: INT
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: scancode_to_ascii
+      Data Type: INT
+      Scope: 1
+      Size: 128
+      Is Array: Yes
+      Line Number: 31
+
+    Variable Name: ready_queue
+      Data Type: STRUCT*
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 30
+
+    Variable Name: current_process
+      Data Type: STRUCT*
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 29
+
+    Variable Name: pcb_table
+      Data Type: INT
+      Scope: 1
+      Size: 10
+      Is Array: Yes
+      Line Number: 28
+
+-----------------------------------
+
+Function Name: get_keypress
+  Return Type: CHAR
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: scancode_to_ascii
+      Data Type: INT
+      Scope: 1
+      Size: 128
+      Is Array: Yes
+      Line Number: 79
+
+    Variable Name: scancode
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 74
+
+-----------------------------------
+
+Function Name: global
+  Return Type: 
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: countLine
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 1
+
+    Variable Name: name
+      Data Type: CHAR
+      Scope: 0
+      Size: 16
+      Is Array: Yes
+      Line Number: 4
+
+    Variable Name: input_buffer
+      Data Type: CHAR
+      Scope: 0
+      Size: 256
+      Is Array: Yes
+      Line Number: 21
+
+    Variable Name: data
+      Data Type: CHAR
+      Scope: 0
+      Size: 256
+      Is Array: Yes
+      Line Number: 5
+
+    Variable Name: size
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 6
+
+    Variable Name: output_buffer
+      Data Type: CHAR
+      Scope: 0
+      Size: 256
+      Is Array: Yes
+      Line Number: 20
+
+    Variable Name: used
+      Data Type: CHAR
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 7
+
+    Variable Name: input_index
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 22
+
+    Variable Name: pid
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 16
+
+    Variable Name: time_used
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 24
+
+    Variable Name: sp
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 18
+
+    Variable Name: state
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 19
+
+    Variable Name: pc
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 17
+
+    Variable Name: output_index
+      Data Type: INT
+      Scope: 0
+      Size: 0
+      Is Array: No
+      Line Number: 23
+
+-----------------------------------
+
+Function Name: inb
+  Return Type: CHAR
+  Number of Parameters: 1
+  Parameter Types: INT 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: ret
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 63
+
+    Variable Name: port
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 62
+
+-----------------------------------
+
+Function Name: is_key_released
+  Return Type: CHAR
+  Number of Parameters: 1
+  Parameter Types: CHAR 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: scancode
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 68
+
+-----------------------------------
+
+Function Name: main
+  Return Type: INT
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+-----------------------------------
+
+Function Name: memset
+  Return Type: VOID*
+  Number of Parameters: 3
+  Parameter Types: VOID* INT INT 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: ptr
+      Data Type: INT*
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 50
+
+    Variable Name: count
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 49
+
+    Variable Name: val
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 49
+
+    Variable Name: dest
+      Data Type: VOID*
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 49
+
+-----------------------------------
+
+Function Name: newLine
+  Return Type: VOID
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: currentColor
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 142
+
+    Variable Name: defaultColor
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 141
+
+    Variable Name: vga
+      Data Type: INT*
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 140
+
+    Variable Name: line
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 139
+
+    Variable Name: column
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 138
+
+-----------------------------------
+
+Function Name: print
+  Return Type: VOID
+  Number of Parameters: 1
+  Parameter Types: CHAR* 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: str
+      Data Type: INT
+      Scope: 2
+      Size: 0
+      Is Array: No
+      Line Number: 174
+
+    Variable Name: h
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 172
+
+    Variable Name: column
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 171
+
+    Variable Name: s
+      Data Type: CHAR*
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 170
+
+-----------------------------------
+
+Function Name: print_nu
+  Return Type: VOID
+  Number of Parameters: 1
+  Parameter Types: INT 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: i
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 185
+
+    Variable Name: str
+      Data Type: CHAR
+      Scope: 1
+      Size: 10
+      Is Array: Yes
+      Line Number: 184
+
+    Variable Name: num
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 183
+
+-----------------------------------
+
+Function Name: renderChar
+  Return Type: VOID
+  Number of Parameters: 3
+  Parameter Types: CHAR INT INT 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: y
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 167
+
+    Variable Name: x
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 167
+
+    Variable Name: c
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 167
+
+-----------------------------------
+
+Function Name: scrollUp
+  Return Type: VOID
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: temp
+      Data Type: INT
+      Scope: 2
+      Size: 0
+      Is Array: No
+      Line Number: 163
+
+    Variable Name: defaultColor
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 155
+
+    Variable Name: vga
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 154
+
+    Variable Name: y
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 153
+
+    Variable Name: x
+      Data Type: INT
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 152
+
+-----------------------------------
+
+Function Name: simple_keyboard_driver
+  Return Type: VOID
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+    Variable Name: scancode
+      Data Type: CHAR
+      Scope: 2
+      Size: 0
+      Is Array: No
+      Line Number: 100
+
+    Variable Name: key_pressed
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 95
+
+    Variable Name: key
+      Data Type: CHAR
+      Scope: 1
+      Size: 0
+      Is Array: No
+      Line Number: 94
+
+    Variable Name: scancode_to_ascii
+      Data Type: INT
+      Scope: 1
+      Size: 128
+      Is Array: Yes
+      Line Number: 93
+
+-----------------------------------
+
+Function Name: terminal
+  Return Type: 
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+-----------------------------------
+
+Function Name: test_process2
+  Return Type: VOID
+  Number of Parameters: 0
+  Parameter Types: 
+
+  Local Symbol Table:
+  -------------------
+-----------------------------------
+

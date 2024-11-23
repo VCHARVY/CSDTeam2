@@ -1,0 +1,470 @@
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function main 152 0 INT
+push constant 1 INT
+pop local 3 INT
+push constant 2 INT
+pop local 4 INT
+push constant 3 INT
+pop local 5 INT
+push constant 1 INT
+pop local 6 INT
+push constant 1 INT
+pop local 7 INT
+push constant 1 INT
+pop local 8 INT
+push constant 1 INT
+pop local 9 INT
+push constant 1 INT
+pop local 10 INT
+push constant 1 INT
+pop local 11 INT
+push constant 0 INT
+pop local 12 INT
+push local 14 INT
+pop local 13 INT
+push constant 4 INT
+pop local 15 INT
+push local 17 INT
+pop local 16 INT
+push constant 8 INT
+pop local 18 INT
+push local 20 INT
+pop local 19 INT
+push local 16 INT
+push local 19 INT
+mul INT
+pop local 21 INT
+push constant 5 INT
+pop local 16 INT
+push local 22 INT
+pop local 19 INT
+push constant 7 INT
+pop local 23 INT
+push local 25 INT
+pop local 24 INT
+push local 19 INT
+push local 24 INT
+mul INT
+pop local 26 INT
+push local 21 INT
+push local 26 INT
+sub INT
+pop local 19 INT
+push local 13 INT
+push local 19 INT
+mul INT
+pop local 24 INT
+push constant 1 INT
+pop local 21 INT
+push local 27 INT
+pop local 26 INT
+push constant 3 INT
+pop local 13 INT
+push local 28 INT
+pop local 19 INT
+push constant 8 INT
+pop local 29 INT
+push local 31 INT
+pop local 30 INT
+push local 19 INT
+push local 30 INT
+mul INT
+pop local 32 INT
+push constant 5 INT
+pop local 19 INT
+push local 33 INT
+pop local 30 INT
+push constant 6 INT
+pop local 34 INT
+push local 36 INT
+pop local 35 INT
+push local 30 INT
+push local 35 INT
+mul INT
+pop local 37 INT
+push local 32 INT
+push local 37 INT
+sub INT
+pop local 30 INT
+push local 26 INT
+push local 30 INT
+mul INT
+pop local 35 INT
+push local 24 INT
+push local 35 INT
+sub INT
+pop local 32 INT
+push constant 2 INT
+pop local 37 INT
+push local 38 INT
+pop local 26 INT
+push constant 3 INT
+pop local 30 INT
+push local 39 INT
+pop local 24 INT
+push constant 7 INT
+pop local 35 INT
+push local 41 INT
+pop local 40 INT
+push local 24 INT
+push local 40 INT
+mul INT
+pop local 42 INT
+push constant 4 INT
+pop local 24 INT
+push local 43 INT
+pop local 40 INT
+push constant 6 INT
+pop local 44 INT
+push local 46 INT
+pop local 45 INT
+push local 40 INT
+push local 45 INT
+mul INT
+pop local 47 INT
+push local 42 INT
+push local 47 INT
+sub INT
+pop local 40 INT
+push local 26 INT
+push local 40 INT
+mul INT
+pop local 45 INT
+push local 32 INT
+push local 45 INT
+add INT
+pop local 42 INT
+push local 42 INT
+pop local 48 INT
+push constant 0 INT
+pop local 47 INT
+push constant 4 INT
+pop local 26 INT
+push local 50 INT
+pop local 40 INT
+push constant 8 INT
+pop local 32 INT
+push local 51 INT
+pop local 45 INT
+push local 40 INT
+push local 45 INT
+mul INT
+pop local 42 INT
+push constant 5 INT
+pop local 40 INT
+push local 52 INT
+pop local 45 INT
+push constant 7 INT
+pop local 53 INT
+push local 55 INT
+pop local 54 INT
+push local 45 INT
+push local 54 INT
+mul INT
+pop local 56 INT
+push local 42 INT
+push local 56 INT
+sub INT
+pop local 45 INT
+push local 45 INT
+pop local 57 INT
+push constant 1 INT
+pop local 54 INT
+push constant 2 INT
+pop local 42 INT
+push local 58 INT
+pop local 56 INT
+push constant 7 INT
+pop local 59 INT
+push local 61 INT
+pop local 60 INT
+push local 56 INT
+push local 60 INT
+mul INT
+pop local 62 INT
+push constant 1 INT
+pop local 56 INT
+push local 63 INT
+pop local 60 INT
+push constant 8 INT
+pop local 64 INT
+push local 66 INT
+pop local 65 INT
+push local 60 INT
+push local 65 INT
+mul INT
+pop local 67 INT
+push local 62 INT
+push local 67 INT
+sub INT
+pop local 60 INT
+push local 60 INT
+pop local 68 INT
+push constant 2 INT
+pop local 65 INT
+push constant 1 INT
+pop local 62 INT
+push local 69 INT
+pop local 67 INT
+push constant 5 INT
+pop local 70 INT
+push local 72 INT
+pop local 71 INT
+push local 67 INT
+push local 71 INT
+mul INT
+pop local 73 INT
+push constant 2 INT
+pop local 67 INT
+push local 74 INT
+pop local 71 INT
+push constant 4 INT
+pop local 75 INT
+push local 77 INT
+pop local 76 INT
+push local 71 INT
+push local 76 INT
+mul INT
+pop local 78 INT
+push local 73 INT
+push local 78 INT
+sub INT
+pop local 71 INT
+push local 71 INT
+pop local 79 INT
+push constant 3 INT
+pop local 76 INT
+push constant 5 INT
+pop local 73 INT
+push local 80 INT
+pop local 78 INT
+push constant 6 INT
+pop local 81 INT
+push local 83 INT
+pop local 82 INT
+push local 78 INT
+push local 82 INT
+mul INT
+pop local 84 INT
+push constant 3 INT
+pop local 78 INT
+push local 85 INT
+pop local 82 INT
+push constant 8 INT
+pop local 86 INT
+push local 88 INT
+pop local 87 INT
+push local 82 INT
+push local 87 INT
+mul INT
+pop local 89 INT
+push local 84 INT
+push local 89 INT
+sub INT
+pop local 82 INT
+push local 82 INT
+pop local 90 INT
+push constant 4 INT
+pop local 87 INT
+push constant 0 INT
+pop local 84 INT
+push local 91 INT
+pop local 89 INT
+push constant 8 INT
+pop local 92 INT
+push local 94 INT
+pop local 93 INT
+push local 89 INT
+push local 93 INT
+mul INT
+pop local 95 INT
+push constant 2 INT
+pop local 89 INT
+push local 96 INT
+pop local 93 INT
+push constant 6 INT
+pop local 97 INT
+push local 99 INT
+pop local 98 INT
+push local 93 INT
+push local 98 INT
+mul INT
+pop local 100 INT
+push local 95 INT
+push local 100 INT
+sub INT
+pop local 93 INT
+push local 93 INT
+pop local 101 INT
+push constant 5 INT
+pop local 98 INT
+push constant 2 INT
+pop local 95 INT
+push local 102 INT
+pop local 100 INT
+push constant 3 INT
+pop local 103 INT
+push local 105 INT
+pop local 104 INT
+push local 100 INT
+push local 104 INT
+mul INT
+pop local 106 INT
+push constant 0 INT
+pop local 100 INT
+push local 107 INT
+pop local 104 INT
+push constant 5 INT
+pop local 108 INT
+push local 110 INT
+pop local 109 INT
+push local 104 INT
+push local 109 INT
+mul INT
+pop local 111 INT
+push local 106 INT
+push local 111 INT
+sub INT
+pop local 104 INT
+push local 104 INT
+pop local 112 INT
+push constant 6 INT
+pop local 109 INT
+push constant 3 INT
+pop local 106 INT
+push local 113 INT
+pop local 111 INT
+push constant 7 INT
+pop local 114 INT
+push local 116 INT
+pop local 115 INT
+push local 111 INT
+push local 115 INT
+mul INT
+pop local 117 INT
+push constant 4 INT
+pop local 111 INT
+push local 118 INT
+pop local 115 INT
+push constant 6 INT
+pop local 119 INT
+push local 121 INT
+pop local 120 INT
+push local 115 INT
+push local 120 INT
+mul INT
+pop local 122 INT
+push local 117 INT
+push local 122 INT
+sub INT
+pop local 115 INT
+push local 115 INT
+pop local 123 INT
+push constant 7 INT
+pop local 120 INT
+push constant 1 INT
+pop local 117 INT
+push local 124 INT
+pop local 122 INT
+push constant 6 INT
+pop local 125 INT
+push local 127 INT
+pop local 126 INT
+push local 122 INT
+push local 126 INT
+mul INT
+pop local 128 INT
+push constant 0 INT
+pop local 122 INT
+push local 129 INT
+pop local 126 INT
+push constant 7 INT
+pop local 130 INT
+push local 132 INT
+pop local 131 INT
+push local 126 INT
+push local 131 INT
+mul INT
+pop local 133 INT
+push local 128 INT
+push local 133 INT
+sub INT
+pop local 126 INT
+push local 126 INT
+pop local 134 INT
+push constant 8 INT
+pop local 131 INT
+push constant 0 INT
+pop local 128 INT
+push local 135 INT
+pop local 133 INT
+push constant 4 INT
+pop local 136 INT
+push local 138 INT
+pop local 137 INT
+push local 133 INT
+push local 137 INT
+mul INT
+pop local 139 INT
+push constant 1 INT
+pop local 133 INT
+push local 140 INT
+pop local 137 INT
+push constant 3 INT
+pop local 141 INT
+push local 143 INT
+pop local 142 INT
+push local 137 INT
+push local 142 INT
+mul INT
+pop local 144 INT
+push local 139 INT
+push local 144 INT
+sub INT
+pop local 137 INT
+push local 137 INT
+pop local 145 INT
+push constant 0 INT
+pop local 142 INT
+push local 142 INT
+pop local 146 INT
+label #L0
+push constant 9 INT
+pop local 139 INT
+push local 146 INT
+push local 139 INT
+lt INT
+pop local 144 INT
+push local 147 INT
+if-goto #L1
+goto #L2
+label #L1
+push constant 1 INT
+pop local 144 INT
+push local 146 INT
+push local 144 INT
+add INT
+pop local 148 INT
+push local 148 INT
+pop local 146 INT
+goto #L0
+label #L1
+push local 149 INT
+pop local 148 INT
+push local 148 INT
+push local 48 INT
+div INT
+pop local 150 INT
+push local 150 INT
+pop local 151 INT
+push local 151 INT
+print INT
+goto #L3
+label #L2
+push constant 0 INT
+pop local 148 INT
+push local 148 INT
+return

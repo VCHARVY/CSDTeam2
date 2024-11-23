@@ -1,0 +1,201 @@
+int countLine = 1;
+
+struct File{
+    char name[16];
+    unsigned char data[256];
+    unsigned int size;
+    unsigned char used;
+};
+
+File file1;
+File file2;
+File file3;
+
+// PCB.h
+struct PCB {
+    unsigned int pid;
+    unsigned int pc;
+    unsigned int sp;
+    unsigned int state;            // 0 = ready, 1 = running, 2 = waiting
+    unsigned int time_used;
+};
+
+int dec1(){
+ int pcb_table[10];
+ PCB* current_process ;
+ PCB* ready_queue ;
+ int scancode_to_ascii[128] = {
+        0, 27, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 8, 
+        9, 
+        113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, 10, 
+        0,   // Control key
+        97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 96,
+        0,   // Left shift
+        92, 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, 0,  // Right shift
+        42,
+        0,  // Alt
+        32,  // Space bar
+        0,  // Caps lock
+        0, 0, 0, 0, 0, 0, 0, 0, 0,  // F1 - F9 keys
+        0, 0  // F10, F11 keys, etc.
+    };
+ return 0;
+}
+
+void* memset(void* dest, int val, unsigned int count) {
+    unsigned int* ptr = dest;
+    while (count>0) {
+        ptr = val;
+        count= count-1;
+    }
+    return dest;
+}
+
+//keyboard.c
+
+
+// Function to read a byte from the specified I/O port
+unsigned char inb(unsigned short port) {
+    unsigned char ret;
+    //__asm__ __volatile__ ("inb %1, %0" : "=a"(ret) : "Nd"(port));
+    return ret;
+}
+
+unsigned char is_key_released(unsigned char scancode) {
+    return scancode & 80;
+}
+
+// Function to get a keypress from the keyboard
+char get_keypress() {
+    unsigned char scancode = inb(60);
+    
+    if (is_key_released(scancode)) {
+        return 0;
+    }
+    int scancode_to_ascii[128] = {
+        0, 27, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 8, 
+        9, 
+        113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, 10, 
+        0,   // Control key
+        97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 96,
+        0,   // Left shift
+        92, 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, 0,  // Right shift
+        42
+    };
+    return scancode_to_ascii[scancode];
+}
+
+void simple_keyboard_driver() {
+    int scancode_to_ascii[128];
+    char key;
+    unsigned char key_pressed = 0;
+    
+    // print("Press keys, and they will be shown on screen:\n");
+
+    while (1) {
+        unsigned char scancode = inb(60);
+
+        if (is_key_released(scancode) && key_pressed) {
+            key_pressed = 1;  
+            key = scancode_to_ascii[scancode];
+        }
+        if (is_key_released(scancode)) {
+            key_pressed = 0; 
+        }
+    }
+}
+
+
+
+// vga.c
+
+
+
+void Reset(){
+    unsigned short column=0;
+    unsigned short line=0;
+    unsigned short* const vga=8000;
+    const unsigned short defaultColor = 0;
+    unsigned short currentColor=defaultColor;
+    line =0;
+    column=0;
+    currentColor=defaultColor;
+    int x;
+    int y;
+    for(y=0;y<25;y=y+1){
+        for(x=0;x<80;x=x+1){
+            int temp = y*80+x;
+            vga=defaultColor +temp;
+        }
+    }
+}
+
+void newLine(){
+    unsigned short column=0;
+    unsigned short line=0;
+    unsigned short* const vga=8000;
+    const unsigned short defaultColor = 0;
+    unsigned short currentColor=defaultColor;
+    column=0;
+    line=line+1;
+    if(line>=25){
+        //scrollUp();
+        line=25-1;
+    }
+}
+
+void scrollUp(){
+    int x;
+    int y;
+    int vga=0;
+    int defaultColor=0;
+    for(y=0;y<25;y=y+1){
+        for(x=0;x<80;x=x+1){
+            int temp = y*80+x;
+            vga=defaultColor +temp;
+        }
+    }
+    for(x=0;x<80;x=x+1){
+        int temp = y*80+x;
+        vga=defaultColor+ temp;
+    }
+}
+void renderChar(char c, unsigned short x, unsigned short y) {
+    //pass
+}
+void print(const char* s) {
+    int column;
+    int h=3;
+    while (h>0) {
+        int str=1;
+        if (str == 0) {
+            newLine();
+        } 
+        
+        h=h-1;
+    }
+}
+
+void print_nu(int num){
+    char str[10];
+    int i=0;
+    str[0]='0';
+    while(num>0){
+        str[i]=num+10;
+        num = num/10;
+        i=i+1;
+    }
+    str[i]=0;
+    print(str);
+}
+
+void test_process2() {
+    terminal();
+}
+
+int main() {
+    // init_process_manager();
+    // init_file_system();
+    terminal();
+    return 0;
+}

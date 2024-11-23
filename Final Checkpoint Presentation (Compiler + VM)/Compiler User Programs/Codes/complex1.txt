@@ -1,0 +1,206 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+main: INT
+- INT mat[9]
+mat[0] = 1 INT
+mat[1] = 2 INT
+mat[2] = 3 INT
+mat[3] = 1 INT
+mat[4] = 1 INT
+mat[5] = 1 INT
+mat[6] = 1 INT
+mat[7] = 1 INT
+mat[8] = 1 INT
+@t1 = 0 INT
+@t2 = mat[@t1] INT
+@t3 = 4 INT
+@t4 = mat[@t3] INT
+@t5 = 8 INT
+@t6 = mat[@t5] INT
+@t7 = @t4 * @t6 INT
+@t4 = 5 INT
+@t6 = mat[@t4] INT
+@t8 = 7 INT
+@t9 = mat[@t8] INT
+@t10 = @t6 * @t9 INT
+@t6 = @t7 - @t10 INT
+@t9 = @t2 * @t6 INT
+@t7 = 1 INT
+@t10 = mat[@t7] INT
+@t2 = 3 INT
+@t6 = mat[@t2] INT
+@t11 = 8 INT
+@t12 = mat[@t11] INT
+@t13 = @t6 * @t12 INT
+@t6 = 5 INT
+@t12 = mat[@t6] INT
+@t14 = 6 INT
+@t15 = mat[@t14] INT
+@t16 = @t12 * @t15 INT
+@t12 = @t13 - @t16 INT
+@t15 = @t10 * @t12 INT
+@t13 = @t9 - @t15 INT
+@t16 = 2 INT
+@t10 = mat[@t16] INT
+@t12 = 3 INT
+@t9 = mat[@t12] INT
+@t15 = 7 INT
+@t17 = mat[@t15] INT
+@t18 = @t9 * @t17 INT
+@t9 = 4 INT
+@t17 = mat[@t9] INT
+@t19 = 6 INT
+@t20 = mat[@t19] INT
+@t21 = @t17 * @t20 INT
+@t17 = @t18 - @t21 INT
+@t20 = @t10 * @t17 INT
+@t18 = @t13 + @t20 INT
+- INT det
+det = @t18 INT
+- INT adj[9]
+@t21 = 0 INT
+@t10 = 4 INT
+@t17 = mat[@t10] INT
+@t13 = 8 INT
+@t20 = mat[@t13] INT
+@t18 = @t17 * @t20 INT
+@t17 = 5 INT
+@t20 = mat[@t17] INT
+@t22 = 7 INT
+@t23 = mat[@t22] INT
+@t24 = @t20 * @t23 INT
+@t20 = @t18 - @t24 INT
+adj[@t21] = @t20 INT
+@t23 = 1 INT
+@t18 = 2 INT
+@t24 = mat[@t18] INT
+@t25 = 7 INT
+@t26 = mat[@t25] INT
+@t27 = @t24 * @t26 INT
+@t24 = 1 INT
+@t26 = mat[@t24] INT
+@t28 = 8 INT
+@t29 = mat[@t28] INT
+@t30 = @t26 * @t29 INT
+@t26 = @t27 - @t30 INT
+adj[@t23] = @t26 INT
+@t29 = 2 INT
+@t27 = 1 INT
+@t30 = mat[@t27] INT
+@t31 = 5 INT
+@t32 = mat[@t31] INT
+@t33 = @t30 * @t32 INT
+@t30 = 2 INT
+@t32 = mat[@t30] INT
+@t34 = 4 INT
+@t35 = mat[@t34] INT
+@t36 = @t32 * @t35 INT
+@t32 = @t33 - @t36 INT
+adj[@t29] = @t32 INT
+@t35 = 3 INT
+@t33 = 5 INT
+@t36 = mat[@t33] INT
+@t37 = 6 INT
+@t38 = mat[@t37] INT
+@t39 = @t36 * @t38 INT
+@t36 = 3 INT
+@t38 = mat[@t36] INT
+@t40 = 8 INT
+@t41 = mat[@t40] INT
+@t42 = @t38 * @t41 INT
+@t38 = @t39 - @t42 INT
+adj[@t35] = @t38 INT
+@t41 = 4 INT
+@t39 = 0 INT
+@t42 = mat[@t39] INT
+@t43 = 8 INT
+@t44 = mat[@t43] INT
+@t45 = @t42 * @t44 INT
+@t42 = 2 INT
+@t44 = mat[@t42] INT
+@t46 = 6 INT
+@t47 = mat[@t46] INT
+@t48 = @t44 * @t47 INT
+@t44 = @t45 - @t48 INT
+adj[@t41] = @t44 INT
+@t47 = 5 INT
+@t45 = 2 INT
+@t48 = mat[@t45] INT
+@t49 = 3 INT
+@t50 = mat[@t49] INT
+@t51 = @t48 * @t50 INT
+@t48 = 0 INT
+@t50 = mat[@t48] INT
+@t52 = 5 INT
+@t53 = mat[@t52] INT
+@t54 = @t50 * @t53 INT
+@t50 = @t51 - @t54 INT
+adj[@t47] = @t50 INT
+@t53 = 6 INT
+@t51 = 3 INT
+@t54 = mat[@t51] INT
+@t55 = 7 INT
+@t56 = mat[@t55] INT
+@t57 = @t54 * @t56 INT
+@t54 = 4 INT
+@t56 = mat[@t54] INT
+@t58 = 6 INT
+@t59 = mat[@t58] INT
+@t60 = @t56 * @t59 INT
+@t56 = @t57 - @t60 INT
+adj[@t53] = @t56 INT
+@t59 = 7 INT
+@t57 = 1 INT
+@t60 = mat[@t57] INT
+@t61 = 6 INT
+@t62 = mat[@t61] INT
+@t63 = @t60 * @t62 INT
+@t60 = 0 INT
+@t62 = mat[@t60] INT
+@t64 = 7 INT
+@t65 = mat[@t64] INT
+@t66 = @t62 * @t65 INT
+@t62 = @t63 - @t66 INT
+adj[@t59] = @t62 INT
+@t65 = 8 INT
+@t63 = 0 INT
+@t66 = mat[@t63] INT
+@t67 = 4 INT
+@t68 = mat[@t67] INT
+@t69 = @t66 * @t68 INT
+@t66 = 1 INT
+@t68 = mat[@t66] INT
+@t70 = 3 INT
+@t71 = mat[@t70] INT
+@t72 = @t68 * @t71 INT
+@t68 = @t69 - @t72 INT
+adj[@t65] = @t68 INT
+- INT i
+@t71 = 0 INT
+i = @t71 INT
+
+#L0:
+@t69 = 9 INT
+@t72 = i < @t69 INT
+
+if @t72 GOTO #L1 else GOTO #L2
+
+#L1:
+@t72 = 1 INT
+@t73 = i + @t72 INT
+i = @t73 INT
+GOTO #L0
+
+#L1:
+@t73 = adj[i] INT
+@t74 = @t73 / det INT
+- INT temp
+temp = @t74 INT
+output temp INT
+GOTO #L3
+#L2:
+@t73 = 0 INT
+return @t73 INT
+end:
+

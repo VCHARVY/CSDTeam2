@@ -1,0 +1,82 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+lcm: INT
+- arg INT a
+- arg INT b
+- INT gcd
+- INT temp_a
+temp_a = a INT
+- INT temp_b
+temp_b = b INT
+
+#L0:
+@t1 = 0 INT
+@t2 = temp_b != @t1 INT
+
+if @t2 GOTO #L1 else GOTO #L2
+
+#L1:
+- INT temp
+temp = temp_b INT
+@t2 = temp_a %  temp_b INT
+temp_b = @t2 INT
+temp_a = temp INT
+GOTO #L0
+#L2:
+gcd = temp_a INT
+@t2 = a * b INT
+@t3 = @t2 / gcd INT
+return @t3 INT
+end:
+
+hcf: INT
+- arg INT a
+- arg INT b
+
+#L3:
+@t2 = 0 INT
+@t4 = b != @t2 INT
+
+if @t4 GOTO #L4 else GOTO #L5
+
+#L4:
+- INT temp
+temp = b INT
+@t4 = a %  b INT
+b = @t4 INT
+a = temp INT
+GOTO #L3
+#L5:
+return a INT
+end:
+
+power: INT
+- arg INT base
+- arg INT exp
+@t4 = 1 INT
+- INT result
+result = @t4 INT
+- INT i
+@t5 = 0 INT
+i = @t5 INT
+
+#L6:
+@t6 = i < exp INT
+
+if @t6 GOTO #L7 else GOTO #L8
+
+#L7:
+@t6 = 1 INT
+@t7 = i + @t6 INT
+i = @t7 INT
+GOTO #L6
+
+#L7:
+@t7 = result * base INT
+result = @t7 INT
+GOTO #L9
+#L8:
+return result INT
+end:
+

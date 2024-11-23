@@ -1,0 +1,789 @@
+push constant 1 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function dec1 90 0 INT
+push constant 0 INT
+pop local 19 INT
+push constant 27 INT
+pop local 20 INT
+push constant 49 INT
+pop local 21 INT
+push constant 50 INT
+pop local 22 INT
+push constant 51 INT
+pop local 23 INT
+push constant 52 INT
+pop local 24 INT
+push constant 53 INT
+pop local 25 INT
+push constant 54 INT
+pop local 26 INT
+push constant 55 INT
+pop local 27 INT
+push constant 56 INT
+pop local 28 INT
+push constant 57 INT
+pop local 29 INT
+push constant 48 INT
+pop local 30 INT
+push constant 45 INT
+pop local 31 INT
+push constant 61 INT
+pop local 32 INT
+push constant 8 INT
+pop local 33 INT
+push constant 9 INT
+pop local 34 INT
+push constant 113 INT
+pop local 35 INT
+push constant 119 INT
+pop local 36 INT
+push constant 101 INT
+pop local 37 INT
+push constant 114 INT
+pop local 38 INT
+push constant 116 INT
+pop local 39 INT
+push constant 121 INT
+pop local 40 INT
+push constant 117 INT
+pop local 41 INT
+push constant 105 INT
+pop local 42 INT
+push constant 111 INT
+pop local 43 INT
+push constant 112 INT
+pop local 44 INT
+push constant 91 INT
+pop local 45 INT
+push constant 93 INT
+pop local 46 INT
+push constant 10 INT
+pop local 47 INT
+push constant 0 INT
+pop local 48 INT
+push constant 97 INT
+pop local 49 INT
+push constant 115 INT
+pop local 50 INT
+push constant 100 INT
+pop local 51 INT
+push constant 102 INT
+pop local 52 INT
+push constant 103 INT
+pop local 53 INT
+push constant 104 INT
+pop local 54 INT
+push constant 106 INT
+pop local 55 INT
+push constant 107 INT
+pop local 56 INT
+push constant 108 INT
+pop local 57 INT
+push constant 59 INT
+pop local 58 INT
+push constant 39 INT
+pop local 59 INT
+push constant 96 INT
+pop local 60 INT
+push constant 0 INT
+pop local 61 INT
+push constant 92 INT
+pop local 62 INT
+push constant 122 INT
+pop local 63 INT
+push constant 120 INT
+pop local 64 INT
+push constant 99 INT
+pop local 65 INT
+push constant 118 INT
+pop local 66 INT
+push constant 98 INT
+pop local 67 INT
+push constant 110 INT
+pop local 68 INT
+push constant 109 INT
+pop local 69 INT
+push constant 44 INT
+pop local 70 INT
+push constant 46 INT
+pop local 71 INT
+push constant 47 INT
+pop local 72 INT
+push constant 0 INT
+pop local 73 INT
+push constant 42 INT
+pop local 74 INT
+push constant 0 INT
+pop local 75 INT
+push constant 32 INT
+pop local 76 INT
+push constant 0 INT
+pop local 77 INT
+push constant 0 INT
+pop local 78 INT
+push constant 0 INT
+pop local 79 INT
+push constant 0 INT
+pop local 80 INT
+push constant 0 INT
+pop local 81 INT
+push constant 0 INT
+pop local 82 INT
+push constant 0 INT
+pop local 83 INT
+push constant 0 INT
+pop local 84 INT
+push constant 0 INT
+pop local 85 INT
+push constant 0 INT
+pop local 86 INT
+push constant 0 INT
+pop local 87 INT
+push constant 0 INT
+pop local 88 INT
+push constant 0 INT
+pop local 89 INT
+push local 89 INT
+return
+function memset 5 0 VOID*
+push argument 0 VOID*
+pop local 0 INT*
+label #L0
+push constant 0 INT
+pop local 1 INT
+push argument 2 INT
+push local 1 INT
+gt INT
+pop local 2 INT
+push local 3 INT
+if-goto #L1
+goto #L2
+label #L1
+push argument 1 INT
+pop local 0 INT*
+push constant 1 INT
+pop local 2 INT
+push argument 2 INT
+push local 2 INT
+sub INT
+pop local 4 INT
+push local 4 INT
+pop argument 2 INT
+goto #L0
+label #L2
+push argument 0 VOID*
+return
+function inb 1 0 CHAR
+push local 0 CHAR
+return
+function is_key_released 2 0 CHAR
+push constant 80 INT
+pop local 0 INT
+push argument 4 CHAR
+push local 0 INT
+and INT
+pop local 1 INT
+push local 1 INT
+return
+function get_keypress 64 0 CHAR
+push constant 60 INT
+pop local 0 INT
+push local 0 INT
+call inb 1
+pop local 1 CHAR
+push local 1 CHAR
+pop local 2 CHAR
+push local 2 CHAR
+call is_key_released 1
+pop local 1 CHAR
+push local 3 INT
+if-goto #L4
+goto #L5
+label #L4
+push constant 0 INT
+pop local 4 INT
+push local 4 INT
+return
+goto #L3
+label #L5
+label #L3
+push constant 0 INT
+pop local 6 INT
+push constant 27 INT
+pop local 7 INT
+push constant 49 INT
+pop local 8 INT
+push constant 50 INT
+pop local 9 INT
+push constant 51 INT
+pop local 10 INT
+push constant 52 INT
+pop local 11 INT
+push constant 53 INT
+pop local 12 INT
+push constant 54 INT
+pop local 13 INT
+push constant 55 INT
+pop local 14 INT
+push constant 56 INT
+pop local 15 INT
+push constant 57 INT
+pop local 16 INT
+push constant 48 INT
+pop local 17 INT
+push constant 45 INT
+pop local 18 INT
+push constant 61 INT
+pop local 19 INT
+push constant 8 INT
+pop local 20 INT
+push constant 9 INT
+pop local 21 INT
+push constant 113 INT
+pop local 22 INT
+push constant 119 INT
+pop local 23 INT
+push constant 101 INT
+pop local 24 INT
+push constant 114 INT
+pop local 25 INT
+push constant 116 INT
+pop local 26 INT
+push constant 121 INT
+pop local 27 INT
+push constant 117 INT
+pop local 28 INT
+push constant 105 INT
+pop local 29 INT
+push constant 111 INT
+pop local 30 INT
+push constant 112 INT
+pop local 31 INT
+push constant 91 INT
+pop local 32 INT
+push constant 93 INT
+pop local 33 INT
+push constant 10 INT
+pop local 34 INT
+push constant 0 INT
+pop local 35 INT
+push constant 97 INT
+pop local 36 INT
+push constant 115 INT
+pop local 37 INT
+push constant 100 INT
+pop local 38 INT
+push constant 102 INT
+pop local 39 INT
+push constant 103 INT
+pop local 40 INT
+push constant 104 INT
+pop local 41 INT
+push constant 106 INT
+pop local 42 INT
+push constant 107 INT
+pop local 43 INT
+push constant 108 INT
+pop local 44 INT
+push constant 59 INT
+pop local 45 INT
+push constant 39 INT
+pop local 46 INT
+push constant 96 INT
+pop local 47 INT
+push constant 0 INT
+pop local 48 INT
+push constant 92 INT
+pop local 49 INT
+push constant 122 INT
+pop local 50 INT
+push constant 120 INT
+pop local 51 INT
+push constant 99 INT
+pop local 52 INT
+push constant 118 INT
+pop local 53 INT
+push constant 98 INT
+pop local 54 INT
+push constant 110 INT
+pop local 55 INT
+push constant 109 INT
+pop local 56 INT
+push constant 44 INT
+pop local 57 INT
+push constant 46 INT
+pop local 58 INT
+push constant 47 INT
+pop local 59 INT
+push constant 0 INT
+pop local 60 INT
+push constant 42 INT
+pop local 61 INT
+push local 63 INT
+pop local 62 INT
+push local 62 INT
+return
+function simple_keyboard_driver 13 0 VOID
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 CHAR
+label #L6
+push constant 1 INT
+pop local 4 INT
+push local 5 INT
+if-goto #L7
+goto #L8
+label #L7
+push constant 60 INT
+pop local 6 INT
+push local 6 INT
+call inb 1
+pop local 7 CHAR
+push local 7 CHAR
+pop local 8 CHAR
+push local 8 CHAR
+call is_key_released 1
+pop local 7 CHAR
+push local 5 INT
+if-goto #L14
+goto #L12
+label #L14
+push local 5 INT
+if-goto #L11
+goto #L12
+label #L11
+push constant 1 INT
+pop local 9 CHAR
+goto #L13
+label #L12
+push constant 0 INT
+pop local 9 CHAR
+label #L13
+push local 5 INT
+if-goto #L15
+goto #L16
+label #L15
+push constant 1 INT
+pop local 7 CHAR
+push local 7 CHAR
+pop local 3 CHAR
+push local 11 INT
+pop local 10 INT
+push local 10 INT
+pop local 1 CHAR
+goto #L9
+label #L16
+label #L9
+push local 8 CHAR
+call is_key_released 1
+pop local 10 INT
+push local 5 INT
+if-goto #L18
+goto #L19
+label #L18
+push constant 0 INT
+pop local 12 INT
+push local 12 INT
+pop local 3 CHAR
+goto #L17
+label #L19
+label #L17
+goto #L6
+label #L8
+function Reset 24 0 VOID
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push constant 8000 INT
+pop local 4 INT
+push local 4 INT
+pop local 5 INT*
+push constant 0 INT
+pop local 6 INT
+push local 6 INT
+pop local 7 INT
+push local 7 INT
+pop local 8 INT
+push constant 0 INT
+pop local 9 INT
+push local 9 INT
+pop local 3 INT
+push constant 0 INT
+pop local 10 INT
+push local 10 INT
+pop local 1 INT
+push local 7 INT
+pop local 8 INT
+push constant 0 INT
+pop local 13 INT
+push local 13 INT
+pop local 12 INT
+label #L20
+push constant 25 INT
+pop local 14 INT
+push local 12 INT
+push local 14 INT
+lt INT
+pop local 15 INT
+push local 16 INT
+if-goto #L21
+goto #L22
+label #L21
+push constant 1 INT
+pop local 15 INT
+push local 12 INT
+push local 15 INT
+add INT
+pop local 17 INT
+push local 17 INT
+pop local 12 INT
+goto #L20
+label #L21
+push constant 0 INT
+pop local 17 INT
+push local 17 INT
+pop local 11 INT
+label #L24
+push constant 80 INT
+pop local 18 INT
+push local 11 INT
+push local 18 INT
+lt INT
+pop local 19 INT
+push local 16 INT
+if-goto #L25
+goto #L26
+label #L25
+push constant 1 INT
+pop local 19 INT
+push local 11 INT
+push local 19 INT
+add INT
+pop local 20 INT
+push local 20 INT
+pop local 11 INT
+goto #L24
+label #L25
+push constant 80 INT
+pop local 20 INT
+push local 12 INT
+push local 20 INT
+mul INT
+pop local 21 INT
+push local 21 INT
+push local 11 INT
+add INT
+pop local 22 INT
+push local 22 INT
+pop local 23 INT
+push local 7 INT
+push local 23 INT
+add INT
+pop local 21 INT
+push local 21 INT
+pop local 5 INT*
+goto #L27
+label #L26
+goto #L23
+label #L22
+function newLine 17 0 VOID
+push constant 0 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push constant 8000 INT
+pop local 4 INT
+push local 4 INT
+pop local 5 INT*
+push constant 0 INT
+pop local 6 INT
+push local 6 INT
+pop local 7 INT
+push local 7 INT
+pop local 8 INT
+push constant 0 INT
+pop local 9 INT
+push local 9 INT
+pop local 1 INT
+push constant 1 INT
+pop local 10 INT
+push local 3 INT
+push local 10 INT
+add INT
+pop local 11 INT
+push local 11 INT
+pop local 3 INT
+push constant 25 INT
+pop local 11 INT
+push local 3 INT
+push local 11 INT
+ge INT
+pop local 12 INT
+push local 13 INT
+if-goto #L29
+goto #L30
+label #L29
+push constant 25 INT
+pop local 14 INT
+push constant 1 INT
+pop local 15 INT
+push local 14 INT
+push local 15 INT
+sub INT
+pop local 16 INT
+push local 16 INT
+pop local 3 INT
+goto #L28
+label #L30
+label #L28
+function scrollUp 22 0 VOID
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+pop local 3 INT
+push constant 0 INT
+pop local 4 INT
+push local 4 INT
+pop local 5 INT
+push constant 0 INT
+pop local 6 INT
+push local 6 INT
+pop local 1 INT
+label #L31
+push constant 25 INT
+pop local 7 INT
+push local 1 INT
+push local 7 INT
+lt INT
+pop local 8 INT
+push local 9 INT
+if-goto #L32
+goto #L33
+label #L32
+push constant 1 INT
+pop local 8 INT
+push local 1 INT
+push local 8 INT
+add INT
+pop local 10 INT
+push local 10 INT
+pop local 1 INT
+goto #L31
+label #L32
+push constant 0 INT
+pop local 10 INT
+push local 10 INT
+pop local 0 INT
+label #L35
+push constant 80 INT
+pop local 11 INT
+push local 0 INT
+push local 11 INT
+lt INT
+pop local 12 INT
+push local 9 INT
+if-goto #L36
+goto #L37
+label #L36
+push constant 1 INT
+pop local 12 INT
+push local 0 INT
+push local 12 INT
+add INT
+pop local 13 INT
+push local 13 INT
+pop local 0 INT
+goto #L35
+label #L36
+push constant 80 INT
+pop local 13 INT
+push local 1 INT
+push local 13 INT
+mul INT
+pop local 14 INT
+push local 14 INT
+push local 0 INT
+add INT
+pop local 15 INT
+push local 15 INT
+pop local 16 INT
+push local 5 INT
+push local 16 INT
+add INT
+pop local 14 INT
+push local 14 INT
+pop local 3 INT
+goto #L38
+label #L37
+goto #L34
+label #L33
+push constant 0 INT
+pop local 15 INT
+push local 15 INT
+pop local 0 INT
+label #L39
+push constant 80 INT
+pop local 14 INT
+push local 0 INT
+push local 14 INT
+lt INT
+pop local 17 INT
+push local 9 INT
+if-goto #L40
+goto #L41
+label #L40
+push constant 1 INT
+pop local 17 INT
+push local 0 INT
+push local 17 INT
+add INT
+pop local 18 INT
+push local 18 INT
+pop local 0 INT
+goto #L39
+label #L40
+push constant 80 INT
+pop local 18 INT
+push local 1 INT
+push local 18 INT
+mul INT
+pop local 19 INT
+push local 19 INT
+push local 0 INT
+add INT
+pop local 20 INT
+push local 20 INT
+pop local 21 INT
+push local 5 INT
+push local 21 INT
+add INT
+pop local 19 INT
+push local 19 INT
+pop local 3 INT
+goto #L42
+label #L41
+function renderChar 0 0 VOID
+function print 12 0 VOID
+push constant 3 INT
+pop local 1 INT
+push local 1 INT
+pop local 2 INT
+label #L43
+push constant 0 INT
+pop local 3 INT
+push local 2 INT
+push local 3 INT
+gt INT
+pop local 4 INT
+push local 5 INT
+if-goto #L44
+goto #L45
+label #L44
+push constant 1 INT
+pop local 4 INT
+push local 4 INT
+pop local 6 INT
+push constant 0 INT
+pop local 7 INT
+push local 6 INT
+push local 7 INT
+eq INT
+pop local 8 INT
+push local 5 INT
+if-goto #L47
+goto #L48
+label #L47
+call newLine 0
+pop local 9 VOID
+goto #L46
+label #L48
+label #L46
+push constant 1 INT
+pop local 10 INT
+push local 2 INT
+push local 10 INT
+sub INT
+pop local 11 INT
+push local 11 INT
+pop local 2 INT
+goto #L43
+label #L45
+function print_nu 17 0 VOID
+push constant 0 INT
+pop local 1 INT
+push local 1 INT
+pop local 2 INT
+push constant 0 INT
+pop local 3 INT
+push local 5 CHAR
+pop local 4 CHAR
+push local 4 CHAR
+pop local 6 CHAR
+label #L49
+push constant 0 INT
+pop local 7 INT
+push argument 9 INT
+push local 7 INT
+gt INT
+pop local 8 INT
+push local 9 INT
+if-goto #L50
+goto #L51
+label #L50
+push constant 10 INT
+pop local 8 INT
+push argument 9 INT
+push local 8 INT
+add INT
+pop local 10 INT
+push local 10 INT
+pop local 11 CHAR
+push constant 10 INT
+pop local 12 INT
+push argument 9 INT
+push local 12 INT
+div INT
+pop local 13 INT
+push local 13 INT
+pop argument 9 INT
+push constant 1 INT
+pop local 13 INT
+push local 2 INT
+push local 13 INT
+add INT
+pop local 14 INT
+push local 14 INT
+pop local 2 INT
+goto #L49
+label #L51
+push constant 0 INT
+pop local 14 INT
+push local 14 INT
+pop local 11 CHAR
+push local 15 CHAR
+call print 1
+pop local 16 VOID
+function test_process2 2 0 VOID
+push local 1 0
+not 0
+pop local 0 0
+function main 3 0 INT
+push local 1 0
+not 0
+pop local 0 0
+push constant 0 INT
+pop local 2 INT
+push local 2 INT
+return

@@ -1,0 +1,25 @@
+push constant 4 INT
+pop local 0 INT
+push local 0 INT
+pop local 1 INT
+function main 12 0 INT
+push constant 5 INT
+pop local 3 INT
+push constant 2 INT
+pop local 4 INT
+push constant 6 INT
+pop local 5 INT
+push constant 1 INT
+pop local 6 INT
+push constant 8 INT
+pop local 7 INT
+push constant 3 INT
+pop local 8 INT
+push constant 2 INT
+pop local 9 INT
+push local 9 INT
+pop local 10 INT
+push constant 0 INT
+pop local 11 INT
+push local 11 INT
+return

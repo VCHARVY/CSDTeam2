@@ -1,0 +1,101 @@
+@t0 = 0 INT
+- INT v
+v = @t0 INT
+stringLength: INT
+- arg CHAR str
+@t1 = 0 INT
+- INT length
+length = @t1 INT
+
+#L0:
+@t2 = str[length] CHAR
+@t3 = '0' CHAR
+@t4 = @t2 != @t3 CHAR
+
+if @t4 GOTO #L1 else GOTO #L2
+
+#L1:
+@t2 = 1 INT
+@t4 = length + @t2 INT
+length = @t4 INT
+GOTO #L0
+#L2:
+return length INT
+end:
+
+stringReverse: VOID
+- arg CHAR str
+param str CHAR
+@t4 = @call stringLength INT 1
+- INT length
+length = @t4 INT
+- INT i
+@t4 = 1 INT
+@t5 = length - @t4 INT
+- INT j
+j = @t5 INT
+@t5 = 0 INT
+i = @t5 INT
+
+#L3:
+@t6 = i < j INT
+
+if @t6 GOTO #L4 else GOTO #L5
+
+#L4:
+@t6 = 1 INT
+@t7 = i + @t6 INT
+i = @t7 INT
+GOTO #L3
+
+#L4:
+@t7 = str[i] CHAR
+- CHAR temp
+temp = @t7 CHAR
+@t7 = str[j] CHAR
+str[i] = @t7 CHAR
+str[j] = temp CHAR
+@t8 = 1 INT
+@t9 = j - @t8 INT
+j = @t9 INT
+GOTO #L6
+#L5:
+end:
+
+stringConcat: VOID
+- arg CHAR dest
+- arg CHAR src
+param dest CHAR
+@t9 = @call stringLength INT 1
+- INT destLen
+destLen = @t9 INT
+param src CHAR
+@t9 = @call stringLength INT 1
+- INT srcLen
+srcLen = @t9 INT
+- INT i
+@t9 = 0 INT
+i = @t9 INT
+
+#L7:
+@t10 = i < srcLen INT
+
+if @t10 GOTO #L8 else GOTO #L9
+
+#L8:
+@t10 = 1 INT
+@t11 = i + @t10 INT
+i = @t11 INT
+GOTO #L7
+
+#L8:
+@t11 = destLen + i INT
+@t12 = src[i] CHAR
+dest[@t11] = @t12 CHAR
+GOTO #L10
+#L9:
+@t13 = destLen + srcLen INT
+@t14 = '0' CHAR
+dest[@t13] = @t14 CHAR
+end:
+
