@@ -1,5 +1,5 @@
 
-# 32-bit Processor Design Project
+# 32-bit Processor Design
 
 This repository contains the implementation and testing of a custom 32-bit processor with an Instruction Set Architecture (ISA) inspired by ARM. The processor design, simulation, and testing were performed using multiple tools and workflows to ensure correctness and functionality.
 
@@ -74,4 +74,87 @@ This project demonstrates the complete workflow of designing, implementing, and 
 
 ---
 
-FPGA:
+# FPGA and System Integration
+
+This repository contains the implementation and integration of basic circuits and a custom processor on FPGA platforms. The project also involved writing drivers for keyboard and display access, showcasing the system's functionality. The work was conducted on Zynq-7000 and Zybo Z7010 boards, leveraging Vivado for synthesis, implementation, and bitstream generation.
+
+---
+
+## Repository Link
+
+You can access the project files in the GitHub repository: [CSDTeam2/Processor+FPGA](https://github.com/EndlessKn0t/CSDTeam2/tree/main/Processor%2BFPGA)
+
+---
+
+## Project Overview
+
+This project consisted of the following phases:
+
+1. **Processor Integration on FPGA**:
+   - The 32-bit processor designed in course project was ported to the Zynq-7000 and Zybo Z7010 boards.
+   - The processor was tested for its functionality by loading programs into the on-chip memory.
+
+2. **Peripheral Driver Development**:
+   - Custom drivers were written to enable:
+     - **Keyboard Access**: Captured input from an attached keyboard.
+     - **Display Access**: Displayed processor output on a connected screen.
+
+3. **On-chip Memory Usage**:
+   - Programs were stored and executed directly from on-chip memory instead of using DDR memory for simplicity.
+
+---
+
+## Features
+
+- **Learning and Implementation**:
+  - Hands-on experience with FPGA programming and system integration.
+  - Designed basic circuits to understand hardware implementation on FPGA.
+- **Processor Integration**:
+  - Verified the functionality of a custom 32-bit processor on FPGA.
+  - Loaded and executed programs stored in on-chip memory.
+- **Peripheral Integration**:
+  - Implemented keyboard and display drivers to demonstrate a functional system.
+
+---
+
+## Tools and Hardware Used
+
+- **Vivado**: Used for synthesis, implementation, simulation, and bitstream generation.
+- **Zynq-7000 and Zybo Z7010 Boards**: Hardware platforms used for circuit implementation and testing.
+- **On-chip Memory**: Utilized for program storage and execution.
+- **Peripheral Devices**:
+  - Keyboard (input device)
+  - Display (output device)
+
+---
+
+## Running the Project
+
+### Prerequisites
+
+- Xilinx Vivado Design Suite (compatible with Zynq-7000 or Zybo Z7010 boards).
+- Access to a Zynq-7000 or Zybo Z7010 FPGA board.
+- Peripheral devices (keyboard and display).
+
+### Steps
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/EndlessKn0t/CSDTeam2.git
+   cd CSDTeam2/Processor+FPGA
+   ```
+
+2. **Basic Circuit Implementation**:
+   - Open Vivado and load the basic designs located in the `fpga` folder.
+   - Synthesize, implement, and generate the bitstream for the desired circuit.
+
+3. **Processor Integration**:
+   - Load the 32-bit processor Verilog files into Vivado.
+   - Set up the on-chip memory for program loading and execution.
+   - Synthesize and implement the design.
+   - Generate the bitstream and load it onto the FPGA.
+
+4. **Peripheral Driver Testing**:
+   - Connect the keyboard and display to the FPGA board.
+   - Load the keyboard and display driver source files in Vivado.
+
