@@ -6,6 +6,8 @@ Assembler
 
 A tool to convert assembly language code into machine code.
 Includes sample assembly programs and scripts for different architectures.
+
+
 Linker
 
 Links compiled object files into executable binaries.
@@ -14,22 +16,32 @@ Programming Language
 
 Source code for a custom high-level programming language.
 Includes syntax, semantics, and examples for getting started.
+
+
 Compiler
 
 Converts the custom programming language into intermediate or machine code.
 Features optimizations and multi-target support.
+
+
 Virtual Machine (VM)
 
 A lightweight virtual machine for executing intermediate code.
 Supports debugging, profiling, and sandboxed execution.
+
+
 Processor
 
 Verilog/VHDL code for a custom processor design.
 Includes testbenches, simulations, and FPGA compatibility.
+
+
 System Integration
 
 Scripts and documentation for integrating hardware and software components.
 Includes examples of bootloaders, drivers, and inter-processor communication.
+
+
 Operating System (OS)
 
 A simple, lightweight operating system for custom hardware or VM.
